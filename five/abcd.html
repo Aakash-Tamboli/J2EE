@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>My Fifth Web Application</title>
+<script>
+function validate(frm)
+{
+var name=frm.name.value.trim();
+if(name.length==0)
+{
+alert('Name Required');
+frm.name.focus();
+return false;
+}
+var set='ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvxyz .';
+var e;
+e=0;
+while(e<name.length)
+{
+if(set.indexOf(name.charAt(e))==-1)
+{
+alert('Name contains invalid Character');
+frm.name.focus();
+return false;
+}
+e++;
+}
+return true;
+}
+</script>
+</head>
+<body>
+<center>
+<form action='/five/aaa' onsubmit='return validate(this)'>
+Name: &nbsp;
+<input type='text' id='name' name='name'>
+<button type='submit'>Next</button>
+</form>
+</center>
+</body>
+</html>
