@@ -28,6 +28,15 @@
     <display-name>Style-One Web Appication</display-name>
 
     <request-character-encoding>UTF-8</request-character-encoding>
+<servlet>
+<servlet-name>designationsView</servlet-name>
+<servlet-class>com.thinking.machines.hr.servlets.DesignationsView</servlet-class>
+</servlet>
+
+<servlet-mapping>
+<servlet-name>designationsView</servlet-name>
+<url-pattern>/designationsView</url-pattern>
+</servlet-mapping>
 
 
 </web-app>
