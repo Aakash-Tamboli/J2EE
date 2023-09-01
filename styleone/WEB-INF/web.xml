@@ -29,13 +29,23 @@
 
     <request-character-encoding>UTF-8</request-character-encoding>
 <servlet>
-<servlet-name>designationsView</servlet-name>
+<servlet-name>DesignationsView</servlet-name>
 <servlet-class>com.thinking.machines.hr.servlets.DesignationsView</servlet-class>
 </servlet>
 
 <servlet-mapping>
-<servlet-name>designationsView</servlet-name>
+<servlet-name>DesignationsView</servlet-name>
 <url-pattern>/designationsView</url-pattern>
+</servlet-mapping>
+
+<servlet>
+<servlet-name>AddDesignation</servlet-name>
+<servlet-class>com.thinking.machines.hr.servlets.AddDesignation</servlet-class>
+</servlet>
+
+<servlet-mapping>
+<servlet-name>AddDesignation</servlet-name>
+<url-pattern>/addDesignation</url-pattern>
 </servlet-mapping>
 
 

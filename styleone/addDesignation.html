@@ -3,6 +3,21 @@
 <head>
 <meta charset='utf-8'>
 <title>HR Application</title>
+<script>
+function validateForm(frm)
+{
+var title=frm.title.value.trim();
+var titleErrorSection=document.getElementById('titleErrorSection');
+titleErrorSection.innerHTML='';
+if(title.length==0)
+{
+titleErrorSection.innerHTML='required';
+frm.title.focus();
+return false;
+}
+return true;
+}
+</script>
 </head>
 <body>
 <!-- Main Container Start here-->
@@ -19,14 +34,32 @@ Thinking Machines
 <div style='width:90hw;height:70vh;margin:5px;border:1px solid white'>
 <!-- Left Pannel Starts Here -->
 <div style='height:60vh;margin:5px;float:left;padding:5px;border:1px solid black'>
-<a href='/styleone/designationsView'>Designations</a> <br>
+<b><a href='/styleone/designationsView'>Designations</a></b> <br>
 <a href='/styleone/employeesView'>Employees</a><br><br>
 <a href='/styleone/index.html'> HOME </a>
 </div>
 <!-- left Pannel Ends Here-->
 <!-- Right Pannel Starts Here -->
 <div style='height:60vh;margin-left:140px;margin-right:5px;margin-bottom:px;margin-top:5px;padding:5px;border:1px solid black'>
-<h1>Welcome</h1>
+<h2>Designation (Add Module)</h2>
+<form action='/styleone/addDesignation' onsubmit='return validateForm(this)'>
+Designation: &nbsp;
+<input type='text' id='title' name='title' maxlength='36' size='36'>
+<span id='titleErrorSection' style='color:red'></span><br>
+<table>
+<tr>
+<td>
+<button type='submit'>Add</button>
+</form>
+</td>
+<td>
+<form action='/styleone/designationsView'>
+<button type='submit'>Cancel</button>
+</form>
+</td>
+</tr>
+</table>
+
 </div>
 <!-- Right Pannel Ends Here -->
 </div>
