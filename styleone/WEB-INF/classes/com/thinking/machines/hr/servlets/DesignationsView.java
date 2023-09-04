@@ -20,6 +20,7 @@ PrintWriter pw;
 pw=response.getWriter();
 response.setContentType("text/html");
 
+System.out.println("God is Great");
 
 pw.println("<!DOCTYPE HTML>");
 pw.println("<html lang='en'>");

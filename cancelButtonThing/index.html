@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html lan='en'>
+<head>
+<meta charset='utf-8'>
+<title>Home</title>
+<script>
+function func(frm)
+{
+var name=frm.name.value.trim();
+if(name.length==0)
+{
+alert('Name Requred');
+frm.name.focus();
+return false;
+}
+return true;
+}
+function func2()
+{
+document.getElementById('cancelForm').submit();
+}
+</script>
+</head>
+<body>
+<h1>God is Great</h1>
+<form action='/cancelButtonThing/saveData' onsubmit='return func(this)'>
+Name:
+<input type='text' id='name' name='name'>
+<input type='radio' id='gender' name='gender' value='M'> Male &nbsp;
+<input type='radio' id='gender' name='gender' value='F'> Female <br>
+<button type='submit'>Save</button>
+<button type='button' onclick='func2()'>Cancel</button>
+</form>
+<form id='cancelForm' action='/cancelButtonThing/cancelServlet'></form>
+</body>
+</html>

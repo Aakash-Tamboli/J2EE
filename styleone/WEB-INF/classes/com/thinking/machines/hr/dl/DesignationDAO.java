@@ -49,7 +49,7 @@ if(resultSet.next())
 resultSet.close();
 preparedStatement.close();
 connection.close();
-throw new DAOException("Title Already Exists: "+title);
+throw new DAOException("Designation Exists: "+title);
 }
 resultSet.close();
 preparedStatement.close();
@@ -63,6 +63,79 @@ resultSet.close();
 preparedStatement.close();
 connection.close();
 designationDTO.setCode(code);
+}catch(SQLException sqlException)
+{
+throw new DAOException(sqlException.getMessage());
+}
+}
+public DesignationDTO getByCode(int code) throws DAOException
+{
+try
+{
+Connection connection=DAOConnection.getConnection();
+PreparedStatement preparedStatement;
+preparedStatement=connection.prepareStatement("select * from designations where code=?;");
+preparedStatement.setInt(1,code);
+ResultSet resultSet=preparedStatement.executeQuery();
+if(resultSet.next()==false)
+{
+resultSet.close();
+preparedStatement.close();
+connection.close();
+throw new DAOException("Invalid Designation Code: "+code);
+}
+DesignationDTO designationDTO=new DesignationDTO();
+designationDTO.setCode(resultSet.getInt("code"));
+designationDTO.setTitle(resultSet.getString("title").trim());
+resultSet.close();
+preparedStatement.close();
+connection.close();
+return designationDTO;
+}catch(SQLException sqlException)
+{
+throw new DAOException(sqlException.getMessage());
+}
+}
+public void update(DesignationDTO designationDTO) throws DAOException
+{
+int code=designationDTO.getCode();
+String title=designationDTO.getTitle();
+try
+{
+Connection connection=DAOConnection.getConnection();
+PreparedStatement preparedStatement;
+preparedStatement=connection.prepareStatement("select * from designations where code=?;");
+preparedStatement.setInt(1,code);
+ResultSet resultSet=preparedStatement.executeQuery();
+if(resultSet.next()==false)
+{
+resultSet.close();
+preparedStatement.close();
+connection.close();
+throw new DAOException("Invalid Designation Code: "+code);
+}
+resultSet.close();
+preparedStatement.close();
+preparedStatement=connection.prepareStatement("select * from designations where title=? and code!=?;");
+preparedStatement.setString(1,title);
+preparedStatement.setInt(2,code);
+
+resultSet=preparedStatement.executeQuery();
+if(resultSet.next())
+{
+resultSet.close();
+preparedStatement.close();
+connection.close();
+throw new DAOException(title+" exists");
+}
+resultSet.close();
+preparedStatement.close();
+preparedStatement=connection.prepareStatement("update designations set title=? where code=?;");
+preparedStatement.setString(1,title);
+preparedStatement.setInt(2,code);
+preparedStatement.executeUpdate();
+preparedStatement.close();
+connection.close();
 }catch(SQLException sqlException)
 {
 throw new DAOException(sqlException.getMessage());
