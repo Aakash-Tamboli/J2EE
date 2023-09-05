@@ -77,7 +77,7 @@ pw.println("<tr>");
 pw.println("<td style='text-align:right'>"+sno+"</td>");
 pw.println("<td >"+title+"</td>");
 pw.println("<td style='text-align:center'><a href='/styleone/editDesignation?code="+code+"'>Edit</a></td>");
-pw.println("<td style='text-align:center'><a href='/styleone/confirmDesignation?code="+code+"'>Delete</a></td>");
+pw.println("<td style='text-align:center'><a href='/styleone/confirmDesignationDeletion?code="+code+"'>Delete</a></td>");
 pw.println("</tr>");
 }
 

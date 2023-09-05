@@ -141,4 +141,32 @@ connection.close();
 throw new DAOException(sqlException.getMessage());
 }
 }
+public void delete(int code) throws DAOException
+{
+try
+{
+Connection connection=DAOConnection.getConnection();
+PreparedStatement preparedStatement;
+preparedStatement=connection.prepareStatement("select * from designations where code=?;");
+preparedStatement.setInt(1,code);
+ResultSet resultSet=preparedStatement.executeQuery();
+if(resultSet.next()==false)
+{
+resultSet.close();
+preparedStatement.close();
+connection.close();
+throw new DAOException("Invalid Designation");
+}
+resultSet.close();
+preparedStatement.close();
+preparedStatement=connection.prepareStatement("delete from designations where code=?;");
+preparedStatement.setInt(1,code);
+preparedStatement.executeUpdate();
+preparedStatement.close();
+connection.close();
+}catch(SQLException sqlException)
+{
+throw new DAOException(sqlException.getMessage());
+}
+}
 }

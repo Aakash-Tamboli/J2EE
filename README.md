@@ -1,5 +1,8 @@
 ## J2EE
-This Repo. is my learning work which gives telling the how ground work I do to learning Web Development
+This Repository is my learning work which gives you how much ground work I did It to learning Web Development.
+
+## Short Desciption about each Small Projects
+1) styleone - So In this Styleone web app I created HR Application Where I did just to make website means no Optmization No Standard Practice Just By hook or Crook this App Should Work.
 
 ## Tools
 1) Ubuntu OS
