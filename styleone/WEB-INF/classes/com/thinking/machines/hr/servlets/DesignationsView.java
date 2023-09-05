@@ -9,6 +9,7 @@ public class DesignationsView extends HttpServlet
 {
 public void doGet(HttpServletRequest request,HttpServletResponse response)
 {
+
 try
 {
 DesignationDAO designationDAO;
@@ -19,8 +20,6 @@ designations=designationDAO.getAll();
 PrintWriter pw;
 pw=response.getWriter();
 response.setContentType("text/html");
-
-System.out.println("God is Great");
 
 pw.println("<!DOCTYPE HTML>");
 pw.println("<html lang='en'>");
@@ -98,13 +97,11 @@ pw.println("<!-- Main Container ends here");
 pw.println("</body>");
 pw.println("</html>");
 
-
-
-
 }catch(Exception e)
 {
 System.out.println(e.getMessage());
 }
+
 }
 
 public void doPost(HttpServletRequest request,HttpServletResponse response)

@@ -5,31 +5,87 @@ import javax.servlet.http.*;
 import java.io.*;
 import java.util.*;
 
-public class EditDesignation extends HttpServlet
+public class UpdateDesignation extends HttpServlet
 {
 public void doGet(HttpServletRequest request,HttpServletResponse response)
 {
 PrintWriter pw=null;
-try
-{
+String title="";
 int code=0;
 try
 {
-code=Integer.parseInt(request.getParameter("code"));
-}catch(NumberFormatException numberFormateException)
+pw=response.getWriter();
+title=request.getParameter("title");
+if(title==null)
 {
 sendBackView(response);
 return;
 }
-DesignationDTO designation;
-DesignationDAO designationDAO;
-designationDAO=new DesignationDAO();
 try
 {
-designation=designationDAO.getByCode(code);
-pw=response.getWriter();
-response.setContentType("text/html");
+code=Integer.parseInt(request.getParameter("code"));
+}catch(NumberFormatException numberFormatException)
+{
+sendBackView(response);
+return;
+}
 
+try
+{
+DesignationDTO designation=new DesignationDTO();
+designation.setCode(code);
+designation.setTitle(title);
+DesignationDAO designationDAO=new DesignationDAO();
+designationDAO.update(designation);
+
+pw.println("<!DOCTYPE HTML>");
+pw.println("<html lang='en'>");
+pw.println("<head>");
+pw.println("<meta charset='utf-8'>");
+pw.println("<title>HR Application</title>");
+pw.println("</head>");
+pw.println("<body>");
+pw.println("<!-- Main Container Start here-->");
+pw.println("<div style='width:90hw;height:auto;border:1px solid black'>");
+pw.println("<!-- Header Starts Here-->");
+pw.println("<div style='margin:5px;width:90hw;height:auto;border:1px solid black'>");
+pw.println("<img src='/styleone/images/tm.png' style='float:left;width:40px;height:40px'>");
+pw.println("<div style='margin-top:9px;margin-bottom:9px;font-size:20pt'>");
+pw.println("Thinking Machines");
+pw.println("</div>");
+pw.println("</div>");
+pw.println("<!-- Header Ends Here-->");
+pw.println("<!-- Content-Section Starts here-->");
+pw.println("<div style='width:90hw;height:70vh;margin:5px;border:1px solid white'>");
+pw.println("<!-- Left Pannel Starts Here -->");
+pw.println("<div style='height:60vh;margin:5px;float:left;padding:5px;border:1px solid black'>");
+pw.println("<a href='/styleone/designationsView'>Designations</a> <br>");
+pw.println("<a href='/styleone/employeesView'>Employees</a><br><br>");
+pw.println("<a href='/styleone/index.html'> HOME </a>");
+pw.println("</div>");
+pw.println("<!-- left Pannel Ends Here-->");
+pw.println("<!-- Right Pannel Starts Here -->");
+pw.println("<div style='height:60vh;margin-left:140px;margin-right:5px;margin-bottom:px;margin-top:5px;padding:5px;border:1px solid black'>");
+pw.println("<h3>Notification</h3>");
+pw.println("Designation Updated <br>");
+pw.println("<form action='/styleone/designationsView'>");
+pw.println("<button type='submit'>Ok</button>");
+pw.println("</form>");
+pw.println("</div>");
+pw.println("<!-- Right Pannel Ends Here -->");
+pw.println("</div>");
+pw.println("<!-- Content-Section Ends Here -->");
+pw.println("<!-- Footer Start Here-->");
+pw.println("<div style='width:90hw;height:auto;margin:5px;text-align:center;border:1px solid black'>");
+pw.println("&copy Thinking Machines 2023");
+pw.println("</div>");
+pw.println("<!-- Footer Ends Here -->");
+pw.println("</div>");
+pw.println("<!-- Main Container ends here");
+pw.println("</body>");
+pw.println("</html>");
+}catch(DAOException daoException)
+{
 pw.println("<!DOCTYPE HTML>");
 pw.println("<html lang='en'>");
 pw.println("<head>");
@@ -80,8 +136,8 @@ pw.println("<div style='height:60vh;margin-left:140px;margin-right:5px;margin-bo
 pw.println("<h2>Designation (Edit Module)</h2>");
 pw.println("<form method='post' action='/styleone/updateDesignation' onsubmit='return validateForm(this)'>");
 pw.println("Designation: &nbsp;");
-pw.println("<input type='text' id='title' name='title' maxlength='36' size='36' value='"+designation.getTitle()+"'>");
-pw.println("<span id='titleErrorSection' style='color:red'></span><br>");
+pw.println("<input type='text' id='title' name='title' maxlength='36' size='36' value='"+title+"'>");
+pw.println("<span id='titleErrorSection' style='color:red'>"+daoException.getMessage()+"</span><br>");
 pw.println("<input type='hidden' id='code' name='code' value='"+code+"'>");
 pw.println("<button type='submit'>Update</button> &nbsp; &nbsp;");
 pw.println("<button type='button' onclick='updateCancel()'>Cancel</button>");
@@ -101,10 +157,6 @@ pw.println("</div>");
 pw.println("<!-- Main Container ends here");
 pw.println("</body>");
 pw.println("</html>");
-
-}catch(DAOException daoException)
-{
-sendBackView(response);
 return;
 }
 }catch(Exception exception)
@@ -116,9 +168,8 @@ public void doPost(HttpServletRequest request,HttpServletResponse response)
 {
 doGet(request,response);
 }
-private void sendBackView(HttpServletResponse response)
+public void sendBackView(HttpServletResponse response)
 {
-
 try
 {
 DesignationDAO designationDAO;
@@ -204,11 +255,9 @@ pw.println("</div>");
 pw.println("<!-- Main Container ends here");
 pw.println("</body>");
 pw.println("</html>");
-
 }catch(Exception e)
 {
 System.out.println(e.getMessage());
 }
-
 }
 }

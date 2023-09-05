@@ -24,6 +24,7 @@ DesignationDTO designationDTO=new DesignationDTO();
 designationDTO.setTitle(title);
 DesignationDAO designationDAO=new DesignationDAO();
 designationDAO.add(designationDTO);
+
 pw.println("<!DOCTYPE HTML>");
 pw.println("<html lang='en'>");
 pw.println("<head>");
@@ -78,6 +79,7 @@ pw.println("</div>");
 pw.println("<!-- Main Container ends here");
 pw.println("</body>");
 pw.println("</html>");
+
 }catch(DAOException daoException)
 {
 
