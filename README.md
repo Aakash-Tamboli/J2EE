@@ -1,3 +1,6 @@
+# About this Repository
+This is not project, It is for those recruiter who wants to know how hardworking I am.
+
 ## J2EE
 This Repository is my learning work which gives you how much ground work I did It to learning Web Development.
 
