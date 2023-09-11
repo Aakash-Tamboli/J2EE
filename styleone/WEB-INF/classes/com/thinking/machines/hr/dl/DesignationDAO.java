@@ -12,7 +12,7 @@ try
 Connection connection=DAOConnection.getConnection();
 Statement statement=connection.createStatement();
 ResultSet resultSet;
-resultSet=statement.executeQuery("select * from designations;");
+resultSet=statement.executeQuery("select * from designation;");
 int code;
 String title;
 DesignationDTO designationDTO;
@@ -41,7 +41,7 @@ try
 {
 Connection connection=DAOConnection.getConnection();
 PreparedStatement preparedStatement;
-preparedStatement=connection.prepareStatement("select * from designations where title=?;");
+preparedStatement=connection.prepareStatement("select * from designation where title=?;");
 preparedStatement.setString(1,title);
 ResultSet resultSet=preparedStatement.executeQuery();
 if(resultSet.next())
@@ -53,7 +53,7 @@ throw new DAOException("Designation Exists: "+title);
 }
 resultSet.close();
 preparedStatement.close();
-preparedStatement=connection.prepareStatement("insert into designations (title) values(?);",Statement.RETURN_GENERATED_KEYS);
+preparedStatement=connection.prepareStatement("insert into designation (title) values(?);",Statement.RETURN_GENERATED_KEYS);
 preparedStatement.setString(1,title);
 preparedStatement.executeUpdate();
 resultSet=preparedStatement.getGeneratedKeys();
@@ -74,7 +74,7 @@ try
 {
 Connection connection=DAOConnection.getConnection();
 PreparedStatement preparedStatement;
-preparedStatement=connection.prepareStatement("select * from designations where code=?;");
+preparedStatement=connection.prepareStatement("select * from designation where code=?;");
 preparedStatement.setInt(1,code);
 ResultSet resultSet=preparedStatement.executeQuery();
 if(resultSet.next()==false)
@@ -104,7 +104,7 @@ try
 {
 Connection connection=DAOConnection.getConnection();
 PreparedStatement preparedStatement;
-preparedStatement=connection.prepareStatement("select * from designations where code=?;");
+preparedStatement=connection.prepareStatement("select * from designation where code=?;");
 preparedStatement.setInt(1,code);
 ResultSet resultSet=preparedStatement.executeQuery();
 if(resultSet.next()==false)
@@ -116,7 +116,7 @@ throw new DAOException("Invalid Designation Code: "+code);
 }
 resultSet.close();
 preparedStatement.close();
-preparedStatement=connection.prepareStatement("select * from designations where title=? and code!=?;");
+preparedStatement=connection.prepareStatement("select * from designation where title=? and code!=?;");
 preparedStatement.setString(1,title);
 preparedStatement.setInt(2,code);
 
@@ -130,7 +130,7 @@ throw new DAOException(title+" exists");
 }
 resultSet.close();
 preparedStatement.close();
-preparedStatement=connection.prepareStatement("update designations set title=? where code=?;");
+preparedStatement=connection.prepareStatement("update designation set title=? where code=?;");
 preparedStatement.setString(1,title);
 preparedStatement.setInt(2,code);
 preparedStatement.executeUpdate();
@@ -147,7 +147,7 @@ try
 {
 Connection connection=DAOConnection.getConnection();
 PreparedStatement preparedStatement;
-preparedStatement=connection.prepareStatement("select * from designations where code=?;");
+preparedStatement=connection.prepareStatement("select * from designation where code=?;");
 preparedStatement.setInt(1,code);
 ResultSet resultSet=preparedStatement.executeQuery();
 if(resultSet.next()==false)
@@ -159,7 +159,7 @@ throw new DAOException("Invalid Designation");
 }
 resultSet.close();
 preparedStatement.close();
-preparedStatement=connection.prepareStatement("delete from designations where code=?;");
+preparedStatement=connection.prepareStatement("delete from designation where code=?;");
 preparedStatement.setInt(1,code);
 preparedStatement.executeUpdate();
 preparedStatement.close();
