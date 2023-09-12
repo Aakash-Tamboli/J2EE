@@ -94,4 +94,13 @@
 <servlet-name>EmployeesView</servlet-name>
 <url-pattern>/employeesView</url-pattern>
 </servlet-mapping>
+
+<servlet>
+<servlet-name>AddEmployeeForm</servlet-name>
+<servlet-class>com.thinking.machines.hr.servlets.AddEmployeeForm</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>AddEmployeeForm</servlet-name>
+<url-pattern>/getEmployeeAddForm</url-pattern>
+</servlet-mapping>
 </web-app>
