@@ -55,8 +55,6 @@ pw.println("<!-- Right Pannel Starts Here -->");
 pw.println("<div style='height:60vh;margin-left:140px;margin-right:5px;margin-bottom:px;margin-top:5px;padding:5px;border:1px solid black'>");
 pw.println("<h3>Notification</h3>");
 pw.println("Designation Added <br>");
-
-
 pw.println("<form action='/styleone/addDesignation.html' style='float:left;'>");
 pw.println("You Want To Add More");
 pw.println("<button type='submit'>Yes</button>");
@@ -64,7 +62,6 @@ pw.println("</form>");
 pw.println("<form action='/styleone/designationsView'>");
 pw.println("<button type='submit'>No!!!</button>");
 pw.println("</form>");
-
 pw.println("</div>");
 pw.println("<!-- Right Pannel Ends Here -->");
 pw.println("</div>");

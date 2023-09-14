@@ -199,6 +199,15 @@ pw.println("<input type='text' style='text-align:right' name='basicSalary' id='b
 pw.println("<span id='basicSalaryErrorSection' style='color:red'></span>");
 pw.println("</td>");
 pw.println("</tr>");
+
+pw.println("<tr>");
+pw.println("<td>IsIndian: </td>");
+pw.println("<td>");
+pw.println("<input type='checkbox' name='isIndian' id='isIndian' value='Y'>");
+pw.println("<span id='basicSalaryErrorSection' style='color:red'></span>");
+pw.println("</td>");
+pw.println("</tr>");
+
 pw.println("<tr>");
 pw.println("<td>PAN Number</td>");
 pw.println("<td>");
