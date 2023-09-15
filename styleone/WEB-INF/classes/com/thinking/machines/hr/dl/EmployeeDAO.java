@@ -122,4 +122,46 @@ connection.close();
 throw new DAOException(sqlException.getMessage());
 }
 }
+
+public boolean panNumberExists(String panNumber) throws DAOException
+{
+boolean answer=false;
+try
+{
+Connection connection=DAOConnection.getConnection();
+PreparedStatement preparedStatement;
+preparedStatement=connection.prepareStatement("select id from employee where pan_number=?;");
+preparedStatement.setString(1,panNumber);
+ResultSet resultSet;
+resultSet=preparedStatement.executeQuery();
+answer=resultSet.next(); // if record fetch it means pan number exists then it returns true otherwise false
+resultSet.close();
+preparedStatement.close();
+connection.close();
+}catch(SQLException sqlException)
+{
+throw new DAOException(sqlException.getMessage());
+}
+return answer;
+}
+public boolean aadharCardNumberExists(String aadharCardNumber) throws DAOException
+{
+boolean answer=false;
+try
+{
+Connection connection=DAOConnection.getConnection();
+PreparedStatement preparedStatement;
+preparedStatement=connection.prepareStatement("select id from employee where aadhar_card_number=?;");
+preparedStatement.setString(1,aadharCardNumber);
+ResultSet resultSet=preparedStatement.executeQuery();
+answer=resultSet.next();
+resultSet.close();
+preparedStatement.close();
+connection.close();
+}catch(SQLException sqlException)
+{
+throw new DAOException(sqlException.getMessage());
+}
+return answer;
+}
 }

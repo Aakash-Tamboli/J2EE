@@ -36,6 +36,7 @@ try
 DesignationDAO designationDAO;
 designationDAO=new DesignationDAO();
 designationDAO.delete(code);
+
 }catch(DAOException daoException)
 {
 sendBackView(response);

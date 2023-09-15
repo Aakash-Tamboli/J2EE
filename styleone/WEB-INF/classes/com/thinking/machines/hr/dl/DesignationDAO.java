@@ -159,6 +159,18 @@ throw new DAOException("Invalid Designation");
 }
 resultSet.close();
 preparedStatement.close();
+preparedStatement=connection.prepareStatement("select id from employee where designation_code=?;");
+preparedStatement.setInt(1,code);
+resultSet=preparedStatement.executeQuery();
+if(resultSet.next())
+{
+resultSet.close();
+preparedStatement.close();
+connection.close();
+throw new DAOException("Designation Alloted for employee hence it cannot be deleted");
+}
+resultSet.close();
+preparedStatement.close();
 preparedStatement=connection.prepareStatement("delete from designation where code=?;");
 preparedStatement.setInt(1,code);
 preparedStatement.executeUpdate();
@@ -168,5 +180,32 @@ connection.close();
 {
 throw new DAOException(sqlException.getMessage());
 }
+}
+public boolean designationCodeExists(int code) throws DAOException
+{
+boolean answer=false;
+try
+{
+Connection connection=DAOConnection.getConnection();
+PreparedStatement preparedStatement;
+preparedStatement=connection.prepareStatement("select title from designation where code=?;");
+preparedStatement.setInt(1,code);
+ResultSet resultSet=preparedStatement.executeQuery();
+if(resultSet.next())
+{
+answer=true;
+}
+else
+{
+answer=false;
+}
+resultSet.close();
+preparedStatement.close();
+connection.close();
+}catch(SQLException sqlException)
+{
+throw new DAOException(sqlException.getMessage());
+}
+return answer;
 }
 }
