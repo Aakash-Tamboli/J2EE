@@ -164,4 +164,92 @@ throw new DAOException(sqlException.getMessage());
 }
 return answer;
 }
+public void delete(String employeeId) throws DAOException
+{
+try
+{
+String vEmployeeId;
+vEmployeeId=employeeId.substring(1);
+int actualEmployeeId=Integer.parseInt(vEmployeeId);
+actualEmployeeId=actualEmployeeId;
+Connection connection=DAOConnection.getConnection();
+PreparedStatement preparedStatement;
+preparedStatement=connection.prepareStatement("select gender from employee where id=?;");
+preparedStatement.setInt(1,actualEmployeeId);
+ResultSet resultSet=preparedStatement.executeQuery();
+if(resultSet.next()==false)
+{
+resultSet.close();
+preparedStatement.close();
+connection.close();
+throw new DAOException(employeeId+" does not exist");
+}
+resultSet.close();
+preparedStatement.close();
+preparedStatement=connection.prepareStatement("delete from employee where id=?;");
+preparedStatement.setInt(1,actualEmployeeId);
+preparedStatement.executeUpdate();
+preparedStatement.close();
+connection.close();
+}catch(SQLException sqlException)
+{
+throw new DAOException("Problem: "+sqlException.getMessage());
+}
+}
+public EmployeeDTO getByEmployeeId(String employeeId) throws DAOException
+{
+EmployeeDTO employee;
+employee=new EmployeeDTO();
+try
+{
+String vEmployeeId=employeeId.substring(1);
+int actualEmployeeId=Integer.parseInt(vEmployeeId);
+
+Connection connection=DAOConnection.getConnection();
+PreparedStatement preparedStatement;
+preparedStatement=connection.prepareStatement("select * from employee where id=?;");
+preparedStatement.setInt(1,actualEmployeeId);
+ResultSet resultSet=preparedStatement.executeQuery();
+if(resultSet.next()==false)
+{
+resultSet.close();
+preparedStatement.close();
+connection.close();
+throw new DAOException(employeeId+" does not exist");
+}
+String name=resultSet.getString("name").trim();
+int designationCode=resultSet.getInt("designation_code");
+PreparedStatement vPreparedStatement;
+vPreparedStatement=connection.prepareStatement("select title from designation where code=?;");
+vPreparedStatement.setInt(1,designationCode);
+ResultSet vResultSet=vPreparedStatement.executeQuery();
+vResultSet.next();
+String designation=vResultSet.getString("title").trim();
+vResultSet.close();
+vPreparedStatement.close();
+java.util.Date dateOfBirth=resultSet.getDate("date_of_birth");
+boolean isIndian=resultSet.getBoolean("is_indian");
+BigDecimal basicSalary=resultSet.getBigDecimal("basic_salary");
+String gender=resultSet.getString("gender").trim();
+String panNumber=resultSet.getString("pan_number").trim();
+String aadharCardNumber=resultSet.getString("aadhar_card_number").trim();
+employee.setEmployeeId(employeeId);
+employee.setName(name);
+employee.setDesignationCode(designationCode);
+employee.setDesignation(designation);
+employee.setDateOfBirth(dateOfBirth);
+employee.setIsIndian(isIndian);
+employee.setGender(gender);
+employee.setBasicSalary(basicSalary);
+employee.setPANNumber(panNumber);
+employee.setAadharCardNumber(aadharCardNumber);
+resultSet.close();
+preparedStatement.close();
+connection.close();
+}catch(SQLException sqlException)
+{
+throw new DAOException("Problem: "+sqlException.getMessage());
+}
+return employee;
+}
 }

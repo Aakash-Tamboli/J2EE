@@ -113,4 +113,14 @@
 <url-pattern>/addEmployee</url-pattern>
 </servlet-mapping>
 
+<servlet>
+<servlet-name>ConfirmEmployeeDeletion</servlet-name>
+<servlet-class>com.thinking.machines.hr.servlets.ConfirmEmployeeDeletion</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>ConfirmEmployeeDeletion</servlet-name>
+<url-pattern>/confirmEmployeeDeletion</url-pattern>
+</servlet-mapping>
+
+
 </web-app>
