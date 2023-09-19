@@ -122,5 +122,22 @@
 <url-pattern>/confirmEmployeeDeletion</url-pattern>
 </servlet-mapping>
 
+<servlet>
+<servlet-name>DeleteEmployee</servlet-name>
+<servlet-class>com.thinking.machines.hr.servlets.DeleteEmployee</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>DeleteEmployee</servlet-name>
+<url-pattern>/deleteEmployee</url-pattern>
+</servlet-mapping>
+
+<servlet>
+<servlet-name>EditEmployeeForm</servlet-name>
+<servlet-class>com.thinking.machines.hr.servlets.EditEmployeeForm</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>EditEmployeeForm</servlet-name>
+<url-pattern>/editEmployee</url-pattern>
+</servlet-mapping>
 
 </web-app>
