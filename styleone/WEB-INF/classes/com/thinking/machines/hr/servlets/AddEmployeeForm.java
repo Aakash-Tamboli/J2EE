@@ -76,7 +76,7 @@ pw.println("if(firstInvalidComponent==null) firstInvalidComponent=frm.basicSalar
 pw.println("}");
 pw.println("else");
 pw.println("{");
-pw.println("var v='0123456789';");
+pw.println("var v='0123456789.';");
 pw.println("var e=0;");
 pw.println("var isBasicSalaryValid=true;");
 pw.println("while(e<basicSalary.length)");
