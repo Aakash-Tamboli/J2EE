@@ -32,9 +32,9 @@ messageBean.setButtonOneText("Yes");
 messageBean.setButtonTwoText("No");
 messageBean.setButtonOneAction("DesignationAddForm.jsp");
 messageBean.setButtonTwoAction("Designation.jsp");
-request.setAttribute("messgaeBean",messageBean);
+request.setAttribute("messageBean",messageBean);
 RequestDispatcher requestDispatcher;
-requestDispatcher=request.getRequestDispatcher("/Notifcation.jsp");
+requestDispatcher=request.getRequestDispatcher("/Notification.jsp");
 requestDispatcher.forward(request,response);
 }catch(DAOException daoException)
 {

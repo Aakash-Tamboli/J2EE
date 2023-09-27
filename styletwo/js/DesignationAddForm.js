@@ -11,3 +11,8 @@ return false;
 }
 return true;
 }
+function cancelAddition()
+{
+alert('Not yet Completed');
+return false;
+}
