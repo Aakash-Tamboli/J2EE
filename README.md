@@ -13,5 +13,6 @@ This Repository is my learning work which gives you how much ground work I did I
 3) vim / notepad
 4) java
 
+
 ## Credit
-Thanks to God, Thanks to All the Creator That I've Used his/her Application Like vim,chrome,ubuntu OS and Windows 10 OS and Thanks to Prafull Sir
+Thanks to God, Thanks to All the Creators That I've Used his/her Application Like vim,chrome,ubuntu OS and Windows 10 OS.

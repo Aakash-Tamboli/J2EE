@@ -27,15 +27,13 @@
   <short-name>debug</short-name>
   <uri>http://tomcat.apache.org/debug-taglib</uri>
   <description>
-	My Custom tags
+  My Custom Tags
   </description>
-
-  <!-- This is a dummy tag solely to satisfy DTD requirements -->
   <tag>
     <name>If</name>
     <tag-class>com.thinking.machines.hr.tags.IfTagHandler</tag-class>
     <description>
-	To Process Something if condition true
+   	Condition Tag
     </description>
     <attribute>
         <name>condition</name>

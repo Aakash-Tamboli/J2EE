@@ -1,6 +1,5 @@
-<%@taglib prefix='tm' uri='/WEB-INF/mytags/tmtags.tld' %>
-<jsp:useBean id='messageBean' scope='request' class='com.thinking.machines.hr.beans.MessageBean' />
-
+<jsp:useBean id='designationBean' scope='request' class='com.thinking.machines.hr.beans.DesignationBean'/>
+<jsp:useBean id='errorBean' scope='request' class='com.thinking.machines.hr.beans.ErrorBean'/>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HR Application</title>
-    <script src='/styletwo/js/DesignationAddForm.js'></script>
+    <script src='/styletwo/js/DesignationEditForm.js'></script>
     <link rel='stylesheet' type='text/css' href='/styletwo/css/styles.css'>
 </head>
 
@@ -34,28 +33,31 @@
             <!-- left Pannel Ends Here-->
             <!-- Right Pannel Starts Here -->
             <div class='content-right-panel'>
-                <h1>${messageBean.heading}</h1>
+                <h2>Designation (Edit Module)</h2>
                 <b>
-                    <h3>${messageBean.message}</h3>
+                    <span class='error'>
+                        <jsp:getProperty name='errorBean' property='error'/>
+                    </span>
                 </b>
-<tm:If condition='${messageBean.generateButtons}'>
+                <form method='post' action='/styletwo/updateDesignation' onsubmit='return validateForm(this)'>
+                    Designation: &nbsp;
+		    <input type='hidden' id='code' name='code' value='${designationBean.code}'>
+                    <input type='text' id='title' name='title' maxlength='36' size='36' value='${designationBean.title}'>
+                    <span id='titleErrorSection' class='error'></span><br>
                     <table>
                         <tr>
                             <td>
-                                <form action='/styletwo/${messageBean.buttonOneAction}'>
-                                    <button>${messageBean.buttonOneText}</button>
-                                </form>
+                                <button type='submit'>Edit</button>
+                </form>
                             </td>
-<tm:If condition='${messageBean.generateTwoButtons}'>
-                                <td>
-                                    <form action='/styletwo/${messageBean.buttonTwoAction}'>
-                                        <button>${messageBean.buttonTwoText}</button>
-                                    </form>
-                                </td>
-</tm:If>
-                        </tr>
-                    </table>
-</tm:If>
+                <td>
+                    <form action='/styletwo/designationsView' onclick='return cancelEditing(this)'>
+                        <button type='submit'>Cancel</button>
+                    </form>
+                </td>
+                </tr>
+                </table>
+
             </div>
             <!-- Right Pannel Ends Here -->
         </div>
@@ -66,5 +68,4 @@
     </div>
     <!-- Main Container ends here -->
 </body>
-
 </html>

@@ -22,12 +22,12 @@ return this.condition;
 }
 public int doStartTag()
 {
-if(condition==true) return super.EVAL_BODY_INCLUDE;
-else return super.SKIP_BODY;
+if(condition) return 1;
+else return 0;
 }
 public int doEndTag()
 {
 reset();
-return super.EVAL_PAGE;
+return 6;
 }
 };
