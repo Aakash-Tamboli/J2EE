@@ -26,7 +26,7 @@
         <div class='content'>
             <!-- Left Pannel Starts Here -->
             <div class='content-left-panel'>
-                <b><a href='/styleone/designationsView'>Not Yet completed</a></b> <br>
+                <b><a href='/styleone/Designations.jsp'>Designations</a></b> <br>
                 <a href='/styleone/employeesView'>Not Yet completed</a><br><br>
                 <a href='/styleone/index.html'> Not Yet completed </a>
             </div>
@@ -51,7 +51,7 @@
                 </form>
                             </td>
                 <td>
-                    <form action='/styletwo/designationsView' onclick='return cancelEditing(this)'>
+                    <form action='/styletwo/Designations.jsp' onclick='return cancelEditing(this)'>
                         <button type='submit'>Cancel</button>
                     </form>
                 </td>

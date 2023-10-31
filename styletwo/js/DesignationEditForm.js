@@ -13,6 +13,5 @@ return true;
 }
 function cancelEditing()
 {
-alert('Not yet Completed');
-return false;
+return true;
 }

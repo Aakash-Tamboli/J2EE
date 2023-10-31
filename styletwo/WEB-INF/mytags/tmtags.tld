@@ -41,6 +41,11 @@
 	<rtexprvalue>true</rtexprvalue>
     </attribute>
   </tag>
-
-
+<tag>
+<name>Designations</name>
+<tag-class>com.thinking.machines.hr.tags.DesignationsTagHandler</tag-class>
+<description>
+To setup designations data
+</description>
+</tag>
 </taglib>
