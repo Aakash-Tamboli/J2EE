@@ -10,7 +10,7 @@
 <div style='width:90hw;height:auto;border:1px solid black'>
 <!-- Header Starts Here-->
 <div style='margin:5px;width:90hw;height:auto;border:1px solid black'>
-<img src='/styleone/images/tm.png' style='float:left;width:40px;height:40px'>
+<img src='/styletwo/images/tm.png' style='float:left;width:40px;height:40px'>
 <div style='margin-top:9px;margin-bottom:9px;font-size:20pt'>
 Thinking Machines
 </div>
@@ -20,8 +20,8 @@ Thinking Machines
 <div style='width:90hw;height:70vh;margin:5px;border:1px solid white'>
 <!-- Left Pannel Starts Here -->
 <div style='height:60vh;margin:5px;float:left;padding:5px;border:1px solid black'>
-<b href='/styletwp/Designations.jsp'>Designations</b> <br>
-<a href='/styleone/employeesView'>Employees</a>
+<b href='/styletwo/Designations.jsp'>Designations</b> <br>
+<a href='/styletwo/employeesView'>Employees</a>
 </div>
 <!-- left Pannel Ends Here-->
 <!-- Right Pannel Starts Here -->
@@ -30,7 +30,7 @@ Thinking Machines
 <table border='1'>
 <thead>
 <tr>
-<th colspan='4' style='text-align:right;padding:5px'><a href='/styleone/addDesignation.html'>Add New Designation</a></th>
+<th colspan='4' style='text-align:right;padding:5px'><a href='/styletwo/DesignationAddForm.jsp'>Add New Designation</a></th>
 </tr>
 <tr>
 <th style='width:60px;text-align:center'>S.No</th>
