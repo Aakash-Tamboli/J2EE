@@ -27,13 +27,11 @@
   <short-name>debug</short-name>
   <uri>http://tomcat.apache.org/debug-taglib</uri>
   <description>
-  My Custom Tags
+	mytags
   </description>
 <tag>
 <name>Designations</name>
 <tag-class>com.thinking.machines.practice.tags.DesignationsTagHandler</tag-class>
-<description>
-To setup designations data
-</description>
+<description>To Populate Designation</description>
 </tag>
 </taglib>

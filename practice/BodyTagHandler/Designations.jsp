@@ -1,9 +1,9 @@
 <%@taglib uri='/WEB-INF/mytags/tmtags.tld' prefix='tm' %>
-<!DOCTYPE HMTL>
+<!DOCTYPE HTML>
 <html lang='en'>
 <head>
 <meta charset='utf-8'>
-<title>Pracice HR Application</title>
+<title>Tesing</title>
 </head>
 <body>
 <table>
@@ -18,7 +18,7 @@
 <tr>
 <td>${serialNumber}</td>
 <td>${designationBean.title}</td>
-</tr>
+<tr>
 </tm:Designations>
 </tbody>
 </table>

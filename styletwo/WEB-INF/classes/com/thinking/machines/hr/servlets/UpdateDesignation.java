@@ -25,7 +25,7 @@ messageBean=new MessageBean();
 messageBean.setHeading("Designation Updated");
 messageBean.setGenerateButtons(true);
 messageBean.setButtonOneText("Yes");
-messageBean.setButtonOneAction("/DesignationEditForm.jsp"); // later On action will be /designations
+messageBean.setButtonOneAction("/Designations.jsp"); // later On action will be /designations
 request.setAttribute("messageBean",messageBean);
 RequestDispatcher requestDispatcher;
 requestDispatcher=request.getRequestDispatcher("/Notification.jsp");
