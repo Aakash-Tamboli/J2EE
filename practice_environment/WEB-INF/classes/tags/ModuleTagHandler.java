@@ -1,39 +1,33 @@
-package com.thinking.machines.hr.tags;
+package tags;
 import javax.servlet.jsp.*;
 import javax.servlet.jsp.tagext.*;
 
-public class IfTagHandler extends TagSupport
+public class ModuleTagHandler extends TagSupport
 {
-private boolean condition;
-public IfTagHandler()
+private String module;
+public ModuleTagHandler()
 {
 reset();
 }
 private void reset()
 {
-this.condition=false;
+this.module="";
 }
-public void setCondition(boolean condition)
+public void setModule(String module)
 {
-this.condition=condition;
-}
-public boolean getCondition()
-{
-return this.condition;
-}
-public int doStartTag()
-{
-if(condition)
-{
+this.module=module;
+pageContext.setAttribute("module",module,PageContext.REQUEST_SCOPE);
 pageContext.setAttribute("HOME","HOME",PageContext.REQUEST_SCOPE);
 pageContext.setAttribute("DESIGNATION","DESIGNATION",PageContext.REQUEST_SCOPE);
 pageContext.setAttribute("EMPLOYEE","EMPLOYEE",PageContext.REQUEST_SCOPE);
-return super.EVAL_BODY_INCLUDE;
 }
-else
+public String getModule()
+{
+return this.module;
+}
+public int doStartTag()
 {
 return super.SKIP_BODY;
-}
 }
 public int doEndTag()
 {

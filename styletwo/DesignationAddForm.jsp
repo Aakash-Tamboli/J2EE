@@ -1,5 +1,7 @@
+<%@taglib uri='/WEB-INF/mytags/tmtags.tld' prefix='tm' %>
 <jsp:useBean id='designationBean' scope='request' class='com.thinking.machines.hr.beans.DesignationBean'/>
 <jsp:useBean id='errorBean' scope='request' class='com.thinking.machines.hr.beans.ErrorBean'/>
+<tm:Module name='DESIGNATION' />
 <jsp:include page='/MasterPageTopSection.jsp' />
 <script src='/styletwo/js/DesignationAddForm.js'></script>
            <!-- Right Pannel Starts Here -->

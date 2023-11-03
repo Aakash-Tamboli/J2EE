@@ -1,3 +1,4 @@
+<%@taglib uri='/WEB-INF/mytags/tmtags.tld' prefix='tm' %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,11 +20,33 @@ Thinking Machines
 <!-- Header Ends Here-->
 <!-- Content-Section Starts here-->
 <div class='content'>
+
 <!-- Left Pannel Starts Here -->
 <div class='content-left-panel'>
-<b><a href='/styletwo/Designations.jsp'>Designation</a></b> <br>
-<a href='/styletwo/employeesView'>Not Yet completed</a><br><br>
-<a href='/styletwo/index.html'> Not Yet completed </a>
+
+<tm:If condition='${module == DESIGNATION}'>
+<b>Designations</b><br>
+</tm:If>
+
+<tm:If condition='${module != DESIGNATION}'>
+<a href='/styletwo/Designations.jsp'>Designations</a>
+</tm:If>
+
+<tm:If condition='${module==EMPLOYEES}'>
+<br>
+<b>Employees</b>
+</tm:If>
+
+<tm:If condition='${module!=EMPLOYEE}'>
+<br>
+<a href='/styletwo/Employees.jsp'>Employees</a>
+</tm:If>
+
+<tm:If condition='${module!=HOME}'>
+<br>
+<a href='/styletwo/index.jsp'>Home</a>
+</tm:If>
+
+
 </div>
-<!-- left Pannel Ends Here-->
- 
+<!-- left Pannel Ends Here--> 

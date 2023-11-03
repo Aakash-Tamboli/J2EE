@@ -1,4 +1,4 @@
-package com.thinking.machines.hr.tags;
+package tags;
 import javax.servlet.jsp.*;
 import javax.servlet.jsp.tagext.*;
 
@@ -25,19 +25,16 @@ public int doStartTag()
 {
 if(condition)
 {
-pageContext.setAttribute("HOME","HOME",PageContext.REQUEST_SCOPE);
-pageContext.setAttribute("DESIGNATION","DESIGNATION",PageContext.REQUEST_SCOPE);
-pageContext.setAttribute("EMPLOYEE","EMPLOYEE",PageContext.REQUEST_SCOPE);
 return super.EVAL_BODY_INCLUDE;
 }
 else
 {
-return super.SKIP_BODY;
+return 0;
 }
 }
 public int doEndTag()
 {
 reset();
-return super.EVAL_PAGE;
+return 6;
 }
 };
