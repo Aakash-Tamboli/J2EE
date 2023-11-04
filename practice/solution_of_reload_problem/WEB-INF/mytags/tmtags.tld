@@ -27,29 +27,16 @@
   <short-name>debug</short-name>
   <uri>http://tomcat.apache.org/debug-taglib</uri>
   <description>
-	To Assignemnt
+    This tag library defines no tags.  Instead, its purpose is encapsulated
+    in the TagLibraryValidator implementation that simply outputs the XML
+    version of a JSP page to standard output, whenever this tag library is
+    referenced in a "taglib" directive in a JSP page.
   </description>
-
   <!-- This is a dummy tag solely to satisfy DTD requirements -->
-  <tag>
-    <name>If</name>
-    <tag-class>tags.IfTagHandler</tag-class>
-    <description>
-	Condtion Tag
-    </description>
-    <attribute>
-        <name>condition</name>
-        <required>true</required>
-	<rtexprvalue>true</rtexprvalue>
-    </attribute>
-  </tag>
+
 <tag>
-<name>mod</name>
-<tag-class>tags.ModuleTagHandler</tag-class>
-<description>To set module value</description>
-<attribute>
-<name>module</name>
-<required>true</required>
-</attribute>
+<name>UniqueId</name>
+<tag-class>tags.UniqueIdTagHandler</tag-class>
+<description>Responsible to Generating Unique ID</description>
 </tag>
 </taglib>

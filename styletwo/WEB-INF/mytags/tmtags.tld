@@ -60,4 +60,9 @@ Setting default values and module name
 <rtexprvalue>true</rtexprvalue>
 </attribute>
 </tag>
+<tag>
+<name>UniqueId</name>
+<tag-class>com.thinking.machines.hr.tags.UniqueIdTagHandler</tag-class>
+<description>To Generate Unique Id</description>
+</tag>
 </taglib>
