@@ -1,4 +1,5 @@
 <%@taglib uri='/WEB-INF/mytags/tmtags.tld' prefix='tm' %>
+<tm:Authenticate />
 <jsp:useBean id='designationBean' scope='request' class='com.thinking.machines.hr.beans.DesignationBean'/>
 <jsp:useBean id='errorBean' scope='request' class='com.thinking.machines.hr.beans.ErrorBean'/>
 <tm:Module name='DESIGNATION' />
@@ -15,8 +16,7 @@
                 <form method='post' action='/styletwo/AddDesignation.jsp' onsubmit='return validateForm(this)'>
                     Designation: &nbsp;
                     <input type='text' id='title' name='title' maxlength='36' size='36' value='${designationBean.title}'>
-		    <tm:UniqueId />
-		    <input type='hidden' id='formId' name='formId' value='${uniqueId}' >
+		    <tm:FormID />
                     <span id='titleErrorSection' class='error'></span><br>
                     <table>
                         <tr>

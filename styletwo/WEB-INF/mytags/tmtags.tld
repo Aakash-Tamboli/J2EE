@@ -65,4 +65,16 @@ Setting default values and module name
 <tag-class>com.thinking.machines.hr.tags.UniqueIdTagHandler</tag-class>
 <description>To Generate Unique Id</description>
 </tag>
+<tag>
+<name>FormID</name>
+<tag-class>com.thinking.machines.hr.tags.FormIDTagHandler</tag-class>
+</tag>
+<tag>
+<name>FormResubmitted</name>
+<tag-class>com.thinking.machines.hr.tags.FormResubmittedTagHandler</tag-class>
+</tag>
+<tag>
+<name>Authenticate</name>
+<tag-class>com.thinking.machines.hr.tags.AuthenticateTagHandler</tag-class>
+</tag>
 </taglib>

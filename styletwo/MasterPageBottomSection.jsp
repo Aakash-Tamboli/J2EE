@@ -1,3 +1,5 @@
+<%@taglib uri='/WEB-INF/mytags/tmtags.tld' prefix='tm' %>
+<tm:Authenticate />
 </div>
 <!-- Content-Section Ends Here -->
 <!-- Footer Start Here-->

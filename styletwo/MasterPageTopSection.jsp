@@ -1,4 +1,5 @@
 <%@taglib uri='/WEB-INF/mytags/tmtags.tld' prefix='tm' %>
+<tm:Authenticate />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,8 +16,24 @@
 <img src='/styletwo/images/tm.png' class='logo'>
 <div class='brand-name'>
 Thinking Machines
+
+<!-- Login Detail section Starts -->
+
+<div style='float:right;'>
+<!-- Login Icon Section Starts-->
+<div style='float:left'>
+<img src='/styletwo/images/login.png' width='20' height='20'>
+</div>
+&nbsp;
+${username}
+&nbsp;
+<a href='/styletwo/logout'>Logout</a>
+</div> <!-- Login Detail section Ends -->
 </div>
 </div>
+
+
+
 <!-- Header Ends Here-->
 <!-- Content-Section Starts here-->
 <div class='content'>

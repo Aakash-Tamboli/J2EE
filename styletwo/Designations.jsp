@@ -1,4 +1,5 @@
 <%@taglib uri='/WEB-INF/mytags/tmtags.tld' prefix='tm' %>
+<tm:Authenticate />
 <tm:Module name='DESIGNATION' />
 <jsp:include page='/MasterPageTopSection.jsp' />
 <!-- Right Pannel Starts Here -->

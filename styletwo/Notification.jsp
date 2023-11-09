@@ -1,4 +1,5 @@
 <%@taglib prefix='tm' uri='/WEB-INF/mytags/tmtags.tld' %>
+<tm:Authenticate />
 <jsp:useBean id='messageBean' scope='request' class='com.thinking.machines.hr.beans.MessageBean' />
 <jsp:include page='/MasterPageTopSection.jsp' />
 <!-- Right Pannel Starts Here -->
