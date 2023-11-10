@@ -8,6 +8,8 @@ public class NotifyFormResubmission extends HttpServlet
 {
 public void doGet(HttpServletRequest request,HttpServletResponse response)
 {
+boolean isLoggedIn=Authenticate.isLoggedIn(request,response);
+if(isLoggedIn==false) return;
 try
 {
 MessageBean messageBean=new MessageBean();

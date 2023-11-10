@@ -9,6 +9,8 @@ public class EditDesignation extends HttpServlet
 {
 public void doGet(HttpServletRequest request,HttpServletResponse response)
 {
+boolean isLoggedIn=Authenticate.isLoggedIn(request,response);
+if(isLoggedIn==false) return;
 try
 {
 int code=Integer.parseInt(request.getParameter("code"));

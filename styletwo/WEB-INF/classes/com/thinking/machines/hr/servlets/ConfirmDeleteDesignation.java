@@ -7,6 +7,8 @@ public class ConfirmDeleteDesignation extends HttpServlet
 {
 public void doGet(HttpServletRequest request,HttpServletResponse response)
 {
+boolean isLoggedIn=Authenticate.isLoggedIn(request,response);
+if(isLoggedIn==false) return;
 int code=0;
 try
 {
@@ -25,10 +27,8 @@ DesignationBean designationBean;
 designationBean=new DesignationBean();
 designationBean.setCode(designation.getCode());
 designationBean.setTitle(designation.getTitle());
-System.out.println("Designation Bean is Ready");
 request.setAttribute("designationBean",designationBean);
 RequestDispatcher requestDispatcher;
-System.out.println("Request Forward to ConfirmDeleteDesignation.jsp");
 requestDispatcher=request.getRequestDispatcher("/ConfirmDeleteDesignation.jsp");
 requestDispatcher.forward(request,response);
 }catch(Exception exception)

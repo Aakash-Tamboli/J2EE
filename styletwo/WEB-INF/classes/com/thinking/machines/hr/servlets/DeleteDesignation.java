@@ -8,6 +8,8 @@ public class DeleteDesignation extends HttpServlet
 {
 public void doGet(HttpServletRequest request,HttpServletResponse response)
 {
+boolean isLoggedIn=Authenticate.isLoggedIn(request,response);
+if(isLoggedIn==false) return;
 DesignationBean designationBean=(DesignationBean)request.getAttribute("designationBean");
 int code=designationBean.getCode();
 DesignationDAO designationDAO;

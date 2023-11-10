@@ -8,6 +8,8 @@ public class UpdateDesignation extends HttpServlet
 {
 public void doPost(HttpServletRequest request,HttpServletResponse response)
 {
+boolean isLoggedIn=Authenticate.isLoggedIn(request,response);
+if(isLoggedIn==false) return;
 try
 {
 int code=Integer.parseInt(request.getParameter("code"));

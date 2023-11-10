@@ -8,6 +8,8 @@ public class AddDesignation extends HttpServlet
 {
 public void doPost(HttpServletRequest request,HttpServletResponse response)
 {
+boolean isLoggedIn=Authenticate.isLoggedIn(request,response);
+if(isLoggedIn==false) return;
 try
 {
 DesignationBean designationBean;

@@ -8,6 +8,8 @@ public void doGet(HttpServletRequest request,HttpServletResponse response)
 {
 try
 {
+boolean isLoggedIn=Authenticate.isLoggedIn(request,response);
+if(isLoggedIn==false) return;
 HttpSession httpSession=request.getSession();
 String username=(String)httpSession.getAttribute("username");
 if(username!=null)
