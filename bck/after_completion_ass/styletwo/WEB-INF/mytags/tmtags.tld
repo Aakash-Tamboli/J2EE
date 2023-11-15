@@ -42,29 +42,11 @@
     </attribute>
   </tag>
 <tag>
-<name>EntityList</name>
-<tag-class>com.thinking.machines.hr.tags.EntityListTagHandler</tag-class>
+<name>Designations</name>
+<tag-class>com.thinking.machines.hr.tags.DesignationsTagHandler</tag-class>
 <description>
-To setup Entity List data
+To setup designations data
 </description>
-<attribute>
-<name>populatorClass</name>
-<required>true</required>
-<rtexprvalue>true</rtexprvalue>
-</attribute>
-
-<attribute>
-<name>populatorMethod</name>
-<required>true</required>
-<rtexprvalue>true</rtexprvalue>
-</attribute>
-
-<attribute>
-<name>name</name>
-<required>true</required>
-<rtexprvalue>true</rtexprvalue>
-</attribute>
-
 </tag>
 <tag>
 <name>Module</name>

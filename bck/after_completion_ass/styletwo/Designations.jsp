@@ -18,14 +18,14 @@
 </tr>
 </thead>
 <tbody>
-<tm:EntityList populatorClass='com.thinking.machines.hr.bl.DesignationBL' populatorMethod='getAll' name='dBean' >
+<tm:Designations>
 <tr>
 <td style='text-align:right'>${serialNumber}</td>
-<td>${dBean.title}</td>
-<td style='text-align:center'><a href='/styletwo/editDesignation?code=${dBean.code}'>Edit</a></td>
-<td style='text-align:center'><a href='/styletwo/confirmDeleteDesignation?code=${dBean.code}'>Delete</a></td>
+<td>${designationBean.title}</td>
+<td style='text-align:center'><a href='/styletwo/editDesignation?code=${designationBean.code}'>Edit</a></td>
+<td style='text-align:center'><a href='/styletwo/confirmDeleteDesignation?code=${designationBean.code}'>Delete</a></td>
 </tr>
-</tm:EntityList>
+</tm:Designations>
 </tbody>
 </table>
 </div><!-- Right Pannel Ends Here -->
