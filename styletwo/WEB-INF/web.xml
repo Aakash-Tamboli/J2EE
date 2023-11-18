@@ -103,4 +103,15 @@
 <servlet-name>Logout</servlet-name>
 <url-pattern>/logout</url-pattern>
 </servlet-mapping>
+
+<servlet>
+<servlet-name>EmployeesJS</servlet-name>
+<servlet-class>com.thinking.machines.hr.servlets.EmployeesJS</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>EmployeesJS</servlet-name>
+<url-pattern>/js/Employees.js</url-pattern>
+</servlet-mapping>
+
+
 </web-app>
