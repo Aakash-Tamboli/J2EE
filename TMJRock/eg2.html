@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Get type without sending data</title>
+<script>
+// This will finally be part of TMJRock Javascript Library
+function $$$(parameter)
+{
+// My Assignement Part
+var obj=document.getElementById(parameter);
+obj.fillComboBox=function(information){
+var option;
+var designationsList=information.dataSource;
+if(information.hasOwnProperty('firstOption'))
+{
+option=document.createElement('option');
+option.value=Object.getOwnPropertyDescriptor(information.firstOption,'value').value;
+option.text=Object.getOwnPropertyDescriptor(information.firstOption,'text').value;
+designationSelectTag.appendChild(option);
+}
+
+for(var i=0;i<designationsList.length;i++)
+{
+option=document.createElement('option');
+option.value=Object.getOwnPropertyDescriptor(designationsList[i],information.value).value;
+option.text=Object.getOwnPropertyDescriptor(designationsList[i],information.text).value;
+designationSelectTag.appendChild(option);
+}
+}
+return obj;
+}
+
+$$$.ajax=function(callBackInfo)
+{
+var xmlHttpRequest=new XMLHttpRequest();
+xmlHttpRequest.onreadystatechange=function(){
+if(this.readyState==4)
+{
+if(this.status==200)
+{
+callBackInfo.success(this.responseText);
+}
+else
+{
+callBackInfo.failure();
+}
+}
+};
+xmlHttpRequest.open(callBackInfo.methodType,callBackInfo.url,true);
+xmlHttpRequest.send();
+}
+// This TMJRock Javascript Library code ends Here
+function populateDesignation()
+{
+$$$.ajax({
+"url" : "servletOne",
+"methodType" : "GET",
+"success" : function(responseData){
+var designationsList=JSON.parse(responseData);
+$$$("designationSelectTag").fillComboBox({
+"dataSource" : designationsList,
+"text" : "title",
+"value" : "code",
+"firstOption" : {
+    "text" :  "<select Designation>",
+    "value" :  -1
+}
+});
+},
+"failure" : function(){
+alert("Some Problem");
+}
+});
+alert("TMJRock");
+}
+window.addEventListener('load',populateDesignation);
+</script>
+</head>
+<body>
+<select id='designationSelectTag'>
+</select>
+</body>
+</html>
