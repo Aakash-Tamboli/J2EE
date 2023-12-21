@@ -1,5 +1,5 @@
 # About this Repository
-This is not project, It is for those recruiter who wants to know how hardworking I am.
+This Repository consists of Minor Projects Which I made using Learning J2EE
 
 ## J2EE
 This Repository is my learning work which gives you how much ground work I did It to learning Web Development.
@@ -18,6 +18,9 @@ This Repository is my learning work which gives you how much ground work I did I
 	Problems: Found in styletwo
 		1) Redundany reduced using jsp, but still redundany at client side
 
+3) stylethree - I will update later on
+4) TMJRock - It is replica of JQuery functionality.
+
 
 ## Practice and Practice_Environment
 Practice Folder contains all the practice things which is recomended by instructor there I practice it. <br>
@@ -30,6 +33,8 @@ Practice_Environment used as to check whatever I implemented in practice folder 
 3) vim / notepad
 4) java
 
+## Mentor
+Thanks to founder of `thinkingmachine.in` who Mentored and give the industry grade knowledge.
 
 ## Credit
 Thanks to God, Thanks to All the Creators That I've Used his/her Application Like vim,chrome,ubuntu OS and Windows 10 OS.
