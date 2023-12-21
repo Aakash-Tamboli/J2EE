@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+
+<head>
+    <meta charset='utf-8'>
+    <title>Modal Window Example</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+        #xyz{
+            border: 1px solid black;
+        }
+        #pqr{
+            border: 1px solid red;
+        }
+    </style>
+    <script>
+        // TMJROCK part starts here
+        function $$$(){
+            var modalWindow=document.createElement('div');
+            modalWindow.id='modalWindow';
+            modalWindow.style.backgroundColor='#E0E0E0';
+            modalWindow.style.visibility='hidden';
+            modalWindow.style.position='absolute';
+            modalWindow.style.top=0;
+            modalWindow.style.right=0;
+            modalWindow.style.bottom=0;
+            modalWindow.style.left=0;
+            modalWindow.style.opacity=0.9;
+            var closeModalIcon=document.createElement('img');
+            closeModalIcon.id='closeModalIcon';
+            closeModalIcon.src='./windowCross.png';
+            closeModalIcon.height=20;
+            closeModalIcon.width=20;
+            closeModalIcon.style.position='absolute';
+            closeModalIcon.style.cursor='pointer';
+            closeModalIcon.style.marginLeft='98%';         
+            var contentContainer=document.createElement('div');
+            contentContainer.id='contentContainer';
+            contentContainer.style.position='absolute';
+            contentContainer.style.border='2px solid black';
+            contentContainer.style.marginTop='15%';
+            contentContainer.style.marginLeft='25%';
+            contentContainer.style.width='50%';
+            contentContainer.style.height='50%';
+            contentContainer.style.padding='10px';
+            modalWindow.appendChild(closeModalIcon);
+            modalWindow.appendChild(contentContainer);
+            document.body.appendChild(modalWindow);
+        }
+        $$$.modal=function(id){
+            var modalWindow=document.getElementById('modalWindow');
+            modalWindow.style.visibility='visible';
+            var contentContainer=document.getElementById('contentContainer');
+            var element=document.getElementById(id);
+            var rememberLocation=document.createElement('b');
+            element.replaceWith(rememberLocation);
+            contentContainer.appendChild(element);
+            var closeModalIcon=document.getElementById('closeModalIcon');
+            closeModalIcon.onclick=function(){
+                modalWindow.style.visibility='hidden';
+                rememberLocation.replaceWith(element);
+            }
+        }
+        window.addEventListener('load',$$$);
+        // TMJRock part ends here    
+        
+        // TMJRock user script start here
+        function showXYZ(){
+            $$$.modal("xyz");
+        }
+        function showPQR(){
+            $$$.modal("pqr");
+        }
+        // TMJRock user script ends here
+    </script>
+</head>
+<body>
+    <button onclick="showXYZ()">XYZ</button> <br><br>
+    <button onclick="showPQR()">PQR</button> <br><br>
+    
+    <div id='xyz'>
+        <b>Cool</b>
+        <h1>Whatever</h1>
+        Great <br>
+        Something Something
+    </div>
+
+    <table id='pqr'>
+        <tr><td>Whatever1</td><td>Whatever11 </td></tr>
+        <tr><td>Whatever2</td><td>Whatever22 </td></tr>
+        <tr><td>Whatever3</td><td>Whatever33 </td></tr>
+        <tr><td>Whatever4</td><td>Whatever44 </td></tr>
+        <tr><td>Whatever5</td><td>Whatever55 </td></tr>
+        <tr><td>Whatever6</td><td>Whatever66 </td></tr>
+    </table>
+</body>
+</html>

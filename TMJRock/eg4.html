@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Accordian Pane</title>
+</head>
+<script>
+function doSomething()
+{
+// print inner HTML all the element which has tm='yes' attribuite value pair in it
+var allChildren=document.body.children;
+alert(allChildren.length);
+for(var i=0;i<allChildren.length;i++)
+{
+if(allChildren[i].hasAttribute("tm") && allChildren[i].getAttribute("tm")=='yes')
+{
+alert(allChildren[i].innerHTML);
+}
+}
+}
+
+</script>
+<body>
+God is Great
+<div id='whatever' tm='yes'>
+Whatever Whatever Whatever Whatever
+Whatever Whatever Whatever Whatever
+Whatever Whatever Whatever Whatever
+Whatever Whatever Whatever Whatever
+Whatever Whatever Whatever Whatever
+Whatever Whatever Whatever Whatever
+Whatever Whatever Whatever Whatever
+Whatever Whatever Whatever Whatever
+</div>
+
+<span id='whatever1' tm='yes'>
+Whatever Whatever Whatever Whatever2
+Whatever Whatever Whatever Whatever2
+Whatever Whatever Whatever Whatever2
+Whatever Whatever Whatever Whatever2
+Whatever Whatever Whatever Whatever2
+Whatever Whatever Whatever Whatever2
+Whatever Whatever Whatever Whatever2
+Whatever Whatever Whatever Whatever2
+</span>
+
+<div id='cool'>
+Cool Cool Cool <br>
+Cool Cool Cool <br>
+Cool Cool Cool <br>
+Cool Cool Cool <br>
+Cool Cool Cool <br>
+</div>
+
+<div tm='No'>
+Thinking Machines is a not place for Spoon Feeders <br>
+Thinking Machines is a not place for Spoon Feeders <br>
+Thinking Machines is a not place for Spoon Feeders <br>
+Thinking Machines is a not place for Spoon Feeders <br>
+Thinking Machines is a not place for Spoon Feeders <br>
+Thinking Machines is a not place for Spoon Feeders <br>
+Thinking Machines is a not place for Spoon Feeders <br>
+Thinking Machines is a not place for Spoon Feeders <br>
+</div>
+
+<button type='button' onClick='doSomething()'>Do Something</button>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Get type without sending data</title>
+<script>
+function populateDesignation()
+{
+var xmlHttpRequest=new XMLHttpRequest();
+xmlHttpRequest.onreadystatechange=function(){
+if(this.readyState==4)
+{
+if(this.status==200)
+{
+var responseData=this.responseText;
+alert(responseData);
+var designationsList=JSON.parse(responseData);
+var designationSelectTag=document.getElementById('designationSelectTag');
+var option;
+for(var i=0;i<designationsList.length;i++)
+{
+option=document.createElement('option');
+option.value=designationsList[i].code;
+option.text=designationsList[i].title;
+designationSelectTag.appendChild(option);
+}
+}
+else
+{
+alert('Status is not 200');
+}
+}
+};
+xmlHttpRequest.open('GET','servletOne',true);
+xmlHttpRequest.send();
+}
+window.addEventListener('load',populateDesignation);
+</script>
+</head>
+<body>
+<select id='designationSelectTag'>
+</select>
+</body>
+</html>

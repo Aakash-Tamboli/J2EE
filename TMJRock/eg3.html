@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Accordian Pane</title>
+</head>
+<script>
+// TMJRock Javascript Library Starts
+function $$$()
+{
+
+}
+
+$$$.onDocumentLoaded=function(predicate)
+{
+window.addEventListener('load',predicate);
+};
+
+$$$.toAccordian=function(id)
+{
+var accordianPane=document.getElementById(id);
+var allChildren=accordianPane.children;
+for(var i=0;i<allChildren.length;i++)
+{
+if(allChildren[i].tagName=='DIV')
+{
+allChildren[i].style.display='none';
+}
+}
+
+for(var i=0;i<allChildren.length;i++)
+{
+if(allChildren[i].tagName=='H3')
+{
+allChildren[i].style.cursor='pointer';
+allChildren[i].addEventListener('click',function(){
+var showableDiv=this.nextElementSibling;
+if(showableDiv.style.display=='block')
+{
+showableDiv.style.display='none';
+}
+else
+{
+showableDiv.style.display='block';
+}
+});
+}
+}
+};
+
+// TMJRock Javascript Library Ends
+// User starts
+
+$$$.onDocumentLoaded(function(){
+$$$.toAccordian("mymy");
+});
+
+// User ends
+</script>
+<body>
+<div id='mymy'>
+<h3>Heading 1</h3>
+<div>
+Content1 Content1 Content1 Content1 Content1
+Content1 Content1 Content1 Content1 Content1
+Content1 Content1 Content1 Content1 Content1
+Content1 Content1 Content1 Content1 Content1
+Content1 Content1 Content1 Content1 Content1
+Content1 Content1 Content1 Content1 Content1
+Content1 Content1 Content1 Content1 Content1
+Content1 Content1 Content1 Content1 Content1
+Content1 Content1 Content1 Content1 Content1
+</div>
+<h3>Heading 2</h3>
+<div>
+Content2 Content2 Content2 Content2 Content2
+Content2 Content2 Content2 Content2 Content2
+Content2 Content2 Content2 Content2 Content2
+Content2 Content2 Content2 Content2 Content2
+Content2 Content2 Content2 Content2 Content2
+Content2 Content2 Content2 Content2 Content2
+Content2 Content2 Content2 Content2 Content2
+Content2 Content2 Content2 Content2 Content2
+Content2 Content2 Content2 Content2 Content2
+</div>
+<h3>Heading 3</h3>
+<div>
+Content3 Content3 Content3 Content3 Content3
+Content3 Content3 Content3 Content3 Content3
+Content3 Content3 Content3 Content3 Content3
+Content3 Content3 Content3 Content3 Content3
+Content3 Content3 Content3 Content3 Content3
+Content3 Content3 Content3 Content3 Content3
+Content3 Content3 Content3 Content3 Content3
+Content3 Content3 Content3 Content3 Content3
+Content3 Content3 Content3 Content3 Content3
+Content3 Content3 Content3 Content3 Content3
+Content3 Content3 Content3 Content3 Content3
+</div>
+</div>
+</body>
+</html>

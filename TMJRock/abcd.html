@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+
+<head>
+    <meta charset='utf-8'>
+    <title>Modal Window Example</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        #blurDiv {
+            /* delete later on */
+            background-color: black;
+            visibility: hidden;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            opacity: 0.9;
+        }
+
+        #modalWindow {
+            position: absolute;
+            visibility: hidden;
+            border: 2px solid yellow;
+            text-align: center;
+            color: red;
+            margin-top: 15%;
+            margin-left: 25%;
+            width: 50%;
+            height: 50%;
+            padding: 10px;
+        }
+        #closeModal{
+            position: absolute;
+            margin-left: 98%;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function showModal() {
+            document.getElementById('blurDiv').style.visibility = 'visible'
+            document.getElementById('modalWindow').style.visibility = 'visible'
+        }
+        function closeModalWindow(){
+            document.getElementById('blurDiv').style.visibility = 'hidden'
+            document.getElementById('modalWindow').style.visibility = 'hidden'
+        }
+    </script>
+</head>
+
+<body>
+    <button onclick="showModal()">Click Me</button>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id neque ex nobis quia modi ab, necessitatibus labore
+        mollitia, maiores quaerat veritatis incidunt fugiat dolor praesentium autem quam tempora ipsum ad? Magni
+        repellendus beatae minus ex ut veniam reprehenderit culpa porro, quisquam officiis obcaecati voluptatum dicta,
+        doloribus excepturi debitis, distinctio cupiditate. Quidem perspiciatis quia sunt, assumenda optio natus,
+        necessitatibus soluta voluptas id, asperiores a. Exercitationem, id. Quam quas placeat illo nesciunt dicta
+        inventore culpa, sint tempore nam ipsa facere ipsam accusamus, beatae, quo repellat laboriosam voluptates
+        incidunt mollitia et quibusdam libero dolore saepe soluta natus? Placeat, adipisci. Beatae nostrum itaque
+        voluptas velit dolorem neque quia vel. Voluptates voluptas nesciunt aliquid ducimus. Laborum molestiae totam
+        sapiente ab corporis explicabo consequatur praesentium! Corrupti dolor soluta error adipisci temporibus illum
+        voluptatum tenetur blanditiis enim, ullam velit provident labore deleniti ipsam veniam dolorem unde hic
+        excepturi ex consequatur qui laborum repudiandae vitae ducimus. Voluptatibus nisi nobis natus, et voluptate
+        culpa sequi deleniti magnam in quisquam autem nemo error ratione laboriosam hic, obcaecati saepe neque quos
+        nesciunt suscipit vero harum. Exercitationem dolore fugit at non. Fuga perspiciatis odit illum eligendi harum
+        vero doloremque nemo, perferendis quae sunt nostrum iusto porro suscipit quos unde accusamus velit. Laborum
+        alias nam at vel maxime expedita. Voluptates voluptatibus, fuga odit est ratione odio veritatis error vel? Error
+        nesciunt, hic veniam nobis, aliquam tenetur totam ullam ad commodi quod magnam necessitatibus nulla unde illo
+        eos mollitia natus? Accusantium placeat quo laboriosam nobis, esse aspernatur laudantium repudiandae provident
+        expedita, at quisquam totam dolore amet ea rerum ex odio. Quos tenetur officia quidem eaque, nostrum eum itaque
+        odio. Dicta libero corporis molestiae ullam vitae porro iusto reiciendis consequatur tenetur veniam incidunt
+        sunt fugit esse unde cumque, cum, deleniti ex debitis soluta architecto. Vero consequuntur possimus neque quod
+        magni aliquam hic ipsam amet unde obcaecati? Consequuntur omnis quis officiis porro nobis excepturi iure iusto
+        commodi optio, repellendus natus. Quis asperiores aperiam corrupti consequatur iste corporis voluptas incidunt,
+        quod culpa voluptatem voluptates alias, quae assumenda rem tempore, magni veritatis facere laboriosam.
+        Cupiditate quis pariatur sequi error, illo minus reprehenderit modi quam, autem earum dolorem blanditiis nobis
+        voluptatem eveniet sed corporis dolor cumque nesciunt! Adipisci facere similique ducimus hic voluptatum officiis
+        recusandae nisi eum in harum libero magni obcaecati, consequatur rerum assumenda voluptatem ipsum cupiditate
+        maxime omnis repellendus nam neque et. Dolorum accusamus, quas fugiat eaque est dolores soluta temporibus culpa!
+        ssit aliquid id corporis omnis modi facilis voluptatem, aperiam magni provident! Beatae amet facere et nulla
+        libero  aperiam veritatis quo dolorum! Vel, numquam eaque! Molestiae a iure minima quas. Pariatur
+        incidunt omnis ullam. Excepturi exercitationem, ducimus neque facilis doloribus at architecto dolore molestiae
+        necesuam labore iusto laboriosam culpa facilis maxime id nemo placeat? Laborum error ex porro fugit voluptate
+        magni dolor placeat, illum dicta vero libero veniam minima nam incidunt consequatur cumque rem fugiat hic
+        voluptates. Maxime molestias minima error quam quibusdam laudantium illo voluptatum, quasi odio sequi nam
+        officiis, maiores vero tempora, sint dicta dolores atque reprehenderit unde quaerat libero corporis. Culpa
+        impedit eos tenetur, id cumque aliquid corrupti amet qui temporibus, sit ex dolorem hic ab aspernatur asperiores
+        atque! Nam placeat excepturi minus consequuntur nisi nemo ipsam earum exercitationem similique, ullam reiciendis
+        deleniti corrupti fugit iusto ducimus? Pariatur, et nihil. Sint possimus repellat nihil maiores itaque culpa
+        ratione ab, similique nulla quo maxime impedit, ipsam recusandae quas laborum voluptas nobis ut fuga doloribus
+        atque aperiam deserunt. Voluptatibus repudiandae, nostrum quaerat fugiat eligendi, assumenda eius facilis
+        necessitatibus delectus, consequatur repellendus corrupti soluta. Autem quisquam distinctio sequi nostrum omnis
+        esse fugit quae, exercitationem aut excepturi dolorum eveniet repellendus nobis rem magni quasi et! Laborum
+        eaque asperiores dolor ducimus quas optio cupiditate quasi quam vel inventore itaque iste placeat veniam,
+        nostrum, sit et pariatur numquam debitis! Delectus et, consequatur incidunt provident, assumenda, facere amet
+        doloremque ab error illo quod. Consectetur, illo unde itaque aliquam quos blanditiis soluta quisquam temporibus
+        eum id ipsam magnam dolore maxime. Nobis in quis explicabo eius et tenetur accusantium minima excepturi repellat
+        possimus eligendi corporis cumque nisi numquam esse ex porro unde quae rem adipisci sequi, provident laudantium
+        eveniet? Porro necessitatibus veniam ipsa delectus, officiis nesciunt hic et similique numquam. Blanditiis nam
+        tenetur ea qui consectetur sed asperiores nemo! Molestiae dolores itaque nostrum a veniam porro debitis suscipit
+        est enim veritatis, optio fuga vitae. Praesentium doloremque autem ea impedit dignissimos eos tenetur veniam
+        omnis id! Ex illum quaerat ipsum quod nam nobis! Laudantium vel ex molestiae veritatis quis dolores natus
+        corrupti voluptates pariatur quibusdam, consequuntur accusamus architecto aliquam facere. Quidem quod officiis
+        illum error minima quas labore velit. Cumque, rerum harum! Cum sint dolorum sit optio impedit dignissimos ipsam
+        nulla possimus rem libero amet, doloremque qui, natus exercitationem delectus, in eos ipsum suscipit nobis
+        culpa? Voluptatum dicta eligendi assumenda, reprehenderit ipsa est repellat nesciunt vitae dolorem vero
+        molestias impedit delectus eius, ratione, laborum sint modi aperiam nostrum reiciendis! Beatae recusandae
+        nesciunt odio dolor praesentium totam cupiditate, cumque ipsa veritatis id velit accusantium amet qui explicabo
+        obcaecati enim fugit. Beatae, ipsam alias? Veritatis rerum facere magni quam officiis at sint recusandae
+        architecto earum. Officiis accusamus molestiae suscipit necessitatibus, ullam laborum vel, est quidem sunt sint
+        molestias cumque dolores sapiente quas et fuga ex in error quia. Odio explicabo at placeat corporis, amet
+        facilis cumque veritatis? Saepe, omnis nostrum! Necessitatibus tempore voluptas error nihil eligendi corporis,
+        sit possimus repellendus! Ipsam officia rerum facilis iusto. Placeat voluptate ad pariatur id nesciunt
+        provident. Reiciendis laboriosam architecto quia blanditiis eius commodi officia. Nisi officiis blanditiis qui
+        modi illum provident, amet omnis error odit opti</p>
+    <div id='blurDiv'>
+        <img id='closeModal' src="./windowCross.png" height="20px" width="20px" onclick='closeModalWindow()' alt="ClickMeToHideModal">
+        <div id='modalWindow'>
+            <h1>Great</h1>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,17 +1,14 @@
-<%@taglib uri='/WEB-INF/mytags/tmtags.tld' prefix='tm' %>
-<tm:Authenticate />
-<tm:Module name='EMPLOYEE' />
 <jsp:include page='/MasterPageTopSection.jsp' />
-<script src='/styletwo/js/Employees.js'></script>
-
+<jsp:include page='/MasterPageLeftPannelForEmployee.jsp' />
+<script src='/stylethree/js/Employees.js'></script>
 <!-- Right Pannel Starts Here -->
-<div style='height:60vh;margin-left:140px;margin-right:5px;margin-bottom:px;margin-top:5px;padding:5px;border:1px solid black'>
-<h2>Employees</h2>
-<div style='height:25vh;margin-left:30px;margin-right:30px;margin-top:5px;padding:5px;border:1px solid white;overflow:scroll'>
+<div id='right-panel' style='height:60vh;margin-left:140px;margin-right:5px;margin-bottom:px;margin-top:5px;padding:5px;border:1px solid black'>
+<h2 id='moduleHeading' >Employees (List Module)</h2>
+<div id='employeeListDivision' style='height:25vh;margin-left:30px;margin-right:30px;margin-top:5px;padding:5px;border:1px solid white;overflow:scroll'>
 <table border='1' id='employeesGridTable' >
 <thead>
 <tr>
-<th colspan='6' style='text-align:right;padding:5px'><a href='/styletwo/EmployeeAddForm.jsp'>Add Employee</a></th>
+<th colspan='6' style='text-align:right;padding:5px'><a href='javascript:addEmployee()'>Add Employee</a></th>
 </tr>
 <tr>
 <th style='width:60px;text-align:center'>S.No</th>
@@ -34,7 +31,9 @@
 </tbody>
 </table>
 </div>
-<div style='height:auto;width:15hw;margin-left:30px;margin-right:30px;padding:5px;border:1px solid black;'>
+
+
+<div id='infoBox' style='height:auto;width:15hw;margin-left:30px;margin-right:30px;padding:5px;border:1px solid black;'>
 <span style='color:red;background-color:black' >Detail</span> <br>
 <div style='padding:10px'>
 Id: <span id='detailPanel_employeeId'></span> &nbsp;
@@ -48,5 +47,6 @@ PAN Number: <span id='detailPanel_panNumber'></span> &nbsp;
 Aadhar Card Number: <span id='detailPanel_aadharCardNumber'></span> <br>
 </div>
 </div>
+
 <!-- Right Pannel Ends Here -->
 <jsp:include page='MasterPageBottomSection.jsp' />

@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Grid/Tables</title>
+<script>
+// TMJRock Library starts.
+function $$$()
+{
+}
+
+$$$.onDocumentLoaded=function(predicate)
+{
+window.addEventListener('load',predicate);
+};
+
+$$$.grid=function(id,information)
+{
+var data=information.model.data;
+if(information.model.getRowCount()==0) return;
+var obj=null;
+var headingCount=0;
+var tmp
+for(var i=0;i<data.length;i++)
+{
+tmp=Object.getOwnPropertyNames(data[i]);
+if(headingCount<tmp.length)
+{
+obj=tmp;
+headingCount=tmp.length;
+}
+}
+var container=document.getElementById(id);
+if(information.pagination) container.style.overflow='scroll';
+var table=document.createElement('table');
+table.style.border='1px solid black'; // testing
+container.appendChild(table);
+var thead=document.createElement('thead');
+table.appendChild(thead);
+var headingRow=document.createElement('tr');
+thead.appendChild(headingRow);
+var thElement=null;
+for(var i=0;i<tmp.length;i++)
+{
+thElement=document.createElement('th');
+thElement.style.border='1px solid black'; // testing
+thElement.innerHTML=tmp[i];
+headingRow.appendChild(thElement);
+}
+var tbody=document.createElement('tbody');
+table.appendChild(tbody);
+var row=null;
+var rowData=null; 
+var recordValues=null;
+
+for(var i=0;i<data.length;i++)
+{
+row=document.createElement('tr');
+tbody.appendChild(row);
+recordValues=Object.values(data[i]);
+for(var j=0;j<recordValues.length;j++)
+{
+rowData=document.createElement('td');
+rowData.style.border='1px solid black'; // testing
+rowData.innerHTML=recordValues[j];
+row.appendChild(rowData);
+}
+if(information.rowSelectionEnabled)
+{
+row.style.cursor='pointer';
+row.onclick=selectRow;
+}
+}
+
+var selectedRow=null;
+var undoStyle=null;
+function selectRow()
+{
+if(this==selectedRow) return;
+if(selectedRow!=null)
+{
+selectedRow.style.background='white';
+selectedRow.style.color='black';
+}
+this.style.background="#7C7B7B";
+this.style.color="black";
+selectedRow=this;
+}
+};
+
+// TMJRock Library ends.
+// TMJRock user starts
+function DataModel()
+{
+this.data=null;
+this.getRowCount=function(){
+if(this.data==null) return 0;
+else return this.data.length;
+};
+// many more function (done done)
+} // class braces close
+
+
+var myDataModel=new DataModel(); // creating Object
+
+var students=[
+{"Name": "Aakash","Course": "J2EE", "Education-Background": "MCA"},
+{"Name": "Gautam","Course": "C++", "Education-Background": "B.Tech"},
+{"Name": "Mansi","Course": "Node.js", "Education-Background": "MCA"},
+{"Name": "Harshit","Course": "Web Designer", "Education-Background": "BA"},
+{"Name": "Rohit","Course": "C", "Education-Background": "BA"},
+];
+
+myDataModel.data=students;
+
+function doSomething()
+{
+$$$.grid("someId",{
+"model" : myDataModel,
+"pagination" : true,
+"pageSize" : 10,
+"rowSelectionEnabled" : true
+});
+}
+
+$$$.onDocumentLoaded(doSomething);
+
+// TMJRock user ends.
+</script>
+</head>
+<body>
+<div id='someId'>
+</div>
+</body>
+</html>

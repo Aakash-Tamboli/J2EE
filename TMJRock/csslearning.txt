@@ -1,0 +1,66 @@
+Position: Absolute
+Whenever we see website we always see as top view
+Assume there is three cars line by line
+
+car1 car2 car3
+
+So When we se car2 as absoloute car2 Will float
+
+	car2
+
+car1		car3
+
+hence car2 place is empty thats why car1 takes place
+
+	car2
+
+	car1 car3
+
+So this is concept of Position : Absolute
+
+More complexity about Positioning
+again car examples
+
+car1 car2 car3 without applying positioning
+
+
+Now understand when we apply absolute positioning on car3 it will,
+float at level 1 because its first element on display
+
+similary when we apply absolute positioning on car2 it will float,
+at level 2 because its second element on display
+
+and so on that why if we apply on car1 it will float at level 3
+
+Now we our all cars using positioning absolute then we as user see
+car 1 becuase it is at top level hence always we as user whichever element
+at top,
+
+
+-------------------------------------------------------------------------
+Position Relative
+
+So when a element become position absolute, it will go out side its,
+parent container
+
+So if we want that element should not go outside its parent container.
+so we add css property in parent as position relative.
+
+
+-------------------------------------------------------------------------
+Most Important Question
+What if parent is set as relative
+and its one of child is set as position absolute
+
+Now I want that child also contains child where it should not go outside,
+its thier parent
+
+parent (set as relative) (Aakash)
+	child (set as absolute) (Bittu)
+	(someting)child(What do I set that it should not go out its parent)
+			(Remember something should not go outside bittu)
+			(because bittu is thier parent)
+
+We don't need to do anything because Bittu is already absolute for thier
+childrens so it also act like relative to its children.
+

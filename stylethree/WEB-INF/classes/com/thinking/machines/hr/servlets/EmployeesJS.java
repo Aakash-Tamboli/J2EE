@@ -1,7 +1,6 @@
 package com.thinking.machines.hr.servlets;
 import java.util.*;
-import com.thinking.machines.hr.bl.*;
-import com.thinking.machines.hr.beans.*;
+import com.thinking.machines.hr.dl.*;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -23,10 +22,10 @@ while(randomAccessFile.getFilePointer()<randomAccessFile.length())
 out.println(randomAccessFile.readLine());
 }
 randomAccessFile.close();
-List<EmployeeBean> employeeBeans=new EmployeeBL().getAll();
+List<EmployeeDTO> employeeList=new EmployeeDAO().getAll();
 out.println("var employee=null;");
 int index=0;
-for(EmployeeBean employeeBean: employeeBeans)
+for(EmployeeDTO employeeBean: employeeList)
 {
 out.println("employee=new Employee();");
 out.println("employee.employeeId=\""+employeeBean.getEmployeeId()+"\";");
@@ -37,21 +36,34 @@ out.println("employee.dateOfBirth=\""+employeeBean.getDateOfBirth()+"\";");
 out.println("employee.gender=\""+employeeBean.getGender()+"\";");
 out.println("employee.isIndian="+employeeBean.getIsIndian()+";");
 out.println("employee.basicSalary="+employeeBean.getBasicSalary()+";");
-out.println("employee.panNumber=\""+employeeBean.getPanNumber()+"\";");
+out.println("employee.panNumber=\""+employeeBean.getPANNumber()+"\";");
 out.println("employee.aadharCardNumber=\""+employeeBean.getAadharCardNumber()+"\";");
 out.println("employees["+index+"]=employee;");
 index++;
 }
+// For Creating Combo Box for Designations
+out.println("function Designation()");
+out.println("{");
+out.println("var title='';");
+out.println("var code=0;");
+out.println("}");
+out.println("var designations=[];");
+out.println("var designation=null;");
+int i=0;
+List<DesignationDTO> designations=new DesignationDAO().getAll();
+
+for(DesignationDTO designation: designations)
+{
+out.println("designation=new Designation();");
+out.println("designation.title=\""+designation.getTitle()+"\"");
+out.println("designation.code="+designation.getCode());
+out.println("designations["+i+"]=designation;");
+i++;
+}
+
 }catch(Exception exception)
 {
-RequestDispatcher requestDispatcher=request.getRequestDispatcher("/Error.jsp");
-try
-{
-requestDispatcher.forward(request,response);
-}catch(Exception ex)
-{
-// do nothing
-}
+System.out.println(exception); // remove after testing
 }
 }
 

@@ -1,0 +1,12 @@
+Object.getOwnPropertyNames(_pass_your_obj);
+	It will return an array containing all obj props
+Object.values(_pass_your_obj);
+	It will return an array containing all obj props values
+
+
+
+
+
+Refernces
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/values
