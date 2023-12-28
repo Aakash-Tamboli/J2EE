@@ -38,4 +38,12 @@
 <url-pattern>/servletOne</url-pattern>
 </servlet-mapping>
 
+<servlet>
+<servlet-name>ServletThree</servlet-name>
+<servlet-class>com.thinking.machines.hr.servlets.ServletThree</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>ServletThree</servlet-name>
+<url-pattern>/servletThree</url-pattern>
+</servlet-mapping>
 </web-app>

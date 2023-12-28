@@ -5,8 +5,62 @@
 <title>Get type without sending data</title>
 <script>
 // This will finally be part of TMJRock Javascript Library
-var $$$={
-ajax(callBackInfo)
+function $$$(componentId)
+{
+/*
+1st note:
+Techincally $$$ is refference variable which reffer to
+a function type object hence javascript provide feature
+to add property as when require. that's why following
+code is valid.
+*/
+}
+
+$$$.ajax=function(jsonObject)
+{
+/*
+2nd note
+if(undefined==null) console.log("Yes is javascript underline programming, is such that it is equal");
+console.log(jsonObject["url"]);
+console.log(!jsonObject["url"]); // it return true means if we flip undefined it becomes true
+
+// flow to validate json Property
+1) existence
+2) type
+
+1) if it is optional property then check thier existence and type also if not provided then take variable initialize with default property.
+*/
+
+if(jsonObject["url"]==undefined) throw "url property is missing in call to ajax";
+let url=jsonObject["url"];
+
+if((typeof url)!="string") throw "url property should be of string type";
+
+let methodType="GET";
+
+if(jsonObject["methodType"])
+{
+methodType=jsonObject["methodType"];
+if((typeof methodType)!="string") throw "method type should be string type";
+methodType=methodType.toUpperCase();
+if(["GET","POST"].includes(methodType)==false) throw "method type should be GET OR POST";
+}
+
+let onSuccess=null;
+if(jsonObject["success"])
+{
+onSuccess=jsonObject["success"];
+if((typeof onSuccess)!= "function") throw "success property should be a function";
+}
+
+let onFailure=null;
+if(jsonObject["failure"])
+{
+onFailure=jsonObject["failure"];
+if((typeof onFailure)!="function") throw "failue property should be a function";
+}
+
+if(methodType=="GET")
 {
 var xmlHttpRequest=new XMLHttpRequest();
 xmlHttpRequest.onreadystatechange=function(){
@@ -14,20 +68,45 @@ if(this.readyState==4)
 {
 if(this.status==200)
 {
-callBackInfo.success(this.responseText);
+if(onSuccess) onSuccess(this.responseText);
 }
 else
 {
-callBackInfo.failure();
+if(onFailure) onFailure();
 }
 }
-};
-xmlHttpRequest.open(callBackInfo.methodType,callBackInfo.url,true);
+}; // associated function ends
+xmlHttpRequest.open(methodType,url,true);
 xmlHttpRequest.send();
-}
-};
-// This TMJRock Javascript Library code ends Here
+} 
+else if(methodType=="POST")
+{
+if(jsonObject['encodedDataToSend']==undefined) throw "In POST Type Request encodeDataToSend Property should be provided to call ajax";
+var encodedDataToSend=jsonObject['encodedDataToSend'];
+if((typeof encodedDataToSend)!='string') throw 'In POST Type request encodedDataToSend Property should be string and in encoded form';
 
+var xmlHttpRequest=new XMLHttpRequest();
+xmlHttpRequest.onreadystatechange=function(){
+if(this.readyState==4)
+{
+if(this.status==200)
+{
+if(onSuccess) onSuccess(this.responseText);
+}
+else
+{
+if(onFailure) onFailure();
+}
+}
+}; // associated function ends
+xmlHttpRequest.open(methodType,url,true);
+xmlHttpRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+xmlHttpRequest.send(encodedDataToSend);
+}
+
+}
+
+// This TMJRock Javascript Library code ends Here
 function populateDesignation()
 {
 $$$.ajax({
@@ -49,13 +128,47 @@ designationSelectTag.appendChild(option);
 alert("Some Problem");
 }
 });
-alert("TMJRock");
 }
+
+
+function saveEnquiry()
+{
+var firstName=document.getElementById('firstName').value;
+var lastName=document.getElementById('lastName').value;
+var age=document.getElementById('age').value;
+
+var encodedDataToSend='firstName='+encodeURI(firstName);
+encodedDataToSend=encodedDataToSend+'&lastName='+encodeURI(lastName);
+encodedDataToSend=encodedDataToSend+'&age='+encodeURI(age);
+
+var dataToDisplay=document.getElementById('whatever');
+dataToDisplay.innerHTML='';
+
+$$$.ajax({
+"url" : "servletThree",
+"methodType" : "POST",
+"encodedDataToSend" : encodedDataToSend,
+"success" : function(responseData){
+dataToDisplay.innerHTML=responseData;
+},
+"failure" : function(){
+alert("Some Problem");
+}
+});
+}
+
 window.addEventListener('load',populateDesignation);
+
 </script>
 </head>
 <body>
 <select id='designationSelectTag'>
 </select>
+<h1>Post type request</h1>
+<b>FirstName:</b> &emsp; <input type='text' id='firstName'> <br>
+<b>LastName: &emsp;</b> <input type='text' id='lastName'> <br>
+<b>Age: </b><input type='text' id='age'> <br>
+<button type='button' onclick='saveEnquiry()'>Save</button>
+<div id='whatever'></div>
 </body>
 </html>
