@@ -122,10 +122,15 @@ url=url+queryString
 */
 let queryStringData=jsonObject['data'];
 url=url+'?';
-
+let i=0;
 for(let key in queryStringData)
 {
 url=url+key+"="+queryStringData[key];
+if(i+1<queryStringData.length) // testing is requred.
+{
+i++;
+url=url+'&'; // testing is required
+}
 }
 console.log("DEBUGGING: "+url);
 }
