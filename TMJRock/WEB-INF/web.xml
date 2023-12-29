@@ -46,4 +46,13 @@
 <servlet-name>ServletThree</servlet-name>
 <url-pattern>/servletThree</url-pattern>
 </servlet-mapping>
+
+<servlet>
+<servlet-name>ServletTwo</servlet-name>
+<servlet-class>com.thinking.machines.hr.servlets.ServletTwo</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>ServletTwo</servlet-name>
+<url-pattern>/servletTwo</url-pattern>
+</servlet-mapping>
 </web-app>
