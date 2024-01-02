@@ -123,13 +123,14 @@ url=url+queryString
 let queryStringData=jsonObject['data'];
 url=url+'?';
 let i=0;
+let len=Object.keys(quertStringData).length;
 for(let key in queryStringData)
 {
 url=url+encodeURI(key)+"="+encodeURI(queryStringData[key]);
-if(i+1<queryStringData.length) // testing is requred.
+if(i+1<len)
 {
 i++;
-url=url+'&'; // testing is required
+url=url+'&';
 }
 }
 console.log("DEBUGGING: "+url);
@@ -154,17 +155,44 @@ if(onFailure) onFailure();
 }
 }; // associated function ends
 
+xmlHttpRequest.open(methodType,url,true);
+xmlHttpRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+
+let sendInJSONStyle=false;
+if(jsonObject["sendJSON"]==true)
+{
+sendInJSONStyle=true;
+}
+
+
+if(sendInJSONStyle)
+{
 let jsonData={};
 if(jsonObject["data"])
 {
 jsonData=jsonObject["data"];
 }
-
-xmlHttpRequest.open(methodType,url,true);
-xmlHttpRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 xmlHttpRequest.send(JSON.stringify(jsonData));
 }
-
+else
+{
+let data=jsonObject["data"];
+let queryString='';
+let i=0;
+let len=Object.keys(data).length;
+for(let key in data)
+{
+queryString=queryString+encodeURI(key)+"="+encodeURI(data[key]);
+if(i+1<len)
+{
+queryString=queryString+"&";
+i++;
+}
+}
+console.log(queryString);
+xmlHttpRequest.send(queryString);
+}
+}
 }
 // This TMJRock Javascript Library code ends Here
 
@@ -222,16 +250,48 @@ alert("Some Problem");
 
 */
 }
+
+function saveEnquiry()
+{
+var firstName=$$$("firstName").value();
+var lastName=$$$("lastName").value();
+var age=$$$("age").value();
+var customer={
+"firstName" : firstName,
+"lastName" : lastName,
+"age" : age
+};
+var whatever=$$$("whatever");
+whatever.html("");
+$$$.ajax({
+"methodType" : "POST",
+"url" : "servletThree",
+"data" : customer,
+// "sendJSON" : false,
+"success" : function(responseData){
+alert(responseData);
+var customer=JSON.parse(responseData);
+var a="First Name: "+customer.firstName+"<br>";
+a=a+"Last Name: "+customer.lastName+"<br>";
+a=a+"Age: "+customer.age;
+whatever.html(a);
+},
+"failure" : function(){
+alert("Some Problem");
+}
+});
+}
 </script>
 </head>
 <body>
-<h1>Get Type Request with Data eg</h1>
+<h1>POST Type</h1>
+First Name: <input type='text' id='firstName'> <br>
+Last Name: <input type='text' id='lastName'> <br>
+Age: <input type='text' id='age'> <br>
 
-Enter Code: <input type='text' id='code'> &emsp;
-
-<button type='button' onclick='getDesignation()'>Get Designation</button> <br>
+<button type='button' onclick='saveEnquiry()'>Show Data</button> <br>
 <br>
-Title <span id='title'> </span>
+Title <span id='whatever'></span>
 <br>
 </body>
 </html>

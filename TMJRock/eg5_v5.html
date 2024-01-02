@@ -1,8 +1,8 @@
-<!DOCTYPE HTML>
+<!doctype html>
 <html lang='en'>
 <head>
 <meta charset='utf-8'>
-<title>Something</title>
+<title>Get type without sending data</title>
 <script>
 // This will finally be part of TMJRock Javascript Library
 function $$$(componentId)
@@ -49,6 +49,26 @@ return this.element.value;
 }
 return null;
 } // value function ends
+this.fillComboBox=function(jsonObject){
+if(this.element.nodeName!="SELECT") throw "fillComboBox can be select tag type";
+
+/*
+Assignement
+Validate if dataSource, text and value properties exist
+if dataSource exist then there should be a collection against it
+if text property exists, it should be of string type
+if value property exists, it should be of string type
+if text property exists and if it is of string type then that should be part of dataSource element.
+if value property exists and if it is of string type then that should be part of dataSource element
+if first option is sepecified then it should have 2 properties of string type text and value, check for that.
+clear all existing option from select 
+if firstOption exists, create option tag and append it to SELECT
+taverse the dataSource array and on every cycle create optiontag and append it to SELECT
+*/
+
+
+
+}
 } // class Braces Ends
 
 
@@ -123,13 +143,14 @@ url=url+queryString
 let queryStringData=jsonObject['data'];
 url=url+'?';
 let i=0;
+let len=Object.keys(quertStringData).length;
 for(let key in queryStringData)
 {
 url=url+encodeURI(key)+"="+encodeURI(queryStringData[key]);
-if(i+1<queryStringData.length) // testing is requred.
+if(i+1<len)
 {
 i++;
-url=url+'&'; // testing is required
+url=url+'&';
 }
 }
 console.log("DEBUGGING: "+url);
@@ -154,84 +175,81 @@ if(onFailure) onFailure();
 }
 }; // associated function ends
 
-let jsonData={};
-if(jsonObject["data"])
+xmlHttpRequest.open(methodType,url,true);
+
+
+if(jsonObject["sendJSON"])
 {
-jsonData=jsonObject["data"];
+if((typeof jsonObject["sendJSON"])!="boolean") throw "sendJSON Property Should be boolean type";
 }
 
-xmlHttpRequest.open(methodType,url,true);
-xmlHttpRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+let sendInJSONStyle=false;
+if(jsonObject["sendJSON"]==true)
+{
+sendInJSONStyle=true;
+}
+
+if(sendInJSONStyle)
+{
+let jsonData={};
+if(jsonObject["data"]) jsonData=jsonObject["data"];
+// alert("Data is send through JSON");
+// ?console.log(jsonData);
+xmlHttpRequest.setRequestHeader("Content-Type","application/json");
 xmlHttpRequest.send(JSON.stringify(jsonData));
 }
-
+else
+{
+let data=jsonObject["data"];
+let queryString='';
+let i=0;
+let len=Object.keys(data).length;
+for(let key in data)
+{
+queryString=queryString+encodeURI(key)+"="+encodeURI(data[key]);
+if(i+1<len)
+{
+queryString=queryString+"&";
+i++;
 }
+}
+// console.log(queryString);
+xmlHttpRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+xmlHttpRequest.send(queryString);
+}
+}
+}
+
 // This TMJRock Javascript Library code ends Here
 
-function getDesignation()
+function populateDesignation()
 {
-let titleSpan=$$$('title');
-titleSpan.html('');
-let code=$$$('code').value(); // v.v.v.v  imp Learning In javascript when we create class and and thier method are defined in such manner ????
 $$$.ajax({
-"url" : "servletTwo",
-"data" : {
-"code" : code
-},
+"url" : "servletOne",
 "methodType" : "GET",
 "success" : function(responseData){
-if(responseData=="Invalid")
-{
-alert("Invalid Designation Code");
+var designations=JSON.parse(responseData);
+$$$("designationSelectTag").fillComboBox({
+"dataSource" : designations,
+"text" : "title",
+"value" : "code",
+"firstOption" : {
+"text" : "<select designation>",
+"value" : "-1"
 }
-else
-{
-var splits=responseData.split(",");
-titleSpan.html(splits[1]);
-}
+});
 },
 "failure" : function(){
 alert("Some Problem");
 }
 });
 
-/*
-let titleSpan=$$$('title');
-titleSpan.html('');
-let code=$$$('code').value(); // v.v.v.v  imp Learning In javascript when we create class and and thier method are defined in such manner that requires parameter hence if we called with argument or without argument it working fine its beauty of javascript.
-let queryString="?code="+code;
-
-$$$.ajax({
-"url" : "servletTwo"+queryString,
-"methodType" : "GET",
-"success" : function(responseData){
-if(responseData=="Invalid")
-{
-alert("Invalid Designation Code");
 }
-else
-{
-var splits=responseData.split(",");
-titleSpan.html(splits[1]);
-}
-},
-"failure" : function(){
-alert("Some Problem");
-}
-});
-
-*/
-}
+window.addEventListener('load',populateDesignation);
 </script>
 </head>
 <body>
-<h1>Get Type Request with Data eg</h1>
-
-Enter Code: <input type='text' id='code'> &emsp;
-
-<button type='button' onclick='getDesignation()'>Get Designation</button> <br>
-<br>
-Title <span id='title'> </span>
-<br>
+<select id='designationSelectTag'>
+</select>
 </body>
 </html>
