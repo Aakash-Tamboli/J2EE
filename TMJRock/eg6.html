@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Implementing Accordian Pane</title>
+</head>
+<script>
+var panels=[];
+var expandedIndex=-1;
+function accordianHeadingClicked(index)
+{
+if(expandedIndex!=-1) panels[expandedIndex].style.display='none';
+panels[index+1].style.display=panels[index+1].oldDisplay;
+expandedIndex=index+1;
+}
+
+function doIt()
+{
+let accordian=document.getElementById('mymy');
+let children=accordian.childNodes;
+for(let x=0;x<children.length;x++)
+{
+if(children[x].nodeName=='H3' || children[x].nodeName=='DIV')
+{
+panels[panels.length]=children[x];
+}
+}
+
+if(panels.length%2!=0) throw 'Heading and division malformed to form accordian';
+
+for(let x=0;x<panels.length;x+=2)
+{
+if(panels[x].nodeName!='H3' || panels[x+1].nodeName!='DIV') throw 'Heading and divion malformed to form accordian';
+}
+
+alert("Hi");	
+
+function createClickHandler(index)
+{
+return function(){
+accordianHeadingClicked(index);
+};
+}
+
+for(let x=0;x<panels.length;x+=2)
+{
+panels[x].onclick=createClickHandler(x);
+panels[x+1].oldDisplay=panels[x+1].style.display;
+panels[x+1].style.display='none';
+}
+}
+window.addEventListener('load',doIt);
+</script>
+<body>
+<div id='mymy'>
+<h3>Heading 1</h3>
+<div>
+1 God is known for doing Systmatic Miracle
+2 God is known for doing Systmatic Miracle
+3 God is known for doing Systmatic Miracle
+4 God is known for doing Systmatic Miracle
+5 God is known for doing Systmatic Miracle
+6 God is known for doing Systmatic Miracle
+7 God is known for doing Systmatic Miracle
+</div>
+<h3>Heading 2</h3>
+<div>
+11 God is known for doing Systmatic Miracle
+22 God is known for doing Systmatic Miracle
+33 God is known for doing Systmatic Miracle
+44 God is known for doing Systmatic Miracle
+55 God is known for doing Systmatic Miracle
+66 God is known for doing Systmatic Miracle
+77 God is known for doing Systmatic Miracle
+</div>
+<h3>Heading 3</h3>
+<div>
+111 God is known for doing Systmatic Miracle
+222 God is known for doing Systmatic Miracle
+333 God is known for doing Systmatic Miracle
+444 God is known for doing Systmatic Miracle
+555 God is known for doing Systmatic Miracle
+666 God is known for doing Systmatic Miracle
+777 God is known for doing Systmatic Miracle
+</div>
+</div>
+</body>
+</html>

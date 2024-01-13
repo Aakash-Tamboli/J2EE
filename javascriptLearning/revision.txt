@@ -1,0 +1,2 @@
+1) We can also call a object method without passing arguments. Reffer lession1.js
+
