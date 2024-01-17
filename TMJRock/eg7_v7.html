@@ -1,0 +1,393 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Implementing Accordian Pane</title>
+</head>
+<script>
+// This will finally be part of TMJRock Javascript Library
+function $$$(componentId)
+{
+/*
+Special Note: When this libray will become as showable project,
+remover all comments related to remeber what you learned in
+this Project.
+1st note:
+Techincally $$$ is refference variable which reffer to
+a function type object hence javascript provide feature
+to add property as when require. that's why following
+code is valid.
+*/
+let element=document.getElementById(componentId);
+if(!element) throw "Invalid Id: "+componentId;
+return new TMJRockElement(element);
+}
+
+$$$.model={
+"onStartup":[],
+"accordians":[]
+};
+
+$$$.accordianHeadingClicked=function(accordianIndex,panelIndex)
+{
+if($$$.model.accordians[accordianIndex].expandedIndex!=-1) $$$.model.accordians[accordianIndex].panels[$$$.model.accordians[accordianIndex].expandedIndex].style.display='none';
+$$$.model.accordians[accordianIndex].panels[panelIndex+1].style.display=$$$.model.accordians[accordianIndex].panels[panelIndex+1].oldDisplay;
+$$$.model.accordians[accordianIndex].expandedIndex=panelIndex+1;
+}
+
+$$$.toAccordian=function(accordian)
+{
+let panels=[];
+let expandedIndex=-1;
+let children=accordian.childNodes;
+for(let x=0;x<children.length;x++)
+{
+if(children[x].nodeName=='H3' || children[x].nodeName=='DIV')
+{
+panels[panels.length]=children[x];
+}
+}
+
+if(panels.length%2!=0) throw 'Heading and division malformed to form accordian';
+
+for(let x=0;x<panels.length;x+=2)
+{
+if(panels[x].nodeName!='H3' || panels[x+1].nodeName!='DIV') throw 'Heading and divion malformed to form accordian';
+}
+
+function createClickHandler(accordianIndex,panelIndex)
+{
+return function(){
+$$$.accordianHeadingClicked(accordianIndex,panelIndex);
+};
+}
+
+let accordianIndex=$$$.model.accordians.length;
+for(let x=0;x<panels.length;x+=2)
+{
+panels[x].onclick=createClickHandler(accordianIndex,x);
+panels[x+1].oldDisplay=panels[x+1].style.display;
+panels[x+1].style.display='none';
+}
+
+$$$.model.accordians[accordianIndex]={
+"panels": panels,
+"expandedIndex": -1
+};
+
+
+
+}
+
+$$$.onDocumentLoaded=function(func)
+{
+if((typeof func)!="function") throw "Expected Function, Found: "+(typeof func)+" is call to onDocumentLoaded";
+$$$.model.onStartup[$$$.model.onStartup.length]=func;
+}
+
+$$$.initFramework=function()
+{
+let allTags=document.getElementsByTagName('*');
+let tag=null;
+let attributeValue=null;
+for(let i=0;i<allTags.length;i++)
+{
+tag=allTags[i];
+if(tag.hasAttribute('accordian'))
+{
+attributeValue=tag.getAttribute('accordian');
+if(attributeValue=='true')
+{
+$$$.toAccordian(tag);
+}
+}
+}
+
+for(let i=0;i<$$$.model.onStartup.length;i++)
+{
+$$$.model.onStartup[i]();
+}
+}
+
+window.addEventListener('load',function(){
+$$$.initFramework();
+});
+
+function TMJRockElement(element)
+{
+this.element=element;
+this.html=function(content)
+{
+if((typeof this.element.innerHTML)=='string') // So we Did because it is one of the way in many ways to check a certain property against object
+{
+if((typeof content)=='string') // I know at glance it look stupid but when content length is 0, it means libray user wants to empty the target container, hence becuase it is empty string it consider as false hence if block not executed but this is wrong we want that target container will be assign empty string.
+{
+this.element.innerHTML=content;
+}
+return this.element.innerHTML;
+}
+return null;
+} // html function ends
+this.value=function()
+{
+if(typeof this.element.value) // theory as above here is return something which is valid type hence if block gets Executed
+{
+if((typeof content)=='string')
+{
+this.element.value=content;
+}
+return this.element.value;
+}
+return null;
+} // value function ends
+this.fillComboBox=function(jsonObject){
+if(this.element.nodeName!="SELECT") throw "fillComboBox can be select tag type";
+
+/*
+Assignement
+Validate if dataSource, text and value properties exist
+if dataSource exist then there should be a collection against it
+if text property exists, it should be of string type
+if value property exists, it should be of string type
+if text property exists and if it is of string type then that should be part of dataSource element.
+if value property exists and if it is of string type then that should be part of dataSource element
+if first option is sepecified then it should have 2 properties of string type text and value, check for that.
+clear all existing option from select 
+if firstOption exists, create option tag and append it to SELECT
+taverse the dataSource array and on every cycle create optiontag and append it to SELECT
+*/
+
+
+
+}
+} // class Braces Ends
+
+
+$$$.ajax=function(jsonObject)
+{
+/*
+2nd note
+if(undefined==null) console.log("Yes is javascript underline programming, is such that it is equal");
+console.log(jsonObject["url"]);
+console.log(!jsonObject["url"]); // it return true means if we flip undefined it becomes true
+
+// flow to validate json Property
+1) existence
+2) type
+
+1) if it is optional property then check thier existence and type also if not provided then take variable initialize with default property.
+*/
+
+if(jsonObject["url"]==undefined) throw "url property is missing in call to ajax";
+let url=jsonObject["url"];
+
+if((typeof url)!="string") throw "url property should be of string type";
+
+let methodType="GET";
+
+if(jsonObject["methodType"])
+{
+methodType=jsonObject["methodType"];
+if((typeof methodType)!="string") throw "method type should be string type";
+methodType=methodType.toUpperCase();
+if(["GET","POST"].includes(methodType)==false) throw "method type should be GET OR POST";
+}
+
+let onSuccess=null;
+if(jsonObject["success"])
+{
+onSuccess=jsonObject["success"];
+if((typeof onSuccess)!= "function") throw "success property should be a function";
+}
+
+let onFailure=null;
+if(jsonObject["failure"])
+{
+onFailure=jsonObject["failure"];
+if((typeof onFailure)!="function") throw "failue property should be a function";
+}
+
+if(methodType=="GET")
+{
+var xmlHttpRequest=new XMLHttpRequest();
+xmlHttpRequest.onreadystatechange=function(){
+if(this.readyState==4)
+{
+if(this.status==200)
+{
+if(onSuccess) onSuccess(this.responseText);
+}
+else
+{
+if(onFailure) onFailure();
+}
+}
+}; // associated function ends
+
+if(jsonObject['data']) // it means user want to us to make as query string then send to server
+{
+/*
+Google: Javascript traverse Object, traverse the json object for all properties. and prepare queryString?sdfsdf=sadsad&sdafdsa=sadsad
+In Short 
+url=url+queryString
+*/
+let queryStringData=jsonObject['data'];
+url=url+'?';
+let i=0;
+let len=Object.keys(quertStringData).length;
+for(let key in queryStringData)
+{
+url=url+encodeURI(key)+"="+encodeURI(queryStringData[key]);
+if(i+1<len)
+{
+i++;
+url=url+'&';
+}
+}
+console.log("DEBUGGING: "+url);
+}
+xmlHttpRequest.open(methodType,url,true);
+xmlHttpRequest.send();
+} 
+else if(methodType=="POST")
+{
+var xmlHttpRequest=new XMLHttpRequest();
+xmlHttpRequest.onreadystatechange=function(){
+if(this.readyState==4)
+{
+if(this.status==200)
+{
+if(onSuccess) onSuccess(this.responseText);
+}
+else
+{
+if(onFailure) onFailure();
+}
+}
+}; // associated function ends
+
+xmlHttpRequest.open(methodType,url,true);
+
+
+if(jsonObject["sendJSON"])
+{
+if((typeof jsonObject["sendJSON"])!="boolean") throw "sendJSON Property Should be boolean type";
+}
+
+let sendInJSONStyle=false;
+if(jsonObject["sendJSON"]==true)
+{
+sendInJSONStyle=true;
+}
+
+if(sendInJSONStyle)
+{
+let jsonData={};
+if(jsonObject["data"]) jsonData=jsonObject["data"];
+// alert("Data is send through JSON");
+// ?console.log(jsonData);
+xmlHttpRequest.setRequestHeader("Content-Type","application/json");
+xmlHttpRequest.send(JSON.stringify(jsonData));
+}
+else
+{
+let data=jsonObject["data"];
+let queryString='';
+let i=0;
+let len=Object.keys(data).length;
+for(let key in data)
+{
+queryString=queryString+encodeURI(key)+"="+encodeURI(data[key]);
+if(i+1<len)
+{
+queryString=queryString+"&";
+i++;
+}
+}
+// console.log(queryString);
+xmlHttpRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+xmlHttpRequest.send(queryString);
+}
+}
+}
+// This TMJRock Javascript Library code ends Here
+
+/*
+$$$.onDocumentLoaded(function(){
+$$$.toAccordian("mymy");
+$$$.toAccordian("gogo");
+});
+*/
+
+</script>
+<body>
+
+<div id='mymy' accordian=true>
+<h3>Heading 1</h3>
+<div>
+1 God is known for doing Systmatic Miracle
+2 God is known for doing Systmatic Miracle
+3 God is known for doing Systmatic Miracle
+4 God is known for doing Systmatic Miracle
+5 God is known for doing Systmatic Miracle
+6 God is known for doing Systmatic Miracle
+7 God is known for doing Systmatic Miracle
+</div>
+<h3>Heading 2</h3>
+<div>
+11 God is known for doing Systmatic Miracle
+22 God is known for doing Systmatic Miracle
+33 God is known for doing Systmatic Miracle
+44 God is known for doing Systmatic Miracle
+55 God is known for doing Systmatic Miracle
+66 God is known for doing Systmatic Miracle
+77 God is known for doing Systmatic Miracle
+</div>
+<h3>Heading 3</h3>
+<div>
+111 God is known for doing Systmatic Miracle
+222 God is known for doing Systmatic Miracle
+333 God is known for doing Systmatic Miracle
+444 God is known for doing Systmatic Miracle
+555 God is known for doing Systmatic Miracle
+666 God is known for doing Systmatic Miracle
+777 God is known for doing Systmatic Miracle
+</div>
+</div>
+<!--  Following Just Writing Accordian will not work with TMJRock Library-->
+<!-- <div id='gogo' accordian> -->
+<div id='gogo' accordian=true>
+<h3>Heading 1000</h3>
+<div>
+1 God is known for doing Systmatic Miracle
+2 God is known for doing Systmatic Miracle
+3 God is known for doing Systmatic Miracle
+4 God is known for doing Systmatic Miracle
+5 God is known for doing Systmatic Miracle
+6 God is known for doing Systmatic Miracle
+7 God is known for doing Systmatic Miracle
+</div>
+<h3>Heading 2000</h3>
+<div>
+11 God is known for doing Systmatic Miracle
+22 God is known for doing Systmatic Miracle
+33 God is known for doing Systmatic Miracle
+44 God is known for doing Systmatic Miracle
+55 God is known for doing Systmatic Miracle
+66 God is known for doing Systmatic Miracle
+77 God is known for doing Systmatic Miracle
+</div>
+<h3>Heading 3000</h3>
+<div>
+111 God is known for doing Systmatic Miracle
+222 God is known for doing Systmatic Miracle
+333 God is known for doing Systmatic Miracle
+444 God is known for doing Systmatic Miracle
+555 God is known for doing Systmatic Miracle
+666 God is known for doing Systmatic Miracle
+777 God is known for doing Systmatic Miracle
+</div>
+</div>
+
+</body>
+</html>

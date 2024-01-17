@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Fetching All Elements in HTML Page</title>
+<script>
+window.addEventListener('load',function(){
+let allTags=document.getElementsByTagName('*');
+for(let i=0;i<allTags.length;i++) console.log(allTags[i].nodeName);
+});
+</script>
+</head>
+<body>
+<h3></h3>
+<div>
+<span><a></a></span>
+<u><i></i></u>
+<table><tr><td></td><td></td></tr></table>
+</div>
+</body>
+</html>

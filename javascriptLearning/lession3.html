@@ -1,0 +1,30 @@
+/*
+If You open this html file into browser, you will see in console section tbody is there,
+Why
+Becuase Just Like #text is appended in Div when user write to next line,
+similary when we use table tag it will automatically appended tbody tag which empty,
+But its behviour of javascript
+
+*/
+
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Fetching All Elements in HTML Page</title>
+<script>
+window.addEventListener('load',function(){
+let allTags=document.getElementsByTagName('*');
+for(let i=0;i<allTags.length;i++) console.log(allTags[i].nodeName);
+});
+</script>
+</head>
+<body>
+<h3></h3>
+<div>
+<span><a></a></span>
+<u><i></i></u>
+<table><tr><td></td><td></td></tr></table>
+</div>
+</body>
+</html>
