@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>This Pointer Learning</title>
+<script>
+    function someClass()
+    {
+        let self=this;
+        let someElement=document.createElement("div");
+        someElement.innerHTML="God is Great";
+        this.someMethod=function(){
+            alert(this==self);
+        }
+        someElement.onclick=function(){
+            alert(this==self);
+        }
+        document.body.append(someElement);
+    };
+    function doSometing()
+    {
+        let obj=new someClass();    
+        obj.someMethod();
+    }
+</script>
+</head>
+<body>
+    <button onclick="doSometing()">Click Me</button>
+</body>
+</html>

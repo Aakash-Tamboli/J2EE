@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Modal Window On Click</title>
+<style>
+.xyz
+{
+width:100%;
+height:100%;
+top:0;
+left:0;
+border:1px solid red;
+background:gray;
+position:fixed;
+opacity:70%;
+}
+
+.pqr
+{
+width:400px;
+min-width:400px;
+height:300px;
+min-height:300px;
+background-color:blue;
+position:fixed;
+top:0;
+right:0;
+bottom:0;
+left:0;
+margin:auto;
+border:2px solid white;
+overflow:auto;
+}
+
+.closeButton
+{
+float:right;
+padding:2px 7px;
+cursor:pointer;
+background:none;
+border:none;
+}
+</style>
+<script>
+// following is a class
+function Modal(elementId)
+{
+this.element=document.getElementById(elementId);
+this.div=document.createElement("div");
+document.body.appendChild(this.div);
+this.subDiv=document.createElement("div");
+this.div.appendChild(this.subDiv);
+this.container=document.createElement("span");
+this.closeButton=document.createElement("button");
+this.subDiv.appendChild(this.closeButton);
+this.subDiv.appendChild(this.container);
+this.closeButton.innerHTML="x";
+this.closeButton.onclick=function()
+{
+this.element.replaceWith(this.container);
+}
+
+this.show=function()
+{
+this.div.classList.add("xyz");
+this.subDiv.classList.add("pqr");
+// just for testing purpose
+this.container.replaceWith(this.element);
+this.closeButton.classList.add("closeButton");
+}
+}
+
+// following is written by TMJRock user
+function createModal1()
+{
+let modal=new Modal("ab");
+modal.show();
+}
+
+function createModal2()
+{
+let modal=new Modal("pq");
+modal.show();
+}
+
+</script>
+</head>
+<body>
+<button type='button' onclick='createModal1()'>First Modal</button>
+<button type='button' onclick='createModal2()'>Show Second Modal</button>
+<div id='ab'>
+God is Great
+</div>
+<div id='pq'>
+God is Know for Systamatic Miracle
+</div>
+</body>
+</html>

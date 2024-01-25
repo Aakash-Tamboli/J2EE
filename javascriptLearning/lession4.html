@@ -1,0 +1,66 @@
+/*
+A sample of creation of Modal
+*/
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Modal Window On Click</title>
+<style>
+.xyz
+{
+width:100%;
+height:100%;
+top:0;
+left:0;
+border:1px solid red;
+background:gray;
+position:fixed;
+opacity:70%;
+}
+
+.pqr
+{
+width:400px;
+min-width:400px;
+height:300px;
+min-height:300px;
+background-color:blue;
+position:fixed;
+top:0;
+right:0;
+bottom:0;
+left:0;
+margin:auto;
+border:2px solid white;
+overflow:auto;
+}
+
+.lmn
+{
+float:right;
+padding:2px 7px;
+cursor:pointer;
+}
+</style>
+<script>
+function doSomething()
+{
+let div=document.createElement("div");
+div.classList.add("xyz");
+document.body.appendChild(div);
+let subDiv=document.createElement("div");
+subDiv.classList.add("pqr");
+div.appendChild(subDiv);
+let span=document.createElement("span");
+span.classList.add("lmn");
+subDiv.appendChild(span);
+let closeText=document.createTextNode("x");
+span.appendChild(closeText);
+}
+</script>
+</head>
+<body>
+<button type='button' onclick='doSomething()'>Modal</button>
+</body>
+</html>
