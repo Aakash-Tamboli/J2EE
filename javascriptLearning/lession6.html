@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Eval function uses</title>
+<script>
+function someFunction()
+{
+var x="x=10*20";
+alert(x+" is type of: "+typeof x);
+alert("But Using val function I can execute");
+eval(x);
+alert("Proof : "+x);
+}
+</script>
+</head>
+<body>
+<h1>God is Great</h1>
+<button type='button' onclick='someFunction()'>Check expr() function</button>
+</body>
+</html>

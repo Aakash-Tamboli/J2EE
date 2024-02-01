@@ -22,3 +22,7 @@ url=url+key+"="+queryStringData[key];
 	it returns value of corrsesponding attributeName which is applied on domObj(html tag)
 
 2)----------------------------End-----------------------
+
+
+
+
