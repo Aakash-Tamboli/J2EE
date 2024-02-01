@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Modal Window On Click</title>
+<style>
+.modalMask
+{
+width:100%;
+height:100%;
+top:0;
+left:0;
+border:1px solid red;
+background:gray;
+position:fixed;
+opacity:70%;
+}
+
+.modal
+{
+width:400px;
+min-width:400px;
+height:300px;
+min-height:300px;
+background-color:blue;
+position:fixed;
+top:0;
+right:0;
+bottom:0;
+left:0;
+margin:auto;
+border:2px solid white;
+overflow:auto;
+}
+
+.closeButton
+{
+float:right;
+padding:2px 7px;
+cursor:pointer;
+}
+</style>
+<script>
+
+var ds={
+"modals":[]
+};
+
+function $$$(mid)
+{
+alert(mid);
+for(let i=0;i<ds.modals.length;i++)
+{
+if(ds.modals[i].getContentId()==mid) return ds.modals[i];
+}
+return  null;
+}
+
+// following is a class
+function Modal(crf)
+{
+var objectAddress=this;
+this.onOpen=null;
+this.onClose=null;
+var contentReference=crf;
+var contentParentReference=contentReference.parentElement;
+var contentIndex=0;
+while(contentIndex<contentParentReference.children.length)
+{
+if(contentReference==contentParentReference.children[contentIndex]) break;
+contentIndex++;
+}
+var modalMaskDivision=document.createElement("div");
+modalMaskDivision.classList.add("modalMask");
+var modalDivision=document.createElement("div");
+modalDivision.classList.add("modal");
+var closeButtonSpan=document.createElement("span");
+closeButtonSpan.classList.add("closeButton");
+var closeButtonMarker=document.createTextNode("x");
+closeButtonSpan.appendChild(closeButtonMarker);
+modalDivision.appendChild(closeButtonSpan);
+contentReference.remove();
+modalDivision.appendChild(contentReference);
+
+this.getContentId=function(){
+return contentReference.id;
+};
+
+this.show=function(){
+document.body.appendChild(modalMaskDivision);
+document.body.appendChild(modalDivision);
+if(this.onOpen) this.onOpen();
+};
+
+closeButtonSpan.onclick=function(){
+modalDivision.remove();
+modalMaskDivision.remove();
+if(objectAddress.onClose) objectAddress.onClose();
+};
+
+}
+
+// following is written by TMJRock user
+function createModal1()
+{
+$$$("ab").onOpen=function(){
+alert("Modal with ab opened");
+};
+$$$("ab").onClose=function(){
+alert("Modal with ab close");
+};
+$$$("ab").show();
+}
+
+function createModal2()
+{
+$$$("pq").onOpen=function(){
+alert("Modal with pq opened");
+};
+$$$("pq").onClose=function(){
+alert("Modal with pq close");
+};
+$$$("pq").show();
+}
+
+function loader()
+{
+var all=document.getElementsByTagName("*");
+// alert(all.length);
+for(let i=0;i<all.length;i++)
+{
+if(all[i].hasAttribute("forModal"))
+{
+if(all[i].getAttribute("forModal").toUpperCase()=="TRUE")
+{
+ds.modals.push(new Modal(all[i]));
+i--;
+}
+}
+}
+
+alert(ds.modals.length);
+
+/*
+i) traverse DOM and identify sections with modal="true"
+ii) remove them, create objects of modal and add into modals array of ds.
+iii) ensure that every modal object has the section wrapped in it
+*/
+}
+
+window.addEventListener('load',loader);
+
+/*
+Make Changes to the  modal class
+
+1) The close function should not put back the section in its orignal place.
+2) Hence I think no need for parent refference and content index
+3) add feature so that the following is possible
+
+var modal= new Modal({
+"contentId": "ab",
+"header": "Some Heading",
+"footer" : "Some footer",
+"size": "200x300",
+"closeButton": false,
+"maskColor": #33545,
+"modalBackgrounfColor": #5433
+});
+
+*/
+
+</script>
+</head>
+<body>
+<button type='button' onclick='createModal1()'>First Modal</button>
+<button type='button' onclick='createModal2()'>Show Second Modal</button>
+<div id='ab' forModal="true">
+God is Great
+</div>
+<div id='pq' forModal="true">
+God is Know for Systamatic Miracle
+</div>
+</body>
+</html>
