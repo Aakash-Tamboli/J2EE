@@ -73,80 +73,119 @@ this.onOpen=null;
 this.onClose=null;
 var contentReference=crf;
 
+
+var modalMaskDivision=document.createElement("div");
+modalMaskDivision.classList.add("modalMask");
+var modalDivision=document.createElement("div");
+modalDivision.classList.add("modal");
+var headerDivision=document.createElement("div");
+headerDivision.style.background="red"; // just for debug purpose
+headerDivision.style.width="100%";
+headerDivision.style.height="40px";
+headerDivision.style.padding="5px";
+modalDivision.appendChild(headerDivision);
+
+var footerDivision=document.createElement("div");
+footerDivision.style.background="pink";
+footerDivision.style.width="100%";
+footerDivision.style.height="40px";
+footerDivision.style.position="absolute";
+footerDivision.style.bottom="0";
+footerDivision.style.padding="5px";
+
+modalDivision.appendChild(footerDivision);
+
+
+
+
+var closeButtonSpan=document.createElement("span");
+closeButtonSpan.classList.add("closeButton");
+var closeButtonMarker=document.createTextNode("x");
+closeButtonSpan.appendChild(closeButtonMarker);
+
+modalDivision.appendChild(closeButtonSpan);
+
+
+contentReference.remove();
+modalDivision.appendChild(contentReference);
+
+
 if(contentReference.hasAttribute("size"))
 {
 var size=contentReference.getAttribute("size");
-alert("Size of: "+size);
-// parse and set the width and height  modal division
-var widthAndHeight=size.split("x");
-alert("L: "+widthAndHeight.length);
-if(widthAndHeight.length!=2) throw "TMJRock: Invalid";
+// alert("Size of: "+size);
+let xPosition=size.indexOf("x");
+if(xPosition==-1) xPosition=size.indexOf("X");
+if(xPosition==-1) throw "TMJRock: Invalid Size Format Please Refere Official Docs";
+if(xPosition==0 || xPosition==size.length-1) throw "TMJRock: Invalid Size Format Please Refere Official Docs";
+let width=size.substring(0,xPosition);
+let height=size.substring(xPosition+1);
+// alert(modalDivision);
+modalDivision.style.width=width+"px";
+modalDivision.style.height=height+"px";
 }
+else
+{
+modalDivision.style.width="300px"; // setting if user not specifed
+modalDivision.style.height="300px"; // setting if user not specified
+}
+
+alert(modalDivision.style.width+","+modalDivision.style.height);
+
 
 if(contentReference.hasAttribute("header"))
 {
 var headerContent=contentReference.getAttribute("header");
-alert("Header Content: "+headerContent);
+// alert("Header Content: "+headerContent);
+headerDivision.innerHTML=headerContent;
 }
 
 if(contentReference.hasAttribute("footer"))
 {
 var footerContent=contentReference.getAttribute("footer");
-alert("Footer Content: "+footerContent);
+// alert("Footer Content: "+footerContent);
+footerDivision.innerHTML=footerContent;
 }
 
 if(contentReference.hasAttribute("closeButton"))
 {
 var closeButton=contentReference.getAttribute("closeButton");
-alert("Close Button: "+closeButton);
+// alert("Close Button: "+closeButton);
 }
 
 if(contentReference.hasAttribute("maskColor"))
 {
 var maskColor=contentReference.getAttribute("maskColor");
-alert("Mask Color: "+maskColor);
+// alert("Mask Color: "+maskColor);
 }
 
 if(contentReference.hasAttribute("modalBackgroundColor"))
 {
 var modalBackgroundColor=contentReference.getAttribute("modalBackgroundColor");
-alert("Modal Background Color: "+modalBackgroundColor);
+// alert("Modal Background Color: "+modalBackgroundColor);
 }
 
 if(contentReference.hasAttribute("onOpen"))
 {
 var onOpened=contentReference.getAttribute("onOpen");
-alert("on Opened Function Name: "+onOpened);
-alert(typeof onOpened); // because Its string it means Now, we have to exectute through eval() in-built function
+// alert("on Opened Function Name: "+onOpened);
+// alert(typeof onOpened); // because Its string it means Now, we have to exectute through eval() in-built function
 eval(onOpened); // just for testing
 someExperession="c=20+30";
-alert(someExperession);
+// alert(someExperession);
 eval(someExperession);
-alert(c);
+// alert(c);
 }
 
 
 if(contentReference.hasAttribute("onClose"))
 {
 var onClosed=contentReference.getAttribute("onClose");
-alert("on Closed Function Name: "+onClosed);
-alert(typeof onClosed);  // because Its string it means Now, we have to exectute through eval() in-built function
+// alert("on Closed Function Name: "+onClosed);
+// alert(typeof onClosed);  // because Its string it means Now, we have to exectute through eval() in-built function
 eval(onClosed); // just for testing
 }
 
-
-
-var modalMaskDivision=document.createElement("div");
-modalMaskDivision.classList.add("modalMask");
-var modalDivision=document.createElement("div");
-modalDivision.classList.add("modal");
-var closeButtonSpan=document.createElement("span");
-closeButtonSpan.classList.add("closeButton");
-var closeButtonMarker=document.createTextNode("x");
-closeButtonSpan.appendChild(closeButtonMarker);
-modalDivision.appendChild(closeButtonSpan);
-contentReference.remove();
-modalDivision.appendChild(contentReference);
 
 this.getContentId=function(){
 return contentReference.id;
@@ -218,7 +257,7 @@ window.addEventListener('load',loader);
 <body>
 <button type='button' onclick='createModal1()'>First Modal</button>
 <button type='button' onclick='createModal2()'>Show Second Modal</button>
-<div id='ab' forModal="true" contentId="ab" header="Some Heading" footer="Some footer" size="200300" 
+<div id='ab' forModal="true" contentId="ab" header="Some Heading" footer="Some footer" size="200X300" 
 closeButton="false" maskColor="#33545" modalBackgroundColor="#5433" 
 onOpen="abOpened()"
 onClose="abClosed()"
