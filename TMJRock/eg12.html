@@ -1,0 +1,362 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Modal Window On Click</title>
+<style>
+.modalMask
+{
+width:100%;
+height:100%;
+top:0;
+left:0;
+border:1px solid red;
+background:gray;
+position:fixed;
+opacity:70%;
+}
+
+.modal
+{
+width:400px;
+min-width:400px;
+height:300px;
+min-height:300px;
+background-color:blue;
+position:fixed;
+top:0;
+right:0;
+bottom:0;
+left:0;
+margin:auto;
+border:2px solid white;
+}
+
+.closeButton
+{
+float:right;
+padding:2px 7px;
+cursor:pointer;
+margin-right: 5px;
+margin-top: 5px;
+font-size: 14pt;
+}
+</style>
+<script>
+
+var ds={
+"modals":[]
+};
+
+var $$$={
+"modals":{}
+};
+
+$$$.modals.show=function(mid)
+{
+let targetModal=null;
+for(let i=0;i<ds.modals.length;i++)
+{
+if(ds.modals[i].getContentId()==mid)
+{
+targetModal=ds.modals[i];
+break;
+}
+}
+if(targetModal==null) return;
+targetModal.show();
+}
+
+// following is a class
+function Modal(crf)
+{
+var objectAddress=this;
+this.beforeOpening=null;
+this.afterOpening=null;
+this.beforeClosing=null;
+this.afterClosing=null;
+var contentReference=crf;
+
+
+this.getContentId=function(){
+return contentReference.id;
+};
+
+
+
+
+
+var modalMaskDivision=document.createElement("div");
+modalMaskDivision.classList.add("modalMask");
+modalMaskDivision.style.display="none";
+var modalDivision=document.createElement("div");
+modalDivision.classList.add("modal");
+modalDivision.style.display="none";
+document.body.appendChild(modalMaskDivision);
+document.body.appendChild(modalDivision);
+
+var headerDivision=document.createElement("div");
+headerDivision.style.background="red"; // just for debug purpose
+headerDivision.style.right="0";
+headerDivision.style.height="40px";
+headerDivision.style.padding="5px";
+modalDivision.appendChild(headerDivision);
+
+if(contentReference.hasAttribute("size"))
+{
+var size=contentReference.getAttribute("size");
+// alert("Size of: "+size);
+let xPosition=size.indexOf("x");
+if(xPosition==-1) xPosition=size.indexOf("X");
+if(xPosition==-1) throw "TMJRock: Invalid Size Format Please Refere Official Docs";
+if(xPosition==0 || xPosition==size.length-1) throw "TMJRock: Invalid Size Format Please Refere Official Docs";
+let width=size.substring(0,xPosition);
+let height=size.substring(xPosition+1);
+// alert(modalDivision);
+modalDivision.style.width=width+"px";
+modalDivision.style.height=height+"px";
+}
+else
+{
+modalDivision.style.width="300px"; // setting if user not specifed
+modalDivision.style.height="300px"; // setting if user not specified
+}
+
+if(contentReference.hasAttribute("header"))
+{
+var headerContent=contentReference.getAttribute("header");
+headerDivision.innerHTML=headerContent;
+}
+
+if(contentReference.hasAttribute("maskColor"))
+{
+var maskColor=contentReference.getAttribute("maskColor");
+modalMaskDivision.style.background=maskColor;
+}
+
+if(contentReference.hasAttribute("modalBackgroundColor"))
+{
+var modalBackgroundColor=contentReference.getAttribute("modalBackgroundColor");
+modalDivision.style.background=modalBackgroundColor;
+}
+
+var contentDivision=document.createElement("div");
+// contentDivision.style.border="1px solid black";
+contentDivision.style.height=(modalDivision.style.height.substring(0,modalDivision.style.height.length-2)-130)+"px";
+contentDivision.style.width="98%";
+contentDivision.style.overflow="auto";
+contentDivision.style.padding="5px";
+
+contentReference.remove();
+contentDivision.appendChild(contentReference);
+contentReference.style.display="block"; // if by default user set their container display none for not showing at initall start of web app then we have to set block so that it can appear inside modal
+contentReference.style.visiblilty="visible"; // read above line this also for same purpose 
+modalDivision.appendChild(contentDivision);
+
+
+var footerDivision=document.createElement("div");
+footerDivision.style.background="pink";
+footerDivision.style.left="0";
+footerDivision.style.right="0";
+footerDivision.style.height="40px";
+footerDivision.style.position="absolute";
+footerDivision.style.bottom="0";
+footerDivision.style.padding="5px";
+
+modalDivision.appendChild(footerDivision);
+
+if(contentReference.hasAttribute("footer"))
+{
+var footerContent=contentReference.getAttribute("footer");
+footerDivision.innerHTML=footerContent;
+}
+
+var closeButtonSpan=null;
+
+if(contentReference.hasAttribute("closeButton"))
+{
+var closeButton=contentReference.getAttribute("closeButton");
+if(closeButton.toUpperCase()=="TRUE")
+{
+closeButtonSpan=document.createElement("span");
+closeButtonSpan.classList.add("closeButton");
+var closeButtonMarker=document.createTextNode("x");
+closeButtonSpan.appendChild(closeButtonMarker);
+headerDivision.appendChild(closeButtonSpan);
+} // checking value is true or not close
+} // has Attribute close
+
+if(contentReference.hasAttribute("beforeOpening"))
+{
+var beforeOpening=contentReference.getAttribute("beforeOpening");
+this.beforeOpening=beforeOpening;
+}
+
+if(contentReference.hasAttribute("afterOpening"))
+{
+var afterOpening=contentReference.getAttribute("afterOpening");
+this.afterOpening=afterOpening;
+/*
+// alert("on Opened Function Name: "+onOpened);
+// alert(typeof onOpened); // because Its string it means Now, we have to exectute through eval() in-built function
+eval(onOpened); // just for testing
+someExperession="c=20+30";
+// alert(someExperession);
+eval(someExperession);
+// alert(c);
+*/
+}
+
+if(contentReference.hasAttribute("beforeClosing"))
+{
+var beforeClosing=contentReference.getAttribute("beforeClosing");
+this.beforeClosing=beforeClosing;
+}
+
+if(contentReference.hasAttribute("afterClosing"))
+{
+var afterClosing=contentReference.getAttribute("afterClosing");
+this.afterClosing=afterClosing;
+/*
+// alert("on Closed Function Name: "+onClosed);
+// alert(typeof onClosed);  // because Its string it means Now, we have to exectute through eval() in-built function
+eval(onClosed); // just for testing
+*/
+}
+
+this.show=function(){
+let openModal=true;
+if(this.beforeOpening)
+{
+openModal=eval(this.beforeOpening);
+}
+if(openModal)
+{
+modalMaskDivision.style.display="block";
+modalDivision.style.display="block";
+if(this.afterOpening) setTimeout(function(){eval(objectAddress.afterOpening);},100);
+}
+};
+
+if(closeButtonSpan!=null)
+{
+closeButtonSpan.onclick=function(){
+let closeModal=true;
+if(objectAddress.beforeClosing)
+{
+closeModal=eval(objectAddress.beforeClosing);
+}
+if(closeModal)
+{
+modalMaskDivision.style.display="none";
+modalDivision.style.display="none";
+if(objectAddress.afterClosing) setTimeout(function(){eval(objectAddress.afterClosing);},100);
+}
+};
+}
+}
+
+// following is written by TMJRock user
+function abBeforeOpening()
+{
+alert("Modal with ab is about to be opened");
+return true; // we want that modal should be open after this function execute
+}
+
+function abOpened()
+{
+alert("Modal with ab opened");
+}
+
+function abBeforeClosing()
+{
+alert("Modal with ab is about to be closed");
+return true;
+}
+
+function abClosed()
+{
+alert("Modal with ab close");
+}
+
+function createModal1()
+{
+$$$.modals.show("ab");
+}
+
+function loader()
+{
+var all=document.getElementsByTagName("*");
+// alert(all.length);
+for(let i=0;i<all.length;i++)
+{
+if(all[i].hasAttribute("forModal"))
+{
+if(all[i].getAttribute("forModal").toUpperCase()=="TRUE")
+{
+all[i].setAttribute("forModal","false");
+ds.modals.push(new Modal(all[i]));
+i--;
+}
+}
+}
+}
+
+window.addEventListener('load',loader);
+
+
+
+
+</script>
+</head>
+<body>
+<button type='button' onclick='createModal1()'>First Modal</button>
+
+<div id='ab' style="display: none" forModal="true" contentId="ab" header="Some Heading" footer="Some footer" size="200X300" 
+closeButton="true" maskColor="#33545" modalBackgroundColor="#5433" 
+beforeOpening="abBeforeOpening()"
+afterOpening="abOpened()"
+beforeClosing="abBeforeClosing()"
+afterClosing="abClosed()"
+>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+God is Great<br>
+</div>
+</body>
+</html>

@@ -19,8 +19,12 @@ This Repository is my learning work which gives you how much ground work I did I
 		1) Redundany reduced using jsp, but still redundany at client side
 
 3) stylethree - I will update later on
-4) TMJRock - It is replica of JQuery functionality.
-
+4) TMJRock - It is replica of JQuery Some functionality.
+		Like: 
+		1) Creating Component or feature to use AJAX.
+		2) Accordian Pane Feature
+		3) Grid layout Featur
+		4) Modal  Feature 
 
 ## Practice and Practice_Environment
 Practice Folder contains all the practice things which is recomended by instructor there I practice it. <br>
@@ -29,12 +33,13 @@ Practice_Environment used as to check whatever I implemented in practice folder 
 
 ## Tools
 1) Ubuntu OS
-2) Chrome
-3) vim / notepad
-4) java
+2) Windows 10
+3) Chrome
+4) vim / notepad
+5) java
 
 ## Mentor
-Thanks to founder of `thinkingmachine.in` who Mentored and give the industry grade knowledge.
+Thanks to Kelkar Sir who Mentored and give the industry grade knowledge.
 
 ## Credit
 Thanks to God, Thanks to All the Creators That I've Used his/her Application Like vim,chrome,ubuntu OS and Windows 10 OS.
