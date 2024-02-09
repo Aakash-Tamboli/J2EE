@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Some Cool New Features</title>
+<script>
+function tom(p,q,r)
+{
+alert(p);
+alert(q);
+alert(r);
+}
+
+function sam(...arr)
+{
+alert(arr);
+alert(arr.length);
+}
+
+function exampleOfUnpackingReturningMultipleValues()
+{
+return [732,737,785]; 
+}
+
+function doSomething1()
+{
+var x=[10,20,30];
+tom(...x); // it means spreading, first 3 element will be takes place because at receiving at only 3 was mentioned
+sam(1,2,3,4,5,6,7,8); // at recieving end all the args captured into array
+
+var [a,b,c]=exampleOfUnpackingReturningMultipleValues(); 
+alert("after unpacked: "+a);
+alert("after unpacked: "+b);
+alert("after unpacked: "+c);
+// unpacking returning order wise
+var [p,,q]=exampleOfUnpackingReturningMultipleValues(); 
+alert(p); // 732 because 737 is eleminated because we specify giving empty space in place holder at left side.
+alert(q); // 785  because 737 is eleminated because we specify giving empty space in place holder at left side.
+var [j,]=exampleOfUnpackingReturningMultipleValues();
+alert(j); // 732 because we specify
+
+}
+
+</script>
+</head>
+<body>
+<button type='button' onclick='doSomething1()'>Five</button>
+</body>
+</html>

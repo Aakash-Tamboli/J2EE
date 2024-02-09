@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Some Cool New Features</title>
+<script>
+function sam(a=10,b=20,c=30) // default argument feature
+{
+alert(a);
+alert(b);
+alert(c);
+}
+
+function doSomething1()
+{
+sam(1000,2000,3000); // it will print as it passes
+sam(100,200); // it will print 100 200 and 30 because c as default value is 30
+sam(10) // it will print 10  and 20 30 as default argument
+sam(); // it will print 10 20 30
+}
+
+</script>
+</head>
+<body>
+<button type='button' onclick='doSomething1()'>Four</button>
+</body>
+</html>

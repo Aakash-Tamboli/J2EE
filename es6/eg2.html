@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Some Cool New Features</title>
+<script>
+function doSomething1()
+{
+var v={
+k: 4000
+};
+var m=v.k || 100; // because k is present that's why 4000 will assigned
+alert(m);// 4000 will be printed 
+m=v.g || 100; // because  g is not present that's why 100 will be assigned
+alert(m); // 100 will be printed
+}
+
+</script>
+</head>
+<body>
+<button type='button' onclick='doSomething1()'>Two</button>
+</body>
+</html>

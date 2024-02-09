@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Some Cool New Features</title>
+<script>
+function doSomething1()
+{
+// IIFE : immediate invoke function expression
+(function(para)
+{
+alert(para);
+})(10); // it means function will be defined and invoked and pass 10 as argument
+}
+
+</script>
+</head>
+<body>
+<button type='button' onclick='doSomething1()'>Three</button>
+</body>
+</html>

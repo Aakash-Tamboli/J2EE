@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Some Cool New Features</title>
+<script>
+function doSomething1()
+{
+var a=(p,q)=> p+q; // this is called anonymus function inspired from lambda expression 
+//    (p,q)=> p+q  it as good as return p+q;  but still but to write then syntax is
+
+var b=(p,q)=>{
+// you have to intoduce braces
+return p+q;
+};
+
+alert(a(10,20)); // Techniqcally a is reffering to a anonymus/lambda function and we invoked passing 10,20
+alert(b(10,20)); // Techniqcally b is reffering to a anonymus/lambda function and we invoked passing 10,20
+}
+</script>
+</head>
+<body>
+<button type='button' onclick='doSomething1()'>Seven</button>
+</body>
+</html>

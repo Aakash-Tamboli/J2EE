@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Some Cool New Features</title>
+<script>
+function doSomething1()
+{
+// following is example for creating object quickly
+var bulb={
+wattage: 60,
+setWattage(watt)
+{
+this.wattage=watt;
+},
+getWattage()
+{
+return this.wattage;
+}
+};
+alert(bulb.wattage);
+alert(bulb.getWattage());
+bulb.setWattage(100);
+alert(bulb.wattage);
+alert(bulb.getWattage());
+
+}
+</script>
+</head>
+<body>
+<button type='button' onclick='doSomething1()'>Six</button>
+</body>
+</html>
