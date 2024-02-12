@@ -24,6 +24,8 @@ This Repository is my learning work which gives you how much ground work I did I
 		1) Creating Component or feature to use AJAX.
 		2) Accordian Pane Feature
 		3) Modal  Feature 
+3) JQuery - I Will update later on
+
 
 ## Practice and Practice_Environment
 Practice Folder contains all the practice things which is recomended by instructor there I practice it. <br>
