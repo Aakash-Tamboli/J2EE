@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>When JQuery Framework conflict with our project And Click Handler</title>
+<script src='/jquery/jquery/jquery-3.7.1.min.js'></script>
+<script>
+
+function $(k)
+{
+alert(k); // here code can be anything
+}
+
+function doSomething()
+{
+// $("button1").css("color","blue");
+/*
+above line won't work but if project has requirement that we need $ named function in our prject then jquery framework give the following feature
+1) call jQuery.noConflict(); 
+2) then wherever you want to use $ symbol then use jQuery word
+*/
+jQuery("#button1").css("color","blue");
+}
+
+jQuery.noConflict(); // this will execute when dom is loaded
+
+jQuery(($)=>{
+
+/*
+Here JQuery Developers give functionlity that when JQuery named function gets executed then if user give $(dollar) symbol then $ will repesents  JQuery it means
+we can write $().some();
+*/
+
+
+$("#button2").on('click',function(){
+alert("I am button 2");
+});
+
+$("#button3").on('click',function(){
+$(this).css("color","red");
+// here $(this) means in this variable contains an address of element which reffer #button2 element in DOM.
+});
+
+$("#button4").on('click',function(){
+$(this).css("font-size","24pt");
+});
+
+$("#button5").click(function(){ // this click means when somebody clicks specified element subsititude of above way not say humne uss element ko click kr diya
+// $("#abcd").toggle("xyz"); // I found by mistake but if will hide and unhide element with cool animation
+$("#abcd").toggleClass("xyz");
+});
+
+/*
+This alert will execute when somebody click any area/element which present inside mainContainer
+$("#mainContainer").click(function(){
+alert("Main Container Clicked");
+});
+*/
+
+// this time alert will only execute when somebody clicks on mainContainer
+$("#mainContainer").click(function(event){
+if(event.target==this)
+{
+alert("Main Container Cliked");
+}
+});
+
+/*
+Propagation means excute decendends to ancestor container instructions
+to avoid use
+stopPropagation() method of ev or event variable
+*/
+$("#mainContainer2").click(function(event){
+
+alert("Main Container 2 clicked");
+event.stopPropagation(); // if you remove this, then controls goes descended to ancestors means all alert will execute
+});
+
+$("#childContainer2").click(function(event){
+alert("Child Container 2 clicked");
+event.stopPropagation(); // if you remove this, then controls goes descended to ancestors means all alert will execute
+});
+
+$("#grandChild").click(function(event){
+alert("Grand Child Cliked");
+event.stopPropagation(); // if you remove this, then controls goes descended to ancestors means all alert will execute
+});
+
+$("#greatGrandChild").click(function(event){
+alert("Great Grand Child Clicked");
+event.stopPropagation(); // if you remove this, then controls goes descended to ancestors means all alert will execute
+});
+
+$("#button7").click(function(event){
+alert("Form button got clicked");
+alert("Entered value: "+$("#nm").val());
+if($("#nm").val().length==0)
+{
+event.preventDefault(); // it will execute default behaviour of element there event variable is reffering
+}
+});
+
+$("#d1").click(function(event){
+if($(event.target).is("#d1")) alert("Good(d1) got clicked");
+if($(event.target).is("#d2")) alert("Better(d2) got clicked");
+if($(event.target).is("#s1")) alert("Best(s1) got clicked");
+});
+
+
+// I want that whent somebody clicks on buttion 8 then button 9 also clicked
+// then I want that button 8 associted event got removed means the action specify above line only execute one time
+$("#button8").click(function(event){
+alert("Button8 clicked");
+$("#button9").trigger("click");
+$(this).off("click"); // this variable reffering to button 8 whereas event variable is reffering elements that associated with button 8
+});
+
+$("#button9").click(function(event){
+alert("Button9 clicked");
+});
+
+
+});
+</script>
+<style>
+.xyz
+{
+font-size:24pt;
+color: brown;
+font-weight: bold;
+}
+</style>
+</head>
+<body>
+<button id='button1' onclick='doSomething()' type='button'>One</button>
+<button id='button2' type='button'>Two</button>
+<button id='button3' type='button'>Three</button>
+<button id='button4' type='button'>Four</button>
+<button id='button5' type='button'>Five</button>
+<div id='abcd' class='xyz'>
+God is Great, God is known for systamatic miracle.
+</div>
+
+<div id='mainContainer'>
+Some Content in parent/main container
+<div id='childContainer'>
+Some Content in child/sub container
+</div>
+<span><button type='button'>Click Me</button<</span>
+</div>
+
+<div id='mainContainer2'>
+Some Content in parent/main container
+<div id='childContainer2'>
+Some Content in child/sub container
+<span id='grandChild'>
+<button id='greatGrandChild' type='button'>Six</button>
+<span >
+</div>
+</div>
+
+<form action='something'>
+Enter Something: &emsp; <input type='text' id='nm' name='nm'>
+<button type='submit'id='button7'>Seven</button>
+</form>
+
+
+<div id='d1'>
+Good <br><br><br>
+<div id='d2'>
+Better <br><br><br>
+<span id='s1'>
+Best <br><br>
+</span>
+</div>
+</div>
+
+
+<button type='button' id='button8'>Eight</button>
+<button type='button' id='button9'>Nine</button>
+
+
+</body>
+</html>

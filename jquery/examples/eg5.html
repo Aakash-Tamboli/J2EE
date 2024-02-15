@@ -13,20 +13,21 @@ border-collapse: collapse;
 </style>
 <script>
 $(()=>{
-$("table").addClass("tbl");
-$("table th").addClass("tbl");
-$("table td").addClass("tbl");
-$("table thead").css("background","gray");
-$("table thead").css("color","white");
-$("table thead").css("border","1px solid black");
-$("table th:nth-child(2)").css("border-right","1px solid white");
-$("table th:nth-child(1)").css("border-right","1px solid white");
-$("table tbody td:contains('Ujjain')").css("color","#00FFFF");
-$("table tbody td:contains('Amar')").next().css("color","pink");
-$("table tbody td:contains('5.')").nextAll().css("color","yellow");
-$("table tbody td:contains('3.')").nextAll().addBack().css("color","magenta");
-$("table tbody td:contains('Pawan')").parent().css("font-weight","bold");
-$("table tbody td:contains('Mumbai')").children().css("font-size","44pt");
+$("table").addClass("tbl"); // it means apply class on table element in dom
+$("table th").addClass("tbl"); // it means apply class on th inside table in dom
+$("table td").addClass("tbl"); // it means apply class on td inside table in dom
+$("table thead").css("background","gray"); // it means apply css on thead inside table in dom
+$("table thead").css("color","white");  // it means apply css on thead inside table in dom
+$("table thead").css("border","1px solid black");  // it means apply css on thead inside table in dom
+$("table th:nth-child(2)").css("border-right","1px solid white"); // it means apply css on th where on nth-th is 2 inside table
+$("table th:nth-child(1)").css("border-right","1px solid white"); //it means apply css on th where on nth-th is 1 inside table
+$("table tbody tr").filter(":even").css("background","lightgray"); // it means apply css only  even no. of rows inside tbody which present inside table.
+$("table tbody td:contains('Ujjain')").css("color","#00FFFF"); // it means apply css on td which contains "Ujjain" present inside tbody where tbody present inside table.
+$("table tbody td:contains('Amar')").next().css("color","pink");  // it means apply css on that td which comes after td which contains "Amar" present inside tbody where tbody present inside table.
+$("table tbody td:contains('5.')").nextAll().css("color","yellow");  // it means apply css on All td which comes after td which contains "5." present inside tbody where tbody present inside table.
+$("table tbody td:contains('3.')").nextAll().addBack().css("color","magenta"); // it means apply css on All td which comes after td which contains "5." and that td in also included present inside tbody where tbody present inside table.
+$("table tbody td:contains('Pawan')").parent().css("font-weight","bold"); // it means apply css on parent element whose td contains "Pawan" which present inside tbody where tbody present inside table.
+$("table tbody td:contains('Mumbai')").children().css("font-size","44pt");   // it means apply css on child element whose td contains "Mumbai" which present inside tbody where tbody present inside table.
 });
 </script>
 </head>
