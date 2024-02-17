@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>JQuery Cool Features related to CSS</title>
+<script src='/jquery/jquery/jquery-3.7.1.min.js'></script>
+<script>
+var d2State=1;
+$(()=>{
+$("#button1").click(()=>{
+alert($("#d1.someClass").css("font-size"));
+alert($("#d1.someClass").css("color"));
+alert($("#d1.someClass").css("font")); // here is proof of concept that if we don't set any font style it will reffer browser default font setting and set it 
+});
+$("#button2").on('click',function(){
+/*
+if(d2State)
+{
+$("#d2").hide(); // we can also specify hiding process should be seen as slow or fast eg: $("#d2").hide('slow');
+/*
+Similary $("#d2").fadeOut('slow')
+Similary $("#d2").slideUp('slow')
+We can also give time in mili second instead slow or fast
+*/
+}
+else
+{
+$("#d2").show(); // we can also specify showing process should be seen as fast or slow eg: $("#d2").show('fast');
+/*
+Similary $("#d2").fadeIn('slow');
+Similary $("#d2").slideDown('slow');
+We can also give time in mili second instead slow or fast
+*/
+}
+d2State=!d2State
+*/
+// Now there is also toogle options and We can also give time in mili second instead slow or fast
+// $("#d2").slideToggle("show");
+$("#d2").fadeToggle("slow");
+});
+});
+</script>
+<style>
+.someClass
+{
+font-size:24pt;
+color: red;
+}
+</style>
+</head>
+<body>
+<div id='d1' class='someClass'>
+God is Great, God is Known for Systamatic Miracle
+</div>
+<div id='d2'>
+God is Always Great, God is known for Systamatic Miracle
+</div>
+<button type='button' id='button1'>One</button>
+<button type='button' id='button2'>Two</button>
+</body>
+</html>

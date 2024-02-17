@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Animation</title>
+<script src='/jquery/jquery/jquery-3.7.1.min.js'></script>
+<style>
+.container
+{
+margin-top: 500px;
+margin-left: 800px;
+}
+</style>
+<script>
+$(()=>{
+$("#button1").click(function(){
+/*
+We can also animate one by one props, and it look like first
+element go there then it go different there..
+eg:
+*/
+$("#d1").animate({"margin-top":0},"slow").animate({"margin-left":0},"slow");
+
+});
+});
+</script>
+</head>
+<body>
+<div id='d1' class='container'>
+God is Great, God is known for Systamatic Miracle
+God is Great, God is known for Systamatic Miracle
+God is Great, God is known for Systamatic Miracle
+God is Great, God is known for Systamatic Miracle
+God is Great, God is known for Systamatic Miracle
+God is Great, God is known for Systamatic Miracle
+God is Great, God is known for Systamatic Miracle
+God is Great, God is known for Systamatic Miracle
+God is Great, God is known for Systamatic Miracle
+God is Great, God is known for Systamatic Miracle
+God is Great, God is known for Systamatic Miracle
+God is Great, God is known for Systamatic Miracle
+</div>
+<button id='button1'>Click Me</button>
+</body>
+</html>

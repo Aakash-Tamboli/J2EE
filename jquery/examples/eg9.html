@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>show and hide feature in paragraph</title>
+<script src='/jquery/jquery/jquery-3.7.1.min.js'></script>
+<style>
+.more
+{
+color: yellow;
+padding: 10px;
+background-color: red;
+font-weight: 5pt;
+text-decoration: none;
+}
+</style>
+<script>
+$(()=>{
+$("#d1 p").eq(1).hide();
+
+$("#readMore").on('click',function(){
+
+$("#d1 p").eq(1).toggle('show',function(){
+if($("#d1 p").eq(1).is(":hidden"))
+{
+$("#readMore").text("read more ...");
+}
+else
+{
+$("#readMore").text("read less ...");
+}
+});
+});
+});
+
+</script>
+</head>
+<body>
+<div id='d1'>
+<p>
+God is Great, God is known for systamatic miracle.
+God is Great, God is known for systamatic miracle.
+God is Great, God is known for systamatic miracle.
+God is Great, God is known for systamatic miracle.
+God is Great, God is known for systamatic miracle.
+</p>
+<p>
+God is Great, God is known for systamatic miracle.
+God is Great, God is known for systamatic miracle.
+God is Great, God is known for systamatic miracle.
+God is Great, God is known for systamatic miracle.
+God is Great, God is known for systamatic miracle.
+God is Great, God is known for systamatic miracle.
+God is Great, God is known for systamatic miracle.
+God is Great, God is known for systamatic miracle.
+God is Great, God is known for systamatic miracle.
+God is Great, God is known for systamatic miracle.
+God is Great, God is known for systamatic miracle.
+God is Great, God is known for systamatic miracle.
+God is Great, God is known for systamatic miracle.
+</p>
+<a href='#' class='more' id='readMore'>read more ...</a>
+</div>
+</body>
+</html>

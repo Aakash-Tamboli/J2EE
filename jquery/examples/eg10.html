@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Animation</title>
+<script src='/jquery/jquery/jquery-3.7.1.min.js'></script>
+<style>
+.container
+{
+margin-top: 500px;
+margin-left: 800px;
+}
+</style>
+<script>
+$(()=>{
+$("#button1").click(function(){
+/*
+syntax $(element).animate(json_which_consist_of_props,time);
+json_which_consist_of_props means
+those property you want to either increase or decrease and show us as
+animated form
+
+animation is nothing but things style props is changing, and its
+noticeable through our beautifull eyes.
+time:
+it can be fast or slow or even in milli seconds
+*/
+$("#d1").animate({"margin-top":0,"margin-left":0},"slow");
+
+});
+});
+</script>
+</head>
+<body>
+<div id='d1' class='container'>
+God is Great, God is known for Systamatic Miracle
+God is Great, God is known for Systamatic Miracle
+God is Great, God is known for Systamatic Miracle
+God is Great, God is known for Systamatic Miracle
+God is Great, God is known for Systamatic Miracle
+God is Great, God is known for Systamatic Miracle
+God is Great, God is known for Systamatic Miracle
+God is Great, God is known for Systamatic Miracle
+God is Great, God is known for Systamatic Miracle
+God is Great, God is known for Systamatic Miracle
+God is Great, God is known for Systamatic Miracle
+God is Great, God is known for Systamatic Miracle
+</div>
+<button id='button1'>Click Me</button>
+</body>
+</html>

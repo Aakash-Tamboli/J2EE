@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>JQuery Keyboard Events</title>
+<script src='/jquery/jquery/jquery-3.7.1.min.js'></script>
+<script>
+$(()=>{
+// $("#board").on('keydown',function(){}); // this is normal way
+$(document).keydown(function(event){ // this is usually people do
+// event ke andar uss object ka address rehta hai, jo event se related object ko reffer kr rha hai
+$("#board").append(event.which+","+event.key+","+event.code+"<br>");
+if(event.ctlKey) $("#board").append("CTRL key<br>");
+if(event.altKey) $("#board").append("ALT Key <br>");
+if(event.shift) $("#board").append("SHIFT key <br>");
+if(event.metaKey) $("#board").append("META key <br>");
+event.preventDefault();
+/*
+event refference variable reffer to an object, which object stores occured event related info.
+event.which it returns ascii code if it clicked
+event.key it returns symbol of key
+event.code it is like event.key but it also tell which side key means for ex: for shift it is right side or left side.
+
+event.ctlKey,event.altKey,event.shift if it is found then it returns boolean
+
+event.meta means in for windows platform its windows key, for mac its command.
+
+event.preventDefault(); // it prevent keys default behaviour which set inside browser key binding.
+		For Ex: f1 is for help, so in out web app it won't work
+The same behaviour avaiable for keypress and keyup events
+
+*/
+});
+});
+</script>
+</head>
+<body>
+<div id='board'>
+</div>
+</body>
+</html>
