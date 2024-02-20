@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Get type without sending data</title>
+<script src='/jquery/jquery/jquery-3.7.1.min.js'></script>
+<script>
+function populateDesignation()
+{
+$.ajax({
+url: "servletTwo",
+success: function(responseText){
+var data=responseText.split(",");
+var designationSelectTag=document.getElementById('designationSelectTag');
+var option;
+for(var i=0;i<data.length;i+=2)
+{
+option=document.createElement('option');
+option.value=data[i];
+option.text=data[i+1];
+designationSelectTag.appendChild(option);
+}
+},
+error: function(jqxmlHttpRequest,textStatus,errorThrown){
+alert(jqxmlHttpRequest);
+alert(textStatus);
+alert(errorThrown);
+}
+});
+
+
+
+
+
+/*
+var xmlHttpRequest=new XMLHttpRequest();
+xmlHttpRequest.onreadystatechange=function(){
+if(this.readyState==4)
+{
+if(this.status==200)
+{
+var responseData=this.responseText;
+alert(responseData);
+
+var data=responseData.split(",");
+var designationSelectTag=document.getElementById('designationSelectTag');
+var option;
+for(var i=0;i<data.length;i+=2)
+{
+option=document.createElement('option');
+option.value=data[i];
+option.text=data[i+1];
+designationSelectTag.appendChild(option);
+}
+
+}
+else
+{
+alert('Status is not 200');
+}
+}
+};
+xmlHttpRequest.open('GET','servletOne',true);
+xmlHttpRequest.send();
+*/
+}
+
+$(()=>{
+populateDesignation();
+});
+
+</script>
+</head>
+<body>
+<select id='designationSelectTag'>
+</select>
+</body>
+</html>

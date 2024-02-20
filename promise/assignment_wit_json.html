@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Get type without sending data</title>
+<script src='/jquery/jquery/jquery-3.7.1.min.js'></script>
+<script>
+function populateDesignation()
+{
+
+/*
+It also Works
+$.getJSON("servletOneJSON",function(data){
+alert(JSON.stringify(data));
+});
+*/
+
+
+$.ajax({
+url: "servletOneJSON",
+dataType: "json",
+success: function(responseText){
+var responseData=JSON.stringify(responseText);
+
+var designationsList=JSON.parse(responseData);
+var designationSelectTag=document.getElementById('designationSelectTag');
+var option;
+for(var i=0;i<designationsList.length;i++)
+{
+option=document.createElement('option');
+option.value=designationsList[i].code;
+option.text=designationsList[i].title;
+designationSelectTag.appendChild(option);
+}
+
+},
+error: function(jqxmlHttpRequest,textStatus,errorThrown){
+alert(jqxmlHttpRequest);
+alert(textStatus);
+alert(errorThrown);
+}
+});
+
+}
+
+$(()=>{
+populateDesignation();
+});
+
+</script>
+</head>
+<body>
+<select id='designationSelectTag'>
+</select>
+</body>
+</html>

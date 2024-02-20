@@ -10,3 +10,12 @@ Object.values(_pass_your_obj);
 Refernces
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/values
+
+--------------------------------Above Will restructure later on----------------
+Promise:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+Fetch API:
+https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
+
+
+

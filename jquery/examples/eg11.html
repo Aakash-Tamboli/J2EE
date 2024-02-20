@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>attr vs prop</title>
+<script src='/jquery/jquery/jquery-3.7.1.min.js'></script>
+<script>
+$(()=>{
+// when we want boolean value, then prop() is good because it checkes and return boolean values
+// when we want value of attached property then attr is good because it returns
+
+$("#button1").on('click',()=>{
+alert($("input").prop("checked"));
+alert($("#heading").attr("creator"));
+});
+
+
+});
+</script>
+</head>
+<body>
+<h1 id='heading' creator='God'>God is Great</h1>
+<input type='checkbox'>
+<button id='button1'>Click Me</button>
+</body>
+</html>

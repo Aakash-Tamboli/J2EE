@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>DOM Element Object Vs JQuery Object</title>
+<script src='/jquery/jquery/jquery-3.7.1.min.js'></script>
+<script>
+// Aakash, DOM Element Object is different than JQuery Object
+// Proof of concept is:
+
+$(()=>{
+$("#button1").on('click',function(){
+var buttonByJQuery=$("#button1");
+var buttonByDOMAPI=document.querySelector("#button1");
+if(buttonByJQuery===buttonByDOMAPI)
+{
+alert("This is impossible");
+}
+else
+{
+alert("See Two are different to each other See Code");
+}
+});
+});
+</script>
+</head>
+<body>
+<button id='button1'>Click Me</button>
+</body>
+</html>

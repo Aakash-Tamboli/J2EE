@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Promise Examples</title>
+<script src='/jquery/jquery/jquery-3.7.1.min.js'></script>
+<script>
+function coolDown(number,fn)
+{
+setTimeout(()=>{
+number=number/2;
+fn(number);
+},3000);
+}
+
+$(()=>{
+$("#button1").click(()=>{
+var x=100;
+coolDown(x,(y)=>{
+alert(y+" is cooled down of : "+x);
+});
+});
+});
+</script>
+</head>
+<body>
+<button type='button' id='button1'>Click Me</button>
+</body>
+</html>

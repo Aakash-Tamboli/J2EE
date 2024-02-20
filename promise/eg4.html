@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Promise Examples</title>
+<script src='/jquery/jquery/jquery-3.7.1.min.js'></script>
+<script>
+function coolDown(number)
+{
+var promise=new Promise(function(done,problem){
+setTimeout(function(){
+if(number==0)
+{
+problem(number+" cannot be cooled down");
+return;
+}
+number=number/2;
+done(number);
+},3000);
+});
+return promise;
+}
+
+$(()=>{
+$("#button1").click(()=>{
+// var x=100; testing
+var x=0;
+var promise=coolDown(x);
+promise.then(function(result){
+alert(result+" is cooled down version of "+x);
+},function(error){
+alert(error);
+});
+});
+});
+</script>
+</head>
+<body>
+<button type='button' id='button1'>Click Me</button>
+</body>
+</html>
