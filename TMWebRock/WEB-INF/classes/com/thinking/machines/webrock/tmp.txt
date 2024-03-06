@@ -1,0 +1,74 @@
+// method loop starts
+for(Method m: c.getDeclaredMethods())
+{
+if(m.isAnnotationPresent(OnStartup.class)) priority=m.getAnnotation(OnStartup.class).Priority();
+else priority=-1;
+if(m.isAnnotationPresent(Path.class))
+{
+path=m.getAnnotation(Path.class);
+str2=path.value();
+if(str2.length()==0) continue;
+if(c.isAnnotationPresent(GET.class)==false && c.isAnnotationPresent(POST.class)==false) // it means class level does not have niether @GET nor @POST so I have to check on method level
+{
+if(m.isAnnotationPresent(GET.class))
+{
+isGetAllowed=true;
+isPostAllowed=false;
+}
+else if(m.isAnnotationPresent(POST.class))
+{
+isPostAllowed=true;
+isGetAllowed=false;
+}
+else
+{
+isGetAllowed=true;
+isPostAllowed=true;
+}
+}
+if(m.isAnnotationPresent(Forward.class))
+{
+forward=m.getAnnotation(Forward.class);
+forwardTo=forward.value();
+if(forwardTo.length()==0) forwardTo=null;
+}
+
+System.out.println("---------------------"+objectCount+"---------------------");
+System.out.println("Service Object created with ");
+System.out.println("ClassName: "+c.getSimpleName());
+System.out.println("Full Path of service: "+str+str2);
+System.out.println("Serivce Forward To: "+forwardTo);
+System.out.println("Method which considerd as service: "+m.getName());
+System.out.println("For This Service GET ALLOWED: "+isGetAllowed);
+System.out.println("For This Service POST ALLOwED: "+isPostAllowed);
+System.out.println("Startup Service "+false);
+System.out.println("prioity No: "+priority);
+System.out.println("---------------------"+objectCount+"---------------------");
+objectCount++;
+
+service=new Service(c,str+str2,forwardTo,m,isGetAllowed,isPostAllowed,false,priority);
+model.dataStructure.put(str+str2,service);
+forwardTo=null; // for next cycle
+}
+else
+{
+if(priority!=-1)
+{
+System.out.println("---------------------"+objectCount+"---------------------");
+System.out.println("Service Object created with ");
+System.out.println("ClassName: "+c.getSimpleName());
+System.out.println("Full Path of service: "+"ONLY_FOR_STARTUP");
+System.out.println("Serivce Forward To: "+"ONLY_FOR_STARTUP");
+System.out.println("Method which considerd as Startup service: "+m.getName());
+System.out.println("For This Service GET ALLOWED: "+false);
+System.out.println("For This Service POST ALLOwED: "+false);
+System.out.println("Startup Service "+true);
+System.out.println("prioity No: "+priority);
+System.out.println("---------------------"+objectCount+"---------------------");
+objectCount++;
+service=new Service(c,"ONLY_FOR_STARTUP","ONLY_FOR_STARTUP",m,false,false,true,priority);
+startupList.add(service); // think about min-heap
+}
+}
+} // method loop ends
+
