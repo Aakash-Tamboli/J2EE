@@ -136,10 +136,11 @@ if(c.isAnnotationPresent(Path.class))
 path=(Path)c.getAnnotation(Path.class);
 str=path.value();
 if(str.length()==0) continue;
+if(str.charAt(0)!='/') str="/"+str; // for less error prone code
 if(c.isAnnotationPresent(InjectApplicationDirectory.class)) injectApplicationDirectory=true;
-else if(c.isAnnotationPresent(InjectApplicationScope.class)) injectApplicationScope=true;
-else if(c.isAnnotationPresent(InjectSessionScope.class)) injectSessionScope=true;
-else if(c.isAnnotationPresent(InjectRequestScope.class)) injectRequestScope=true;
+if(c.isAnnotationPresent(InjectApplicationScope.class)) injectApplicationScope=true;
+if(c.isAnnotationPresent(InjectSessionScope.class)) injectSessionScope=true;
+if(c.isAnnotationPresent(InjectRequestScope.class)) injectRequestScope=true;
 
 if(c.isAnnotationPresent(GET.class))
 {
@@ -226,7 +227,7 @@ System.out.println("prioity No: "+priority);
 System.out.println("---------------------"+objectCount+"---------------------");
 objectCount++;
 service=new Service(c,"ONLY_FOR_STARTUP","ONLY_FOR_STARTUP",m,false,false,true,priority,injectApplicationDirectory,injectApplicationScope,injectSessionScope,injectRequestScope);
-startupList.add(service); // think about min-heap
+startupList.add(service); // think about min-heap Aakash If Sir give you instruction you can implement it
 }
 }
 } // method loop ends
