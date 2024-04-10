@@ -3,7 +3,7 @@ import com.thinking.machines.webrock.annotations.*;
 import java.util.*;
 import java.sql.*;
 
-
+@SendPOJOServiceToClient
 @Path("/studentService")
 public class StudentService
 {
@@ -62,6 +62,7 @@ System.out.println(exception);
 }
 
 
+@GET
 @Path("/deleteStudent")
 public void delete(@RequestParameter("rollNumber") int rollNumber)
 {
@@ -82,6 +83,7 @@ System.out.println(exception);
 }
 }
 
+@GET
 @Path("/getByRollNumber")
 public Student getByRollNumber(int rollNumber)
 {
