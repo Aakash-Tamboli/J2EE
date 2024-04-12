@@ -13,7 +13,7 @@ import java.lang.reflect.*;
 
 
 
-public class Analyze
+public class TMAnalyze
 {
 
 private static boolean DELETE_PREVIOUSLY_GENERATED_JSFILE=false;

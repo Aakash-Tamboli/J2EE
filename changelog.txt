@@ -1,0 +1,15 @@
+FINAL_VERSION CHANGELOGE LEARNING
+Note: Higher the number latest the version
+------------------1---------------
+1) TMAnaysis class separte from TMWebRockStarter
+	Aakash, Framework ko configure krne ka control user ke haat me dena hai, matlb ye mat soch ki wo web.xml me kuch line delete kr dega toh framework break ho jayega, we will specify in docs that what you should touch and what must you should not touch.
+
+------------------2---------------
+1) TMExecute class created for seperation of execute process at server startup time. ex executeAllStartupService(-/-)
+2) Improving more readability in TMWebRockStarter
+3) Break down TMAnalyze::processToPopulateDataStructure method into pieces and thinking how can i improve code readiblity.
+4) create 4.4.something piece into processToAnalyzeParameterOfMethod method and wrapped and called for more readability.
+
+
+For Tommorrow work:
+1) create more methods of piece then call organize manner so that code should be easily readable (Complete this By Hook or crook tommorow).
