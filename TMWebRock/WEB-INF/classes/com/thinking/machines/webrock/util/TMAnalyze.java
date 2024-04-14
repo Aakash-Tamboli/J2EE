@@ -440,6 +440,77 @@ return requestedParameterList;
 } // processToAnalyzeParameterOfMethod ends
 
 
+public static boolean processToAnalyzeJSONWillComeFromClientSide(Parameter []parameter,Method m,boolean isGetAllowed,boolean isPostAllowed,String str2)
+{
+// bug found i.e think about it if method does not have parameter then what will be the value of parameter varaible is it null or reffering to zero size array
+// and if parameter variable reffering to the zero size array or null then in both condition check does your logic works fine ?
+Class type=null;
+
+if(parameter!=null)
+{
+if((isGetAllowed || isPostAllowed) && str2.length()>0 && m.isAnnotationPresent(Forward.class)==false && m.isAnnotationPresent(OnStartup.class)==false)
+{
+
+if(parameter.length==0)
+{
+if((isGetAllowed || isPostAllowed) && str2.length()>0 && m.isAnnotationPresent(Forward.class)==false && m.isAnnotationPresent(OnStartup.class)==false)
+{
+System.out.println("Yes JSON will might/may come from Client, not have parameter to recive I just to call");
+return true;
+}
+}
+else
+{
+int count=0;
+for(int i=0;i<parameter.length;i++)
+{
+type=parameter[i].getType();
+if(
+!(
+type.equals(ApplicationDirectory.class) ||
+type.equals(ApplicationScope.class) ||
+type.equals(SessionScope.class) ||
+type.equals(RequestScope.class) ||
+type.equals(long.class) ||
+type.equals(Long.class) ||
+type.equals(int.class) ||
+type.equals(Integer.class) ||
+type.equals(short.class) ||
+type.equals(Short.class) ||
+type.equals(byte.class) ||
+type.equals(Byte.class) ||
+type.equals(double.class) ||
+type.equals(Double.class) ||
+type.equals(float.class) ||
+type.equals(Float.class) ||
+type.equals(char.class) ||
+type.equals(boolean.class) ||
+type.equals(Boolean.class) ||
+type.equals(String.class)
+)
+)
+{
+count++;
+}
+}
+if(count==1)
+{
+System.out.println("Yes JSON will might/may come from Client, also have parameter to recive I just have to parse it and call");
+// service.setIsJSONRequired(true); // it means according to docs only one parameter is different, which user want data into that.
+return true;
+}
+else
+{
+// if more than 1 variable different then can i send false see guideline in sir video then decide
+}
+}
+}
+}
+// piece 4.4.4 Here I think check JSON feature implementation  ends
+return false;
+}
+
+
 public static void processToPopulateDataStructures(List<String> list,List<Service> startupList,ServletContext servletContext,String JSFILENAME)
 {
 Class c;
@@ -678,62 +749,9 @@ service=new Service(c,str+str2,forwardTo,m,isServiceReturns,isGetAllowed,isPostA
 
 // piece 4.4.4 JSON feature implementation starts
 
+boolean isJSONComeFromClientSide=processToAnalyzeJSONWillComeFromClientSide(parameter,m,isGetAllowed,isPostAllowed,str2);
 
-if(parameter!=null)
-{
-if((isGetAllowed || isPostAllowed) && str2.length()>0 && m.isAnnotationPresent(Forward.class)==false && m.isAnnotationPresent(OnStartup.class)==false)
-{
-
-if(parameter.length==0)
-{
-if((isGetAllowed || isPostAllowed) && str2.length()>0 && m.isAnnotationPresent(Forward.class)==false && m.isAnnotationPresent(OnStartup.class)==false)
-{
-service.setIsJSONRequired(true);
-System.out.println("Yes JSON will come from Client, not have parameter to recive I just to call");
-}
-}
-else
-{
-int count=0;
-for(int i=0;i<parameter.length;i++)
-{
-type=parameter[i].getType();
-if(
-!(
-type.equals(ApplicationDirectory.class) ||
-type.equals(ApplicationScope.class) ||
-type.equals(SessionScope.class) ||
-type.equals(RequestScope.class) ||
-type.equals(long.class) ||
-type.equals(Long.class) ||
-type.equals(int.class) ||
-type.equals(Integer.class) ||
-type.equals(short.class) ||
-type.equals(Short.class) ||
-type.equals(byte.class) ||
-type.equals(Byte.class) ||
-type.equals(double.class) ||
-type.equals(Double.class) ||
-type.equals(float.class) ||
-type.equals(Float.class) ||
-type.equals(char.class) ||
-type.equals(boolean.class) ||
-type.equals(Boolean.class) ||
-type.equals(String.class)
-)
-)
-{
-count++;
-}
-}
-if(count==1)
-{
-System.out.println("Yes JSON will come from Client, also have parameter to recive I just have to parse it and call");
-service.setIsJSONRequired(true); // it means according to docs only one parameter is different, which user want data into that.
-}
-}
-}
-}
+service.setIsJSONRequired(isJSONComeFromClientSide);
 
 // piece 4.4.4 Here I think check JSON feature implementation  ends
 
