@@ -15,12 +15,7 @@ Note: Higher the number latest the version
 -----------------3-----------------
 
 
-
-
-For next step for work:
-1) create more methods of piece then call organize manner so that code should be easily readable (Complete this By Hook or crook tommorow).
-	pending tasks queue:
-		i) wrapping 4.4.1 feature into method i.e checking GET or POST annotation at method level if class level does not applied.
-	pending tasks stack
-		i) wrapping 4.4.3 feature i.e guard related but wait why ? because you have to check the feature, when you implemented the logic is almost same but extracting guard class i.e checkPost thing is change so right now just take pause.
+-----------------4-----------------
+1) (GUARD FEATURE) wrapped into in static method and called wherevere it needed, hence code readability enhanced
+-----------------4-----------------
 

@@ -125,12 +125,12 @@ requestedParameterPropertyList.add(new RequestedParameterProperty(type,key,name)
 } // Ends processToEvaluateInjectRequestParameter
 
 
-public static Guard processToEvaluateGuardFeature(Class c)
+
+private static Guard processToEvaluateGuard(Class c,Method m)
 {
 
 SecuredAccess securedAccess=null;
 String guardClassNameWithPackage="";
-String []tmp=null;
 String guardClassName="";
 String guardClassService="";
 Parameter []ps=null;
@@ -143,27 +143,20 @@ Guard guard=null;
 
 
 
-// Guard feature implementation starts for class level
+// Guard feature implementation starts for class level and method level
 // validation required
-if(c.isAnnotationPresent(SecuredAccess.class))
+if((c!=null && c.isAnnotationPresent(SecuredAccess.class)) || (m!=null && m.isAnnotationPresent(SecuredAccess.class)))
 {
 // later on finalize the project we will break into components  hence following logic is repeating two time, where ?  see on method section
-securedAccess=(SecuredAccess)c.getAnnotation(SecuredAccess.class);
+if(c!=null) securedAccess=(SecuredAccess)c.getAnnotation(SecuredAccess.class);
+else securedAccess=(SecuredAccess)m.getAnnotation(SecuredAccess.class);
+
 
 guardClassNameWithPackage=securedAccess.checkPost().trim();
 
-tmp=guardClassNameWithPackage.split("[.]"); // validation pending
-
-guardClassName=tmp[tmp.length-1];  // validation pending
-
-// System.out.println("With Package: "+guardClassNameWithPackage);
-// System.out.println("Your Guard Class name is: "+guardClassName);
-
 try
 {
-// System.out.println("Hi");
 guardClass=Class.forName(guardClassNameWithPackage);
-// System.out.println("Bye");
 }catch(Exception exception)
 {
 System.out.println("Problem in your guard class name");
@@ -172,23 +165,19 @@ System.out.println("Problem: "+exception.getMessage());
 
 guardClassService=securedAccess.guard().trim();
 
-// System.out.println("Your Guard Class name is: "+guardClassService);
-
 try
 {
 
 for(Method gs: guardClass.getDeclaredMethods())
 {
-// System.out.println(1);
 if(guardClassService.equalsIgnoreCase(gs.getName()))
 {
-// System.out.println(2);
 ps=gs.getParameters();
 valid=true;
-// System.out.println(3);
+
 for(int i=0;i<ps.length;i++)
 {
-// System.out.println(4+i);
+
 if(
 !(
 ps[i].getType().equals(ApplicationDirectory.class) ||
@@ -208,9 +197,8 @@ break;
 }
 }
 
-// System.out.println("RG Headphone");
 
-if(guardService==null) throw new Exception("Some serious mistake commit by bobby");
+if(guardService==null) throw new Exception("Some serious mistake commited by bobby");
 
 guard=new Guard(guardClass,guardService);
 
@@ -223,7 +211,7 @@ else
 {
 guard=null;
 }
-// Guard feature implementation ends for class level ends
+// Guard feature implementation ends for class level and mothod level ends
 return guard;
 }
 
@@ -599,7 +587,7 @@ isGetAllowed=false;
 
 // piece 3 starts
 
-guard=processToEvaluateGuardFeature(c);
+guard=processToEvaluateGuard(c,null);
 
 // piece 3 ends
 
@@ -677,70 +665,7 @@ if(forwardTo.charAt(0)!='/') forwardTo="/"+forwardTo;
 
 if(guard==null) // if user does not applied Guard Annotation at Class level then This piece of code will execute
 {
-
-if(m.isAnnotationPresent(SecuredAccess.class))
-{
-
-// later on finalize the project we will break into components  hence following logic is repeating two time, where ?  see on class section
-securedAccess=(SecuredAccess)m.getAnnotation(SecuredAccess.class);
-String guardClassName=securedAccess.checkPost().trim();
-
-Class guardClass=null;
-try
-{
-guardClass=Class.forName(guardClassName);
-}catch(Exception exception)
-{
-System.out.println("Problem in your guard class name");
-}
-
-String guardClassService=securedAccess.guard().trim();
-
-Method guardService=null;
-
-try
-{
-
-for(Method gs: guardClass.getDeclaredMethods())
-{
-if(guardClassService.equalsIgnoreCase(gs.getName()))
-{
-Parameter []ps=gs.getParameters();
-boolean valid=true;
-for(int i=0;i<ps.length;i++)
-{
-if(
-!(
-ps[i].equals(ApplicationDirectory.class) ||
-ps[i].equals(ApplicationScope.class) ||
-ps[i].equals(SessionScope.class) ||
-ps[i].equals(RequestScope.class)
-)
-)
-{
-valid=false;
-break;
-}
-}
-if(valid) guardService=gs;
-break;
-}
-}
-if(guardService==null) throw new Exception("Some serious mistake commit by bobby");
-guard=new Guard(guardClass,guardService);
-
-
-}catch(Exception exception)
-{
-System.out.println("Problem un your guard method name");
-guard=null;
-}
-
-}
-else
-{
-guard=null;
-}
+guard=processToEvaluateGuard(null,m);
 }
 
 // piece 4.4.3 Guard feature implementation at method level ends
@@ -766,6 +691,8 @@ System.out.println("Method which considerd as service: "+m.getName());
 System.out.println("Is This Service returns: "+isServiceReturns);
 System.out.println("For This Service GET ALLOWED: "+isGetAllowed);
 System.out.println("For This Service POST ALLOwED: "+isPostAllowed);
+if(service.getGuard()!=null) System.out.println("Service uses guard feature");
+else System.out.println("Service not uses guard feature");
 System.out.println("Startup Service "+false);
 System.out.println("prioity No: "+priority);
 System.out.println("Class Required Inject Application Directory: "+injectApplicationDirectory);
