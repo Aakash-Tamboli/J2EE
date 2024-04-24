@@ -6,9 +6,18 @@ import com.thinking.machines.webrock.pojo.*;
 public class WebRockModel
 {
 public Map<String,Service> dataStructure;
-public WebRockModel()
+public WebRockModel(boolean usedInServiceDoc)
 {
 System.out.println("WebRockModel Constructor in action");
+if(usedInServiceDoc)
+{
+System.out.println("WebRockModel created for use of Service Doc");
+this.dataStructure=new LinkedHashMap<>();
+}
+else
+{
+System.out.println("WebRockModel created for use of TMWebRock Framework");
 this.dataStructure=new HashMap<>();
+}
 }
 }

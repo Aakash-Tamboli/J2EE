@@ -345,10 +345,10 @@ return buffer;
 }
 
 
-public static void processOfClassIntoJSFile(Class c,String JSFILENAME,ServletContext servletContext) // check later on private or public
+public static void processOfClassIntoJSFile(Class c,String JSFILENAME,String realPath) // check later on private or public
 {
 String jsContent;
-String jsPath=servletContext.getRealPath(".")+File.separator+"WEB-INF"+File.separator+"js";
+String jsPath=realPath+File.separator+"WEB-INF"+File.separator+"js";
 File file=new File(jsPath);
 if(file.exists()==false)
 {
@@ -499,7 +499,7 @@ return false;
 }
 
 
-public static void processToPopulateDataStructures(List<String> list,List<Service> startupList,ServletContext servletContext,String JSFILENAME)
+public static WebRockModel processToPopulateDataStructures(List<String> list,List<Service> startupList,String realPath,String JSFILENAME,boolean usedInServiceDoc)
 {
 Class c;
 Path path;
@@ -532,8 +532,10 @@ boolean isServiceReturns=false;
 
 
 int objectCount=1; // DEBUGGING PUPOSE
+WebRockModel model=null;
 
-WebRockModel model=new WebRockModel();
+if(usedInServiceDoc) model=new WebRockModel(usedInServiceDoc);
+else model=new WebRockModel(usedInServiceDoc);
 
 try
 {
@@ -542,7 +544,7 @@ try
 for(String classes: list)
 {
 c=Class.forName(classes);
-if(c.isAnnotationPresent(SendPOJOToClient.class) || c.isAnnotationPresent(SendPOJOServiceToClient.class)) processOfClassIntoJSFile(c,JSFILENAME,servletContext);
+if(c.isAnnotationPresent(SendPOJOToClient.class) || c.isAnnotationPresent(SendPOJOServiceToClient.class)) processOfClassIntoJSFile(c,JSFILENAME,realPath);
 
 autoWiredList=new ArrayList<>();
 processToEvaluateAutoWiredList(c,autoWiredList);
@@ -665,81 +667,7 @@ if(forwardTo.charAt(0)!='/') forwardTo="/"+forwardTo;
 
 if(guard==null) // if user does not applied Guard Annotation at Class level then This piece of code will execute
 {
-
 guard=processToEvaluateGuard(null,m);
-
-
-/*
-
-if(m.isAnnotationPresent(SecuredAccess.class))
-{
-
-// later on finalize the project we will break into components  hence following logic is repeating two time, where ?  see on class section
-securedAccess=(SecuredAccess)m.getAnnotation(SecuredAccess.class);
-String guardClassName=securedAccess.checkPost().trim();
-
-Class guardClass=null;
-try
-{
-guardClass=Class.forName(guardClassName);
-}catch(Exception exception)
-{
-System.out.println("Problem in your guard class name");
-}
-
-String guardClassService=securedAccess.guard().trim();
-
-Method guardService=null;
-
-try
-{
-
-for(Method gs: guardClass.getDeclaredMethods())
-{
-if(guardClassService.equalsIgnoreCase(gs.getName()))
-{
-Parameter []ps=gs.getParameters();
-boolean valid=true;
-for(int i=0;i<ps.length;i++)
-{
-if(
-!(
-ps[i].equals(ApplicationDirectory.class) ||
-ps[i].equals(ApplicationScope.class) ||
-ps[i].equals(SessionScope.class) ||
-ps[i].equals(RequestScope.class)
-)
-)
-{
-valid=false;
-break;
-}
-}
-if(valid) guardService=gs;
-break;
-}
-}
-if(guardService==null) throw new Exception("Some serious mistake commit by bobby");
-guard=new Guard(guardClass,guardService);
-
-
-}catch(Exception exception)
-{
-System.out.println("Problem un your guard method name");
-guard=null;
-}
-
-
-
-
-
-}
-else
-{
-guard=null;
-}
-
-*/
 }
 
 // piece 4.4.3 Guard feature implementation at method level ends
@@ -836,10 +764,11 @@ injectRequestScope=false;
 System.out.println("Problem");
 }
 
+return model;
+// servletContext.setAttribute("dataStructure",model);
+// System.out.println("Total Services in HashMap is: "+model.dataStructure.size());
 
 
-servletContext.setAttribute("dataStructure",model);
-System.out.println("Total Services in HashMap is: "+model.dataStructure.size());
 
 } // processToPopulateDataStructures
 

@@ -345,10 +345,10 @@ return buffer;
 }
 
 
-public static void processOfClassIntoJSFile(Class c,String JSFILENAME,ServletContext servletContext) // check later on private or public
+public static void processOfClassIntoJSFile(Class c,String JSFILENAME,String realPath) // check later on private or public
 {
 String jsContent;
-String jsPath=servletContext.getRealPath(".")+File.separator+"WEB-INF"+File.separator+"js";
+String jsPath=realPath+File.separator+"WEB-INF"+File.separator+"js";
 File file=new File(jsPath);
 if(file.exists()==false)
 {
@@ -499,7 +499,7 @@ return false;
 }
 
 
-public static void processToPopulateDataStructures(List<String> list,List<Service> startupList,ServletContext servletContext,String JSFILENAME)
+public static WebRockModel processToPopulateDataStructures(List<String> list,List<Service> startupList,String realPath,String JSFILENAME,boolean usedInServiceDoc)
 {
 Class c;
 Path path;
@@ -532,8 +532,10 @@ boolean isServiceReturns=false;
 
 
 int objectCount=1; // DEBUGGING PUPOSE
+WebRockModel model=null;
 
-WebRockModel model=new WebRockModel();
+if(usedInServiceDoc) model=new WebRockModel(usedInServiceDoc);
+else model=new WebRockModel(usedInServiceDoc);
 
 try
 {
@@ -542,7 +544,7 @@ try
 for(String classes: list)
 {
 c=Class.forName(classes);
-if(c.isAnnotationPresent(SendPOJOToClient.class) || c.isAnnotationPresent(SendPOJOServiceToClient.class)) processOfClassIntoJSFile(c,JSFILENAME,servletContext);
+if(c.isAnnotationPresent(SendPOJOToClient.class) || c.isAnnotationPresent(SendPOJOServiceToClient.class)) processOfClassIntoJSFile(c,JSFILENAME,realPath);
 
 autoWiredList=new ArrayList<>();
 processToEvaluateAutoWiredList(c,autoWiredList);
@@ -762,10 +764,11 @@ injectRequestScope=false;
 System.out.println("Problem");
 }
 
+return model;
+// servletContext.setAttribute("dataStructure",model);
+// System.out.println("Total Services in HashMap is: "+model.dataStructure.size());
 
 
-servletContext.setAttribute("dataStructure",model);
-System.out.println("Total Services in HashMap is: "+model.dataStructure.size());
 
 } // processToPopulateDataStructures
 

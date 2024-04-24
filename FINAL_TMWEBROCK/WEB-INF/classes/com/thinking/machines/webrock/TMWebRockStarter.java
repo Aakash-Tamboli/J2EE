@@ -45,7 +45,10 @@ List<String> list=TMAnalyze.processToFindAllClassesName(knownFact,PREFIX);
 
 List<Service> startupList=new ArrayList<>();
 
-TMAnalyze.processToPopulateDataStructures(list,startupList,servletContext,JSFILENAME);
+WebRockModel model=TMAnalyze.processToPopulateDataStructures(list,startupList,servletContext.getRealPath("."),JSFILENAME,false); // last argument decided, that this static method is used by TMWebRock Framework or ServiceDoc
+servletContext.setAttribute("dataStructure",model);
+
+System.out.println("Total Services in WebRockModel is: "+model.dataStructure.size());
 
 TMExecute.executeAllStartupService(startupList);
 
