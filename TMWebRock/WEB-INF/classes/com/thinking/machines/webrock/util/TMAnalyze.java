@@ -685,25 +685,7 @@ service.setIsJSONRequired(isJSONComeFromClientSide);
 
 
 System.out.println("---------------------"+objectCount+"---------------------");
-System.out.println("Service Object created with ");
-System.out.println("ClassName: "+c.getSimpleName());
-System.out.println("Full Path of service: "+str+str2);
-System.out.println("Serivce Forward To: "+forwardTo);
-System.out.println("Method which considerd as service: "+m.getName());
-System.out.println("Is This Service returns: "+isServiceReturns);
-System.out.println("For This Service GET ALLOWED: "+isGetAllowed);
-System.out.println("For This Service POST ALLOwED: "+isPostAllowed);
-if(service.getGuard()!=null) System.out.println("Service uses guard feature");
-else System.out.println("Service not uses guard feature");
-System.out.println("Startup Service "+false);
-System.out.println("prioity No: "+priority);
-System.out.println("Class Required Inject Application Directory: "+injectApplicationDirectory);
-System.out.println("Class Required Inject Application Scope: "+injectApplicationScope);
-System.out.println("Class Required Inject Session Scope: "+injectSessionScope);
-System.out.println("Class Required Inject Request Scope: "+injectRequestScope);
-System.out.println("Does Class Have Property: "+autoWiredList);
-System.out.println("Does Class property uses Inject Request Parameter annotation: "+requestedParameterPropertyList);
-System.out.println("Does Class's Service tell that JSON will come from client side:"+service.getIsJSONRequired());
+Debug.TMServiceInfo(service);
 System.out.println("---------------------"+objectCount+"---------------------");
 objectCount++;
 
@@ -762,6 +744,7 @@ injectRequestScope=false;
 }catch(ClassNotFoundException cnfe)
 {
 System.out.println("Problem");
+System.out.println(cnfe.getMessage());
 }
 
 return model;

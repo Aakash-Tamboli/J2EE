@@ -1,0 +1,1 @@
+java -classpath ../dist/ServiceDoc.jar:../dependencies/*:/opt/tomcat/webapps/TMWebRock/WEB-INF/classes:. com.thinking.machines.webrock.tool.ServiceDoc "/opt/tomcat/webapps/TMWebRock/WEB-INF/classes/bobby" "/home/aakash/javaeg/pdfs/pdf1.pdf"
