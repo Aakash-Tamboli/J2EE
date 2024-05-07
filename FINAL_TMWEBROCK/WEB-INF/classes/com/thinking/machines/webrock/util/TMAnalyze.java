@@ -443,7 +443,7 @@ if(parameter.length==0)
 {
 if((isGetAllowed || isPostAllowed) && str2.length()>0 && m.isAnnotationPresent(Forward.class)==false && m.isAnnotationPresent(OnStartup.class)==false)
 {
-System.out.println("Yes JSON will might/may come from Client, not have parameter to recive I just to call");
+// I will remove later on after testing System.out.println("Yes JSON will might/may come from Client, not have parameter to receive I just to call");
 return true;
 }
 }
@@ -543,8 +543,28 @@ try
 
 for(String classes: list)
 {
+
 c=Class.forName(classes);
 if(c.isAnnotationPresent(SendPOJOToClient.class) || c.isAnnotationPresent(SendPOJOServiceToClient.class)) processOfClassIntoJSFile(c,JSFILENAME,realPath);
+
+if(c.isAnnotationPresent(Path.class))
+{
+// piece 1 starts
+path=(Path)c.getAnnotation(Path.class);
+str=path.value();
+if(str.length()==0)
+{
+System.out.println("Empty String is found at Path annotation in "+c.getName()+" , that's why its not consider as Service");
+continue;
+}
+if(str.charAt(0)!='/') str="/"+str; // for less error prone code
+if(c.isAnnotationPresent(InjectApplicationDirectory.class)) injectApplicationDirectory=true;
+if(c.isAnnotationPresent(InjectApplicationScope.class)) injectApplicationScope=true;
+if(c.isAnnotationPresent(InjectSessionScope.class)) injectSessionScope=true;
+if(c.isAnnotationPresent(InjectRequestScope.class)) injectRequestScope=true;
+
+// piece 1 ends
+
 
 autoWiredList=new ArrayList<>();
 processToEvaluateAutoWiredList(c,autoWiredList);
@@ -557,24 +577,14 @@ processToEvaluateInjectRequestParameter(c,requestedParameterPropertyList);
 if(requestedParameterPropertyList.size()==0) requestedParameterPropertyList=null;
 
 
-if(c.isAnnotationPresent(Path.class))
-{
-
-// piece 1 starts
-path=(Path)c.getAnnotation(Path.class);
-str=path.value();
-if(str.length()==0) continue;
-if(str.charAt(0)!='/') str="/"+str; // for less error prone code
-if(c.isAnnotationPresent(InjectApplicationDirectory.class)) injectApplicationDirectory=true;
-if(c.isAnnotationPresent(InjectApplicationScope.class)) injectApplicationScope=true;
-if(c.isAnnotationPresent(InjectSessionScope.class)) injectSessionScope=true;
-if(c.isAnnotationPresent(InjectRequestScope.class)) injectRequestScope=true;
-
-// piece 1 ends
 
 // piece 2 starts
-
-if(c.isAnnotationPresent(GET.class))
+if(c.isAnnotationPresent(GET.class) && c.isAnnotationPresent(POST.class))
+{
+isGetAllowed=true;
+isPostAllowed=true;
+}
+else if(c.isAnnotationPresent(GET.class))
 {
 isGetAllowed=true;
 isPostAllowed=false;
@@ -626,12 +636,22 @@ if(m.isAnnotationPresent(Path.class))
 {
 path=m.getAnnotation(Path.class);
 str2=path.value();
-if(str2.length()==0) continue;
-if(str2.charAt(0)!='/') str2="/"+str2;
+if(str2.length()==0)
+{
+System.out.println("Empty String is found at Path annotation in "+c.getSimpleName()+"->"+m.getName()+" , that's why its not consider as Service");
+continue;
+}
+
+if(str2.charAt(0)!='/') str2="/"+str2; // for less error prone code
 // piece 4.4.1 checking GET OR POST Annotation on method if & only if user does not applied on class level. starts
 if(c.isAnnotationPresent(GET.class)==false && c.isAnnotationPresent(POST.class)==false) // it means class level does not have niether @GET nor @POST so I have to check at method level
 {
-if(m.isAnnotationPresent(GET.class))
+if(m.isAnnotationPresent(GET.class) && m.isAnnotationPresent(POST.class))
+{
+isGetAllowed=true;
+isPostAllowed=true;
+}
+else if(m.isAnnotationPresent(GET.class))
 {
 isGetAllowed=true;
 isPostAllowed=false;
@@ -659,8 +679,6 @@ if(forwardTo.charAt(0)!='/') forwardTo="/"+forwardTo;
 }
 
 // piece 4.4.2 checking Does user wants to forward request after process current observing method ends
-
-
 
 
 // piece 4.4.3 Guard feature implementation at method level starts
@@ -696,19 +714,11 @@ else
 {
 if(priority!=-1)
 {
+service=new Service(c,"ONLY_FOR_STARTUP","ONLY_FOR_STARTUP",m,false,false,false,true,priority,injectApplicationDirectory,injectApplicationScope,injectSessionScope,injectRequestScope,autoWiredList,requestedParameterList,requestedParameterPropertyList,false,null);
 System.out.println("---------------------"+objectCount+"---------------------");
-System.out.println("Service Object created with ");
-System.out.println("ClassName: "+c.getSimpleName());
-System.out.println("Full Path of service: "+"ONLY_FOR_STARTUP");
-System.out.println("Serivce Forward To: "+"ONLY_FOR_STARTUP");
-System.out.println("Method which considerd as Startup service: "+m.getName());
-System.out.println("For This Service GET ALLOWED: "+false);
-System.out.println("For This Service POST ALLOwED: "+false);
-System.out.println("Startup Service "+true);
-System.out.println("prioity No: "+priority);
+Debug.TMServiceInfo(service);
 System.out.println("---------------------"+objectCount+"---------------------");
 objectCount++;
-service=new Service(c,"ONLY_FOR_STARTUP","ONLY_FOR_STARTUP",m,false,false,false,true,priority,injectApplicationDirectory,injectApplicationScope,injectSessionScope,injectRequestScope,autoWiredList,requestedParameterList,requestedParameterPropertyList,false,null);
 startupList.add(service); // think about min-heap Aakash If Sir give you instruction you can implement it
 }
 else

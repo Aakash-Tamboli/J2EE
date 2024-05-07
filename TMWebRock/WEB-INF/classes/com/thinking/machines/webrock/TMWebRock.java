@@ -406,6 +406,86 @@ throw exception;
 }
 }
 
+private void processOfExecutingGuard() throws InvocationTargetException,InstantiationException,IllegalAccessException
+{
+Object instantiationOfGuardClass=null;
+Guard guard=null;
+Method guardService=null;
+Parameter []guardParameters=null;
+Object []arguments=null;
+
+guard=mainService.getGuard();
+
+System.out.println("Guard Feature got invoked and whose name is: "+guard.getGuardClass().getName());
+
+instantiationOfGuardClass=guard.getGuardClass().newInstance();
+
+guardService=guard.getGuardService();
+
+guardParameters=guardService.getParameters();
+
+arguments=new Object[guardParameters.length]; // validation later on , what if bobby Method does not have anything but I think I checked in starter but you will see later on
+
+System.out.println("Guard Service requires: "+arguments.length+" args");
+
+for(int i=0;i<guardParameters.length;i++)
+{
+if(guardParameters[i].getType().equals(ApplicationDirectory.class)) arguments[i]=applicationDirectory;
+else if(guardParameters[i].getType().equals(ApplicationScope.class)) arguments[i]=applicationScope;
+else if(guardParameters[i].getType().equals(SessionScope.class)) arguments[i]=sessionScope;
+else if(guardParameters[i].getType().equals(RequestScope.class)) arguments[i]=requestScope;
+}
+guardService.invoke(instantiationOfGuardClass,arguments);
+} // processOfExecutingGuard ends
+
+private void processOfAutoWiringProperties(List<AutoWiredWrapper> autoWiredList) throws IllegalAccessException
+{
+Object value=null;
+Field property=null;
+String name=null;
+Class type=null;
+
+
+for(AutoWiredWrapper autoWired: autoWiredList)
+{
+
+value=null;
+property=autoWired.getProperty();
+name=autoWired.getName();
+type=autoWired.getType();
+
+value=request.getAttribute(name);
+if(value!=null && type.isInstance(value))
+{
+property.setAccessible(true);
+property.set(instantiationOfClass,value);
+property.setAccessible(false);
+continue;
+}
+value=httpSession.getAttribute(name);
+if(value!=null && type.isInstance(value))
+{
+property.setAccessible(true);
+property.set(instantiationOfClass,value);
+property.setAccessible(false);
+continue;
+}
+value=servletContext.getAttribute(name);
+if(value!=null && type.isInstance(value))
+{
+property.setAccessible(true);
+property.set(instantiationOfClass,value);
+property.setAccessible(false);
+continue;
+}
+property.setAccessible(true);
+property.set(instantiationOfClass,value);
+property.setAccessible(false);
+}
+
+} // processOfAutoWiringProperties
+
+
 public void doGet(HttpServletRequest request,HttpServletResponse response)
 {
 try
@@ -440,16 +520,13 @@ List<AutoWiredWrapper> autoWiredList=null;
 Object value=null;
 Class type=null;
 Field property=null;
+
+
 List<RequestedParameter> requestedParameterList=null;
 List<RequestedParameterProperty> requestedParameterPropertyList=null;
 Object []arguments=null;
 RequestedParameter requestedParameter=null;
 SecurityException securityException=null;
-
-Object instantiationOfGuardClass=null;
-Guard guard=null;
-Method guardService=null;
-Parameter []guardParameters=null;
 
 
 // varaible Declarration ends
@@ -492,117 +569,73 @@ targetClass=mainService.getServiceClass();
 subService=mainService.getService();
 instantiationOfClass=targetClass.newInstance();
 
-// checking security Guard starts
+// piece 1 checking security Guard starts
 
 if(mainService.getGuard()!=null)
 {
-
-guard=mainService.getGuard();
-
-System.out.println("Guard Feature got invoked and whose name is: "+guard.getGuardClass().getName());
-
 try
 {
-instantiationOfGuardClass=guard.getGuardClass().newInstance();
-guardService=guard.getGuardService();
-
-guardParameters=guardService.getParameters();
-
-arguments=new Object[guardParameters.length]; // validation later on , what if bobby Method does not have anything but I think I checked in starter but you will see later on
-
-System.out.println("Guard Service requires: "+arguments.length+" args");
-
-for(int i=0;i<guardParameters.length;i++)
-{
-if(guardParameters[i].getType().equals(ApplicationDirectory.class)) arguments[i]=applicationDirectory;
-else if(guardParameters[i].getType().equals(ApplicationScope.class)) arguments[i]=applicationScope;
-else if(guardParameters[i].getType().equals(SessionScope.class)) arguments[i]=sessionScope;
-else if(guardParameters[i].getType().equals(RequestScope.class)) arguments[i]=requestScope;
-}
-
-
-guardService.invoke(instantiationOfGuardClass,arguments);
-
+processOfExecutingGuard();
 }catch(InvocationTargetException invocationTargetException)
 {
-System.out.println("Guard Service raise exception, it means user is not authenticated properly");
+System.out.println("Guard Service found exception, it means user is not authenticated properly");
 if(invocationTargetException.getCause() instanceof SecurityException) securityException=(SecurityException)invocationTargetException.getCause();
 response.sendError(response.SC_NOT_FOUND,securityException.getMessage());
 return;
 }
-
+catch(InstantiationException instantiationException)
+{
+Debug.TMWebRockDebug("Problem: Guard Service found exception i.e: "+instantiationException.getMessage());
+response.sendError(response.SC_INTERNAL_SERVER_ERROR,instantiationException.getMessage());
+return;
 }
-// checking security Guard ends
+catch(IllegalAccessException illegalAccessException)
+{
+Debug.TMWebRockDebug("Problem: Guard Service found exception i.e: "+illegalAccessException.getMessage());
+response.sendError(response.SC_INTERNAL_SERVER_ERROR,illegalAccessException.getMessage());
+return;
+}
+}
+// piece 1 checking security Guard ends
 
-// JSON feature starts
+// piece 2 JSON feature starts
 try
 {
 arguments=requestParameterFeature();
 }catch(Exception exception)
 {
-System.out.println("Unable to parse JSON data into your parameters, please reffer docs for rectify your mistake");
-System.out.println("Problem: "+exception.getMessage());
+Debug.TMWebRockDebug("Unable to parse JSON data into your parameters, please reffer docs for rectify your mistake");
+Debug.TMWebRockDebug("Problem: "+exception.getMessage());
 response.sendError(response.SC_INTERNAL_SERVER_ERROR,"Unable to parse JSON data into your parameters, please reffer docs for rectify your mistake");
 return;
 }
+// piece 2 JSON feature ends
 
 
-
-// JSON feature ends
-
-
-
-// implementing AutoWire Feature starts
+// piece 3 implementing AutoWire Feature starts
 autoWiredList=mainService.getAutoWired();
-
 if(autoWiredList!=null)
 {
-for(AutoWiredWrapper autoWired: autoWiredList)
+try
 {
-value=null;
-property=autoWired.getProperty();
-name=autoWired.getName();
-type=autoWired.getType();
-
-value=request.getAttribute(name);
-if(value!=null && type.isInstance(value))
+processOfAutoWiringProperties(autoWiredList);
+}catch(IllegalAccessException illegalAccessException)
 {
-property.setAccessible(true);
-property.set(instantiationOfClass,value);
-property.setAccessible(false);
-continue;
-}
-value=httpSession.getAttribute(name);
-if(value!=null && type.isInstance(value))
-{
-property.setAccessible(true);
-property.set(instantiationOfClass,value);
-property.setAccessible(false);
-continue;
-}
-value=servletContext.getAttribute(name);
-if(value!=null && type.isInstance(value))
-{
-property.setAccessible(true);
-property.set(instantiationOfClass,value);
-property.setAccessible(false);
-continue;
-}
-property.setAccessible(true);
-property.set(instantiationOfClass,value);
-property.setAccessible(false);
+Debug.TMWebRockDebug("Problem: Exception Found during Auto Wiring Properties i.e: "+illegalAccessException.getMessage());
+response.sendError(response.SC_INTERNAL_SERVER_ERROR,illegalAccessException.getMessage());
+return;
 }
 }
-// implementing AutoWire Feature ends
+// piece 3 implementing AutoWire Feature ends
 
 
-// Implementing InjectRequestParameter or Requested Parameter Property Feature starts
+// piece 4 Implementing InjectRequestParameter or Requested Parameter Property Feature starts
 injectRequestParameterFeature();
-// Implementing InjectRequestParameter or Requested Parameter Property Feature ends
+// piece 4 Implementing InjectRequestParameter or Requested Parameter Property Feature ends
 
 
 
-// here code of injecting things or IOC starts
+// piece 5 here code of injecting things or IOC starts
 
 
 if(mainService.getInjectApplicationDirectory())
@@ -618,7 +651,7 @@ setterMethod=targetClass.getMethod("setApplicationDirectory",ApplicationDirector
 setterMethod.invoke(instantiationOfClass,applicationDirectory);
 }catch(Exception exception)
 {
-System.out.println("TMWebRock Found Exception either you are not write setter method or doing something wrong");
+System.out.println("TMWebRock Found Exception either you are not wrote setter method or doing something wrong please reffer docs");
 System.out.println("Exception : "+exception.getMessage());
 }
 }
@@ -671,7 +704,7 @@ System.out.println("TMWebRock Found Exception either you are not write setter me
 System.out.println("Exception : "+exception.getMessage());
 }
 }
-// above code of injecting things or IOC ends
+// piece 5 above code of injecting things or IOC ends
 
 
 try
@@ -705,16 +738,40 @@ response.sendError(response.SC_INTERNAL_SERVER_ERROR,securityException.getMessag
 return;
 }
 
-// here forward related code
+// here forward related code starts
 
 
 if(mainService.getForwardTo()!=null && mainService.getForwardTo().length()>0)
 {
+String forwardedTo=mainService.getForwardTo();
+
+if(forwardedTo.indexOf(".jsp")!=-1 &&
+forwardedTo.substring(forwardedTo.indexOf(".jsp")).equals(".jsp")
+)
+{
+System.out.println("I found jsp is extension so request is forwarded to jsp");
 RequestDispatcher requestDispatcher;
-System.out.println("Forwarding: "+request.getServletPath()+key.substring(0,key.indexOf("/",1))+mainService.getForwardTo());
-requestDispatcher=request.getRequestDispatcher(request.getServletPath()+key.substring(0,key.indexOf("/",1))+mainService.getForwardTo());
+requestDispatcher=request.getRequestDispatcher(forwardedTo);
+requestDispatcher.forward(request,response);
+return;
+}
+
+
+if(model.dataStructure.containsKey(key))
+{
+RequestDispatcher requestDispatcher;
+String servletPath=request.getServletPath();
+System.out.println("Forwarding: "+servletPath+forwardedTo);
+requestDispatcher=request.getRequestDispatcher(servletPath+forwardedTo);
 requestDispatcher.forward(request,response);
 }
+else
+{
+response.sendError(response.SC_INTERNAL_SERVER_ERROR,forwardedTo+" Not Found");
+}
+}
+
+// here forward related code ends
 
 }
 else
@@ -724,6 +781,7 @@ response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 }
 else
 {
+// when requested resource is client side like jsp
 RequestDispatcher requestDispatcher;
 requestDispatcher=request.getRequestDispatcher(serviceURL);
 requestDispatcher.forward(request,response);  
@@ -804,112 +862,72 @@ targetClass=mainService.getServiceClass();
 subService=mainService.getService();
 instantiationOfClass=targetClass.newInstance();
 
-// checking security Guard starts
+
+// piece 1 checking security Guard starts
 
 if(mainService.getGuard()!=null)
 {
-
-System.out.println("Get Guard ackslmkcsamksacmkcsam");
-
-guard=mainService.getGuard();
-
 try
 {
-Object instantiationOfGuardClass=guard.getGuardClass().newInstance();
-Method guardService=guard.getGuardService();
-
-Parameter []guardParameters=guardService.getParameters();
-arguments=new Object[guardParameters.length]; // validation later on , what if bobby Method does not have anything but I think I checked in starter but you will see later on
-
-for(int i=0;i<guardParameters.length;i++)
-{
-if(guardParameters[i].equals(ApplicationDirectory.class)) arguments[i]=applicationDirectory;
-else if(guardParameters[i].equals(ApplicationScope.class)) arguments[i]=applicationScope;
-else if(guardParameters[i].equals(SessionScope.class)) arguments[i]=sessionScope;
-else if(guardParameters[i].equals(RequestScope.class)) arguments[i]=requestScope;
-}
-
-guardService.invoke(instantiationOfGuardClass,arguments);
+processOfExecutingGuard();
 }catch(InvocationTargetException invocationTargetException)
 {
-System.out.println("Thinking + Hardwork = Success");
+System.out.println("Guard Service found exception, it means user is not authenticated properly");
 if(invocationTargetException.getCause() instanceof SecurityException) securityException=(SecurityException)invocationTargetException.getCause();
 response.sendError(response.SC_NOT_FOUND,securityException.getMessage());
 return;
 }
-
+catch(InstantiationException instantiationException)
+{
+Debug.TMWebRockDebug("Problem: Guard Service found exception i.e: "+instantiationException.getMessage());
+response.sendError(response.SC_INTERNAL_SERVER_ERROR,instantiationException.getMessage());
+return;
 }
-// checking security Guard ends
+catch(IllegalAccessException illegalAccessException)
+{
+Debug.TMWebRockDebug("Problem: Guard Service found exception i.e: "+illegalAccessException.getMessage());
+response.sendError(response.SC_INTERNAL_SERVER_ERROR,illegalAccessException.getMessage());
+return;
+}
+}
+// piece 1 checking security Guard ends
 
-
-
-// JSON feature starts
+// piece 2 JSON feature starts
 try
 {
 arguments=requestParameterFeature();
 }catch(Exception exception)
 {
-System.out.println("Unable to parse JSON data into your parameters, please reffer docs for rectify your mistake");
-System.out.println("Problem: "+exception.getMessage());
+Debug.TMWebRockDebug("Unable to parse JSON data into your parameters, please reffer docs for rectify your mistake");
+Debug.TMWebRockDebug("Problem: "+exception.getMessage());
 response.sendError(response.SC_INTERNAL_SERVER_ERROR,"Unable to parse JSON data into your parameters, please reffer docs for rectify your mistake");
 return;
 }
+// piece 2 JSON feature ends
 
-
-
-// JSON feature ends
-
-// implementing AutoWire Feature starts
+// piece 3 implementing AutoWire Feature starts
 autoWiredList=mainService.getAutoWired();
-
 if(autoWiredList!=null)
 {
-for(AutoWiredWrapper autoWired: autoWiredList)
+try
 {
-value=null;
-property=autoWired.getProperty();
-name=autoWired.getName();
-type=autoWired.getType();
+processOfAutoWiringProperties(autoWiredList);
+}catch(IllegalAccessException illegalAccessException)
+{
+Debug.TMWebRockDebug("Problem: Exception Found during Auto Wiring Properties i.e: "+illegalAccessException.getMessage());
+response.sendError(response.SC_INTERNAL_SERVER_ERROR,illegalAccessException.getMessage());
+return;
+}
+}
+// piece 3 implementing AutoWire Feature ends
 
-value=request.getAttribute(name);
-if(value!=null && type.isInstance(value))
-{
-property.setAccessible(true);
-property.set(instantiationOfClass,value);
-property.setAccessible(false);
-continue;
-}
-value=httpSession.getAttribute(name);
-if(value!=null && type.isInstance(value))
-{
-property.setAccessible(true);
-property.set(instantiationOfClass,value);
-property.setAccessible(false);
-continue;
-}
-value=servletContext.getAttribute(name);
-if(value!=null && type.isInstance(value))
-{
-property.setAccessible(true);
-property.set(instantiationOfClass,value);
-property.setAccessible(false);
-continue;
-}
-property.setAccessible(true);
-property.set(instantiationOfClass,value);
-property.setAccessible(false);
-}
-}
-// implementing AutoWire Feature ends
-
-
-// Implementing InjectRequestParameter or Requested Parameter Property Feature starts
+// piece 4 Implementing InjectRequestParameter or Requested Parameter Property Feature starts
 injectRequestParameterFeature();
-// Implementing InjectRequestParameter or Requested Parameter Property Feature ends
+// piece 4 Implementing InjectRequestParameter or Requested Parameter Property Feature ends
 
 
 
-// here code of injecting things or IOC starts
+// piece 5 here code of injecting things or IOC starts
 
 
 if(mainService.getInjectApplicationDirectory())
@@ -978,7 +996,7 @@ System.out.println("TMWebRock Found Exception either you are not write setter me
 System.out.println("Exception : "+exception.getMessage());
 }
 }
-// above code of injecting things or IOC ends
+// piece 5 above code of injecting things or IOC ends
 
 try
 {
@@ -989,7 +1007,9 @@ sendReturnedValue(returnedValue);
 }
 else
 {
+Debug.TMWebRockDebug("invoking subservice whose name is: "+subService.getName());
 subService.invoke(instantiationOfClass,arguments);
+Debug.TMWebRockDebug("SuccessFully invoked subService whose name is: "+subService.getName());
 }
 
 }catch(InvocationTargetException invocationTargetException)
@@ -1009,15 +1029,40 @@ response.sendError(response.SC_INTERNAL_SERVER_ERROR,securityException.getMessag
 return;
 }
 
-// here forward related code
+
+// here forward related code starts
+
 if(mainService.getForwardTo()!=null && mainService.getForwardTo().length()>0)
 {
+String forwardedTo=mainService.getForwardTo();
+
+if(forwardedTo.indexOf(".jsp")!=-1 &&
+forwardedTo.substring(forwardedTo.indexOf(".jsp")).equals(".jsp")
+)
+{
+System.out.println("I found jsp is extension so request is forwarded to jsp");
 RequestDispatcher requestDispatcher;
-System.out.println("Forwarding: "+request.getServletPath()+key.substring(0,key.indexOf("/",1))+mainService.getForwardTo());
-requestDispatcher=request.getRequestDispatcher(request.getServletPath()+key.substring(0,key.indexOf("/",1))+mainService.getForwardTo());
+requestDispatcher=request.getRequestDispatcher(forwardedTo);
 requestDispatcher.forward(request,response);
+return;
 }
 
+
+if(model.dataStructure.containsKey(key))
+{
+RequestDispatcher requestDispatcher;
+String servletPath=request.getServletPath();
+System.out.println("Forwarding: "+servletPath+forwardedTo);
+requestDispatcher=request.getRequestDispatcher(servletPath+forwardedTo);
+requestDispatcher.forward(request,response);
+}
+else
+{
+response.sendError(response.SC_INTERNAL_SERVER_ERROR,forwardedTo+" Not Found");
+}
+}
+
+// here forward related code ends
 }
 else
 {
@@ -1034,7 +1079,7 @@ requestDispatcher.forward(request,response);
 
 }catch(Exception exception)
 {
-System.out.println("Exception got raised in DoGet");
+System.out.println("Exception got raised in DoPost");
 System.out.println(exception);
 }
 

@@ -23,23 +23,37 @@ ServletContext servletContext;
 System.out.println("\n\n\n\t\t\t\t TMWebRockStarter is in action at Server Startup\n\n\n\n");
 
 
-PREFIX=servletConfig.getInitParameter("SERVICE_PACKAGE_PREFIX").trim();
+PREFIX=servletConfig.getInitParameter("SERVICE_PACKAGE_PREFIX");
+
+if(PREFIX!=null && PREFIX.trim().length()>0)
+{
+PREFIX=PREFIX.trim();
+}
+else
+{
+System.out.println("\n\n\n\t\t\t\t SERVICE_PACKAGE_PREFIX does not specify in web.xml, please reffer docs \n\n\n\n");
+return;
+}
 
 System.out.println("["+PREFIX+"]\n");
 
-JSFILENAME=servletConfig.getInitParameter("JSFILE").trim();
+JSFILENAME=servletConfig.getInitParameter("JSFILE");
 
-if(JSFILENAME==null || JSFILENAME.length()==0) System.out.println("NO JSFILENAME FOUND");
-else System.out.println(JSFILENAME);
+if(JSFILENAME!=null && JSFILENAME.trim().length()>0)
+{
+JSFILENAME=JSFILENAME.trim();
+}
+else
+{
+System.out.println("\n\n\n\t\t\t\t JSFILENAME does not specify in web.xml\n\n\n\n");
+}
+
 
 servletContext=servletConfig.getServletContext();
 
-/*
-System.getProperty("cataline.base"); // resource from https://stackoverflow.com/questions/48748318/how-to-get-the-path-upto-webapps-folder-of-tomcat-in-servlet#:~:text=1%20Answer&text=String%20webApp%20%3D%20String.,the%20path%20will%20always%20work.
-*/
+knownFact=servletContext.getRealPath(".")+File.separator+"WEB-INF"+File.separator+"classes"+File.separator+PREFIX;
 
-knownFact=System.getProperty("catalina.base")+File.separator+"webapps"+File.separator+"TMWebRock"+File.separator+"WEB-INF"+File.separator+"classes"+File.separator+PREFIX;
-
+System.out.println("Path with pacakge specified by user: "+knownFact);
 
 List<String> list=TMAnalyze.processToFindAllClassesName(knownFact,PREFIX);
 
@@ -53,7 +67,5 @@ System.out.println("Total Services in WebRockModel is: "+model.dataStructure.siz
 TMExecute.executeAllStartupService(startupList);
 
 } // init method
-
-
 
 } // TMWebRockStarter class ends

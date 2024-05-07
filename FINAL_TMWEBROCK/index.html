@@ -5,11 +5,29 @@
 <title>Security Guard Feature Testing</title>
 </head>
 <body>
-<h1>Security Guard Feature Testing</h1>
-<form action='/TMWebRock/school/authenticationSystem/login' method='GET'>
+<h1>Testing GET and POST Annotation</h1>
+<h1>After Clicking Check on server window</h1>
+
+
+<form action='/TMWebRock/school/student/executeOnGetType' method='GET'>
+<h3>GET</h3>
 Name: &emsp; &emsp; <input type='text' name='nm' id='nm'> <br>
 Password: &emsp; &emsp; <input type='password' name='password' id='password'>
-<button type='submit'>Login</submit>
+<button type='submit'>Click Me</button>
 </form>
+
+<hr>
+<hr>
+
+<form action='/TMWebRock/school/student/executeOnPostType' method='POST'>
+<h3>POST</h3>
+Name: &emsp; &emsp; <input type='text' name='nm' id='nm'> <br>
+Password: &emsp; &emsp; <input type='password' name='password' id='password'>
+<button type='submit'>Click Me</button>
+</form>
+
+
+
+
 </body>
 </html>

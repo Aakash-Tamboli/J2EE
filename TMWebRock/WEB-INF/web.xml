@@ -30,7 +30,7 @@
 
     <request-character-encoding>UTF-8</request-character-encoding>
 
-<!-- This is written by Amit starts-->
+<!-- Specify by Amit started-->
 
 <servlet>
 <servlet-name>TMWebRock</servlet-name>
@@ -41,16 +41,26 @@
 <servlet-name>TMWebRockStarter</servlet-name>
 <servlet-class>com.thinking.machines.webrock.TMWebRockStarter</servlet-class>
 <load-on-startup>0</load-on-startup>
+
 <init-param>
 <param-name>SERVICE_PACKAGE_PREFIX</param-name>
 <param-value>bobby</param-value>
 </init-param>
+
+
+<!--
+After Testing this feature I will remove and add into docs because I don't want any issue with What I am currently testing
 <init-param>
 <param-name>JSFILE</param-name>
 <param-value>abcd.js</param-value>
 </init-param>
+-->
+
 </servlet>
 
+<!-- 
+
+After Testing this feature I will remove and add into docs because I don't want any issue with What I am currently testing
 <servlet>
 <servlet-name>ServingJSFile</servlet-name>
 <servlet-class>com.thinking.machines.webrock.ServingJSFile</servlet-class>
@@ -59,7 +69,11 @@
 <servlet-name>ServingJSFile</servlet-name>
 <url-pattern>/jsFile/*</url-pattern>
 </servlet-mapping>
-<!--This is writtern by Amit ends -->
+
+
+-->
+
+<!--Specify by Amit ends -->
 
 
 <!-- This is written by Bobby starts -->
