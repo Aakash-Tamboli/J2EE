@@ -11,7 +11,6 @@ public class Student
 @Forward("/faculty/knowYourFaculty")
 public void someProcessOnGetTypeRequest()
 {
-// @Forward("/abc.jsp")
 System.out.println("SomProcessOnGetTypeRequest is called");
 }
 

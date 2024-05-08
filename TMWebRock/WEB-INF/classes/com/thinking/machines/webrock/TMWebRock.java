@@ -767,7 +767,7 @@ requestDispatcher.forward(request,response);
 }
 else
 {
-response.sendError(response.SC_INTERNAL_SERVER_ERROR,forwardedTo+" Not Found");
+response.sendError(response.SC_NOT_FOUND,forwardedTo+" Not Found");
 }
 }
 
@@ -1032,6 +1032,7 @@ return;
 
 // here forward related code starts
 
+
 if(mainService.getForwardTo()!=null && mainService.getForwardTo().length()>0)
 {
 String forwardedTo=mainService.getForwardTo();
@@ -1058,11 +1059,13 @@ requestDispatcher.forward(request,response);
 }
 else
 {
-response.sendError(response.SC_INTERNAL_SERVER_ERROR,forwardedTo+" Not Found");
+response.sendError(response.SC_NOT_FOUND,forwardedTo+" Not Found");
 }
 }
 
 // here forward related code ends
+
+
 }
 else
 {
