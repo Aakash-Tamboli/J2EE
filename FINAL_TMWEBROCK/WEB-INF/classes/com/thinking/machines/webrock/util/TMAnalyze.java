@@ -1,7 +1,7 @@
 package com.thinking.machines.webrock.util;
 import com.thinking.machines.webrock.model.*;
 import com.thinking.machines.webrock.annotations.*;
-import com.thinking.machines.webrock.scope.*;
+import com.thinking.machines.webrock.scopes.*;
 import com.thinking.machines.webrock.pojo.*;
 import com.thinking.machines.webrock.util.*;
 import java.util.*;
@@ -723,7 +723,7 @@ startupList.add(service); // think about min-heap Aakash If Sir give you instruc
 }
 else
 {
-System.out.println("TMWebRock Framework (later on in form of exception) says I found Service Method("+m.getName()+") in Service Class("+c.getName()+") which niether have Path annotation applied nor onStartup Annotation Applied (Aknowlegdement)");
+System.out.println("TMWebRock Framework says I found Service Method("+m.getName()+") in Service Class("+c.getName()+") which neither have Path annotation applied nor onStartup Annotation Applied (Aknowlegdement)");
 }
 }
 // for the sake of clarity, I set method-loop used variables to default value for next cycle

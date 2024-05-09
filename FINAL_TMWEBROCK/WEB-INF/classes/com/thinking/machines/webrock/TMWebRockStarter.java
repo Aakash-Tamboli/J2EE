@@ -3,7 +3,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import com.thinking.machines.webrock.model.*;
 import com.thinking.machines.webrock.annotations.*;
-import com.thinking.machines.webrock.scope.*;
+import com.thinking.machines.webrock.scopes.*;
 import com.thinking.machines.webrock.pojo.*;
 import com.thinking.machines.webrock.util.*;
 import java.lang.reflect.*;

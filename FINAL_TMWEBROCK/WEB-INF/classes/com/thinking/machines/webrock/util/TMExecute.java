@@ -40,17 +40,17 @@ if(notVoid || parametersArgs || invalidPriority)
 {
 if(notVoid)
 {
-System.out.println("METHOD TYPE SHOULD BE VOID Your class have :"+returnType.getSimpleName());
+System.out.println("FOR Startup METHOD,METHOD-TYPE SHOULD BE VOID, YOU HAVE : ("+returnType.getSimpleName()+") IN METHOD NAME: "+m.getName());
 notVoid=false; // next cycle
 }
 if(parametersArgs)
 {
-System.out.println("YOUR METHOD SHOULD NOT TAKE ANY Args, Your method taking args");
+System.out.println("FOR STARTUP METHOD, IT SHOULD NOT TAKE ANY ARGS, YOUR METHOD TAKING ARGS IN METHOD NAME: "+m.getName());
 parametersArgs=false; // next cycle
 }
 if(invalidPriority)
 {
-System.out.println("PRIORITY SHOULD BE >=0 AND REMEBER LOWER THE NUMBER HIGHER THE PRIORITY, you give priority: "+service.getPriority());
+System.out.println("PRIORITY SHOULD BE >=1 AND REMEMBER LOWER THE NUMBER HIGHER THE PRIORITY, YOU GIVE PRIORITY: ("+service.getPriority()+") IN METHOD NAME: "+m.getName());
 invalidPriority=false; // next cycle
 }
 continue;
@@ -59,12 +59,8 @@ m.invoke(c.newInstance());
 } // loop ends
 }catch(Exception exception)
 {
-System.out.println("LOCATION: TMWEBROCKSTARTUP -> METHOD dealingWithStartupServices");
+System.out.println("LOCATION: TMWEBROCK STARTUP FEATURE");
 System.out.println(exception);
 }
 } // method braces off
-
-
-
-
 } // class braces close

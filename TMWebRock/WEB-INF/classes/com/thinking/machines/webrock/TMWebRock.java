@@ -8,7 +8,7 @@ import java.util.*;
 import com.thinking.machines.webrock.annotations.*;
 import com.thinking.machines.webrock.model.*;
 import com.thinking.machines.webrock.pojo.*;
-import com.thinking.machines.webrock.scope.*;
+import com.thinking.machines.webrock.scopes.*;
 import com.thinking.machines.webrock.util.*;
 
 
@@ -651,8 +651,7 @@ setterMethod=targetClass.getMethod("setApplicationDirectory",ApplicationDirector
 setterMethod.invoke(instantiationOfClass,applicationDirectory);
 }catch(Exception exception)
 {
-System.out.println("TMWebRock Found Exception either you are not wrote setter method or doing something wrong please reffer docs");
-System.out.println("Exception : "+exception.getMessage());
+System.out.println("TMWebRock Found either you are not wrote setter method or may be commited mistake in setter Method name please reffer docs");
 }
 }
 if(mainService.getInjectApplicationScope())
@@ -668,8 +667,7 @@ setterMethod=targetClass.getMethod("setApplicationScope",ApplicationScope.class)
 setterMethod.invoke(instantiationOfClass,applicationScope);
 }catch(Exception exception)
 {
-System.out.println("TMWebRock Found Exception either you are not write setter method or doing something wrong");
-System.out.println("Exception : "+exception.getMessage());
+System.out.println("TMWebRock Found either you are not wrote setter method or may be commited mistake in setter Method name please reffer docs");
 }
 }
 if(mainService.getInjectSessionScope())
@@ -684,8 +682,7 @@ setterMethod=targetClass.getMethod("setSessionScope",SessionScope.class);
 setterMethod.invoke(instantiationOfClass,sessionScope);
 }catch(Exception exception)
 {
-System.out.println("TMWebRock Found Exception either you are not write setter method or doing something wrong");
-System.out.println("Exception : "+exception.getMessage());
+System.out.println("TMWebRock Found either you are not wrote setter method or may be commited mistake in setter Method name please reffer docs");
 }
 }
 if(mainService.getInjectRequestScope())
@@ -700,8 +697,7 @@ setterMethod=targetClass.getMethod("setRequestScope",RequestScope.class);
 setterMethod.invoke(instantiationOfClass,requestScope);
 }catch(Exception exception)
 {
-System.out.println("TMWebRock Found Exception either you are not write setter method or doing something wrong");
-System.out.println("Exception : "+exception.getMessage());
+System.out.println("TMWebRock Found either you are not wrote setter method or may be commited mistake in setter Method name please reffer docs");
 }
 }
 // piece 5 above code of injecting things or IOC ends
@@ -943,8 +939,7 @@ setterMethod=targetClass.getMethod("setApplicationDirectory",ApplicationDirector
 setterMethod.invoke(instantiationOfClass,applicationDirectory);
 }catch(Exception exception)
 {
-System.out.println("TMWebRock Found Exception either you are not write setter method or doing something wrong");
-System.out.println("Exception : "+exception.getMessage());
+System.out.println("TMWebRock Found either you are not wrote setter method or may be commited mistake in setter Method name please reffer docs");
 }
 }
 if(mainService.getInjectApplicationScope())
@@ -960,8 +955,7 @@ setterMethod=targetClass.getMethod("setApplicationScope",ApplicationScope.class)
 setterMethod.invoke(instantiationOfClass,applicationScope);
 }catch(Exception exception)
 {
-System.out.println("TMWebRock Found Exception either you are not write setter method or doing something wrong");
-System.out.println("Exception : "+exception.getMessage());
+System.out.println("TMWebRock Found either you are not wrote setter method or may be commited mistake in setter Method name please reffer docs");
 }
 }
 if(mainService.getInjectSessionScope())
@@ -976,8 +970,7 @@ setterMethod=targetClass.getMethod("setSessionScope",SessionScope.class);
 setterMethod.invoke(instantiationOfClass,sessionScope);
 }catch(Exception exception)
 {
-System.out.println("TMWebRock Found Exception either you are not write setter method or doing something wrong");
-System.out.println("Exception : "+exception.getMessage());
+System.out.println("TMWebRock Found either you are not wrote setter method or may be commited mistake in setter Method name please reffer docs");
 }
 }
 if(mainService.getInjectRequestScope())
@@ -992,8 +985,7 @@ setterMethod=targetClass.getMethod("setRequestScope",RequestScope.class);
 setterMethod.invoke(instantiationOfClass,requestScope);
 }catch(Exception exception)
 {
-System.out.println("TMWebRock Found Exception either you are not write setter method or doing something wrong");
-System.out.println("Exception : "+exception.getMessage());
+System.out.println("TMWebRock Found either you are not wrote setter method or may be commited mistake in setter Method name please reffer docs");
 }
 }
 // piece 5 above code of injecting things or IOC ends
