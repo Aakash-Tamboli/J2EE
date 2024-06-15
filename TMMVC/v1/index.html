@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>TMMVC Examples</title>
+<script>
+
+var tmmvc = {
+"startup": [],
+"model": null,
+};
+
+tmmvc.onStartup = function (callBack)
+{
+tmmvc.startup[tmmvc.startup.length] = callBack;
+}
+
+
+tmmvc.init = function () {
+if (tmmvc.model != null)
+{
+let inputTags = document.querySelectorAll("[tmmvc-attribute]");
+if (inputTags != null && inputTags.length > 0)
+{
+let attributeNameInDS="";
+for (let i = 0; i < inputTags.length; i++)
+{
+attributeNameInDS=inputTags[i].getAttribute("tmmvc-attribute");
+inputTags[i].value = tmmvc.model[attributeNameInDS];
+
+inputTags[i].addEventListener('input',()=>{
+tmmvc.model[attributeNameInDS]=inputTags[i].value;
+let intervalId=setInterval(()=>{
+if(tmmvc.model[attributeNameInDS]!=inputTags[i].value)
+{
+inputTags[i].value=tmmvc.model[attributeNameInDS];
+clearInterval(intervalId);
+}
+});
+
+
+});
+}
+}
+} // if model ends
+} // init function ends
+
+
+
+
+
+window.addEventListener('load',function()
+{
+for (let i = 0; i < tmmvc.startup.length; i++) tmmvc.startup[i]();
+tmmvc.init();
+});
+
+</script>
+<!-- above section is written by TMMVC Framework creator-->
+
+<!-- below section is written by TMMVC user-->
+<script>
+var ds = {
+"num": 1,
+};
+function showFactorial()
+{
+let number = ds.num;
+let ans = 1;
+for (let i = 1; i <= number; i++)
+{
+ans = ans * i;
+}
+document.querySelector("#showResult").innerHTML=ans;
+ds.num=1;
+}
+
+tmmvc.onStartup(function () {
+tmmvc.model = ds;
+});
+
+</script>
+</head>
+<body>
+<h1>TMMVC Examples</h1>
+<h2>Developing Idea</h2>
+Enter any Number: &emsp; <input type='number' id='number' name='number' min='0' max='5' tmmvc-attribute='num'> <br>
+<button type='button' onclick='showFactorial()'>Factorial!!</button>
+
+<h5 id='showResult' style='text-align:center;color:red'></h5>   
+
+<hr>
+</body>
+
+</html>
