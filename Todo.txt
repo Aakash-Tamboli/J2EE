@@ -1,0 +1,26 @@
+Radio Button:
+	Completed
+Checkbox:
+	User will be apply tmmvc-attribute thing and 
+	tmmvc-bind-to thing so below senerio must be capable
+	of this
+
+	var ds{
+		"isIndian": false
+	}
+	i) if isIndian is false then checkbox by default false
+
+	var ds{
+		"isIndian": true
+	}
+	ii) if isIndian is true then checkbox by default true.
+
+Comobox:
+	
+
+Multiple selection comobox:
+
+
+
+TextArea:
+

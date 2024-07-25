@@ -1,0 +1,134 @@
+package bobby.test;
+import com.thinking.machines.webrock.annotations.*;
+import com.thinking.machines.webrock.scopes.*;
+
+
+@Path("/student")
+public class Student
+{
+@InjectRequestParameter("name")
+private String studentName;
+
+@InjectRequestParameter("rollNumber")
+private int rollNumber;
+
+@InjectRequestParameter("nothing")
+private int i;
+
+// setter method is compulsory to get data
+
+public void setStudentName(String name)
+{
+this.studentName=name;
+}
+public void setRollNumber(int rollNumber)
+{
+this.rollNumber=rollNumber;
+}
+
+public void setI(int i)
+{
+this.i=i;
+}
+
+
+/*
+// when argument is zero, not part of testcase
+@Path("/testingJSONFeature")
+@Forward("/dummy.html")
+public void testingJSONFeature()
+{
+System.out.println("Student Service Starts");
+System.out.println("Just Call");
+System.out.println("Student Service ends");
+}
+*/
+
+/*
+// When Argument is one and its complex type
+@Path("/testingJSONFeature")
+@Forward("/dummy.html")
+public void testingJSONFeature(Faculty faculty)
+{
+System.out.println("Student Service Starts");
+System.out.println("Faculty Name: "+faculty.getName());
+System.out.println("Faculty Code: "+faculty.getId());
+System.out.println("Student Service ends");
+}
+*/
+
+/*
+// Here framework user voilets the guideline,
+// it means at client side JSON comes but here appropriate
+// parameter is not there acc. to guideline that's why
+// JSON reading process will not execute at TMWebRock.java
+
+@Path("/testingJSONFeature")
+@Forward("/dummy.html")
+public void testingJSONFeature(ApplicationScope as)
+{
+System.out.println("Student Service Starts");
+System.out.println("JSON Process will not execute at TMWebRock.java");
+System.out.println("Student Service ends");
+}
+*/
+
+
+/*
+// Here again framework user voilet the guidelines,
+// it means the JSON object come from client side
+// is of Faculty type but user takes bulb type in parameter
+// so again JSON reading will be execute but exception will be
+// if gson fails otherwise below will call but bulb contains
+// nothing shown.
+@Path("/testingJSONFeature")
+@Forward("/dummy.html")
+public void testingJSONFeature(Bulb bulb)
+{
+System.out.println("Student Service Starts");
+System.out.println("JSON Process will not execute at TMWebRock.java");
+System.out.println("Student Service ends");
+}
+*/
+
+/*
+// this is allowed
+@Path("/testingJSONFeature")
+@Forward("/dummy.html")
+public void testingJSONFeature(ApplicationDirectory applicationDirectory,Faculty faculty,RequestScope requestScope,SessionScope session)
+{
+System.out.println("Student Service Starts");
+System.out.println("Faculty Name: "+faculty.getName());
+System.out.println("Faculty Code: "+faculty.getId());
+System.out.println("Student Service ends");
+}
+*/
+
+/*
+// it voilets the condition
+@Path("/testingJSONFeature")
+@Forward("/dummy.html")
+public void testingJSONFeature(@RequestParameter("a") int a,@RequestParameter("b") int b,Faculty faculty)
+{
+System.out.println("Student Service Starts");
+System.out.println("Faculty Name: "+faculty.getName());
+System.out.println("Faculty Code: "+faculty.getId());
+System.out.println("Student Service ends");
+}
+*/
+
+
+// here JSON will be take priority but @InjectRequestParameter will be 
+// as default values
+@Path("/testingJSONFeature")
+@Forward("/dummy.html")
+public void testingJSONFeature(Faculty faculty)
+{
+System.out.println("Student Service Starts");
+System.out.println("Student Name: ["+studentName+"]");
+System.out.println("RollNumber  : ["+rollNumber+"]");
+System.out.println("Faculty Name: "+faculty.getName());
+System.out.println("Faculty Code: "+faculty.getId());
+System.out.println("Student Service ends");
+}
+}

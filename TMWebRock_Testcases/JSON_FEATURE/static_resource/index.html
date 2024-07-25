@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>JSON Feature Testing</title>
+<script src='/TMWebRock/js/jquery-3.7.1.min.js'></script>
+<script>
+$(()=>{
+
+
+$("#btn1").click(()=>{
+let faculty={
+"name": "Gautam",
+"id": "TM101",
+};
+
+
+$.ajax({
+url: "/TMWebRock/school/student/testingJSONFeature1",
+type: "POST",
+data: JSON.stringify(faculty),
+contentType: "application/json",
+dataType: "json",
+success: function(){
+alert("JSON Successfully send to Test Service");
+},
+});
+});
+
+$("#btn2").click(()=>{
+let faculty={
+"name": "Aakash",
+"id": "TM102"
+};
+
+$.ajax({
+url: "/TMWebRock/school/student/testingJSONFeature2",
+type: "POST",
+data: JSON.stringify(faculty),
+contentType: "application/json",
+dataType: "json",
+success: function(){
+alert("JSON Successfully send to Test Service");
+},
+});
+}); // bt2 ends
+}); // at dom load 
+</script>
+</head>
+<body>
+<h1>JSON Feature Testing</h1>
+<h1>Click Following button to check</h1>
+<hr>
+<button id='btn1' type='button'>Click Me</button> <br>
+<button id='btn2' type='button'>Click Me</button> <br>
+</body>
+</html>

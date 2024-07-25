@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Generating POJO for Client as js code Testing</title>
+<script src='/TMWebRock/jquery/jquery-3.7.1.min.js'></script>
+<link rel="stylesheet" href="//cdn.datatables.net/2.0.3/css/dataTables.dataTables.min.css">
+<script src="//cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
+<script>
+
+$(()=>{
+
+$("#btn").click(()=>{
+
+$.ajax({
+url: "/TMWebRock/school/studentService/getAllStudent",
+success: function(data){
+alert(JSON.stringify(data));
+},
+error: function(err){
+alert(err);
+}
+});
+});
+
+$("#btn2").click(()=>{
+
+$.ajax({
+url: "/TMWebRock/school/studentService/checkingPrimitive",
+success: function(data){
+alert("Hi");
+alert(JSON.stringify(data));
+},
+error: function(err){
+alert(err);
+}
+});
+});
+
+
+});
+</script>
+</head>
+<body>
+<h1>Student Application</h1>
+<button id='btn'>Check</button>
+<button id='btn2'>Check</button>
+<hr>
+</body>
+</html>
